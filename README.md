@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://github.com/CCBThailand/ccb-api/blob/develop/CCBLogo.png?raw=true" width="200" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
@@ -25,6 +25,15 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Create Database
+
+```bash
+# change directory to db
+$ cd db
+# run commande sequence to build database postgres on docker at port 5432
+$ docker-compose up --build
+```
 
 ## Installation
 
