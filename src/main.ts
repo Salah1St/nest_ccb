@@ -1,14 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PrismaService } from './prisma/prisma.service';
+// import { PrismaService } from './prisma/prisma.service';
 import { ValidationPipe } from '@nestjs/common';
 import { PrismaKnownErrorInterceptor } from './interceptors/prisma-known-error-interceptor.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const prismaService = app.get(PrismaService);
-
+  // const prismaService = app.get(PrismaService);
+  dotenv.config();
   app.enableCors();
   app.setGlobalPrefix('v1');
   app.useGlobalPipes(
@@ -28,6 +29,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-  await app.listen(8001);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

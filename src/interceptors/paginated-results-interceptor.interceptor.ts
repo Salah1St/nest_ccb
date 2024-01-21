@@ -1,10 +1,17 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { map, Observable } from 'rxjs';
 import { PaginatedDto } from '../globalDtos/paginated.dto';
 
 @Injectable()
-export class PaginatedResultsInterceptor implements NestInterceptor<any, PaginatedDto<any>> {
+export class PaginatedResultsInterceptor
+  implements NestInterceptor<any, PaginatedDto<any>>
+{
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,

@@ -31,7 +31,7 @@
 ```bash
 # change directory to db
 $ cd db
-# run commande sequence to build database postgres on docker at port 5432
+# run commande sequence to build database postgres on docker at port 5555
 $ docker-compose up --build
 ```
 

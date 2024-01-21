@@ -5,9 +5,9 @@ import {
   Injectable,
   NestInterceptor,
   NotFoundException,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable } from "rxjs";
 
 @Injectable()
 export class PrismaKnownErrorInterceptor implements NestInterceptor {
