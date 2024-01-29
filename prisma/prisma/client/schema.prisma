@@ -1,0 +1,303 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Address {
+  id              Int         @id @default(autoincrement())
+  regionName      String      @map(name: "region_name")
+  provinceName    String      @map(name: "province_name")
+  districtName    String      @map(name: "district_name")
+  subdistrictName String      @map(name: "subdistrict_name")
+  zipcode         String      @map(name: "zipcode")
+  households      Household[]
+  teams           Team[]
+}
+
+model Household {
+  id                      Int                      @id @default(autoincrement())
+  addressId               Int                      @map(name: "address_id")
+  addressDetail           String                   @map(name: "address_detail")
+  houseType               HouseType                @map(name: "house_type")
+  recordedDate            DateTime                 @map(name: "recorded_date")
+  createdAt               DateTime                 @default(now()) @map(name: "created_at")
+  createdBy               DateTime                 @map(name: "created_by")
+  updatedAt               DateTime                 @map(name: "updated_at")
+  updatedBy               DateTime                 @map(name: "updated_by")
+  address                 Address                  @relation(fields: [addressId], references: [id])
+  carbonFootprints        CarbonFootprint[]
+  privateVehicles         PrivateVehicle[]
+  transportations         Transportation[]
+  householdElectricities  HouseholdElectricity[]
+  waterBills              WaterBill[]
+  householdOtherEnergies  HouseholdOtherEnergy[]
+  electricityBills        ElectricityBill[]
+  householdWaterSupplies  HouseholdWaterSupply[]
+  otherEnergyConsumptions OtherEnergyConsumption[]
+}
+
+model CarbonFootprint {
+  id                     Int                  @id @default(autoincrement())
+  householdId            Int                  @unique @map(name: "household_id")
+  householdElectricityId Int                  @unique @map(name: "household_electricity_id")
+  householdWaterSupplyId Int                  @unique @map(name: "household_water_supply_id")
+  householdOtherEnergyId Int                  @unique @map(name: "household_other_energy_id")
+  transportaionId        Int                  @unique @map(name: "transportaion_id")
+  totalCarbonFootprint   Decimal              @map(name: "total_carbon_footprint")
+  recordedDate           DateTime             @map(name: "recorded_date")
+  createdAt              DateTime             @default(now()) @map(name: "created_at")
+  createdBy              DateTime             @map(name: "created_by")
+  updatedAt              DateTime             @map(name: "updated_at")
+  updatedBy              DateTime             @map(name: "updated_by")
+  household              Household            @relation(fields: [householdId], references: [id])
+  householdElectricity   HouseholdElectricity @relation(fields: [householdElectricityId], references: [id])
+  householdWaterSupply   HouseholdWaterSupply @relation(fields: [householdWaterSupplyId], references: [id])
+  householdOtherEnergy   HouseholdOtherEnergy @relation(fields: [householdOtherEnergyId], references: [id])
+  transportation         Transportation       @relation(fields: [transportaionId], references: [id])
+
+  @@unique([householdId, recordedDate])
+}
+
+model EmissionFactor {
+  id                      Int                      @id
+  sourceType              SourceType               @map(name: "source_type")
+  name                    String                   @map(name: "name")
+  carbonCoefficient       Decimal                  @map(name: "carbon_coefficient")
+  unit                    String                   @map(name: "unit")
+  createdAt               DateTime                 @default(now()) @map(name: "created_at")
+  createdBy               DateTime                 @map(name: "created_by")
+  updatedAt               DateTime                 @map(name: "updated_at")
+  updatedBy               DateTime                 @map(name: "updated_by")
+  privateVehicles         PrivateVehicle[]
+  electricityBills        ElectricityBill[]
+  waterBills              WaterBill[]
+  otherEnergyConsumptions OtherEnergyConsumption[]
+}
+
+model VehicleProperty {
+  id              Int              @id @default(autoincrement())
+  modelType       ModelType        @map(name: "model_type")
+  consumptionRate Decimal          @map(name: "consumption_rate")
+  createdAt       DateTime         @default(now()) @map(name: "created_at")
+  createdBy       DateTime         @map(name: "created_by")
+  updatedAt       DateTime         @map(name: "updated_at")
+  updatedBy       DateTime         @map(name: "updated_by")
+  privateVehicles PrivateVehicle[]
+}
+
+model PrivateVehicle {
+  id                      Int             @id @default(autoincrement())
+  householdId             Int             @map(name: "household_id")
+  emissionFactorId        Int             @map(name: "emission_factor_id")
+  vehiclePropertyId       Int             @map(name: "vehicle_property_id")
+  startMonthDistance      Decimal         @map(name: "start_month_distance")
+  endMonthDistance        Decimal         @map(name: "end_month_distance")
+  fuelComsumptionPerMonth Decimal         @map(name: "fuel_comsumption_per_month")
+  isRegularMaintain       Boolean         @map(name: "is_regular_maintain")
+  carbonEmissionEq        Decimal         @map(name: "carbon_emission_eq")
+  recordedDate            DateTime        @map(name: "recorded_date")
+  createdAt               DateTime        @default(now()) @map(name: "created_at")
+  createdBy               DateTime        @map(name: "created_by")
+  updatedAt               DateTime        @map(name: "updated_at")
+  updatedBy               DateTime        @map(name: "updated_by")
+  household               Household       @relation(fields: [householdId], references: [id])
+  emissionFactor          EmissionFactor  @relation(fields: [emissionFactorId], references: [id])
+  vehicleProperty         VehicleProperty @relation(fields: [vehiclePropertyId], references: [id])
+}
+
+model Transportation {
+  id                   Int              @id @default(autoincrement())
+  householdId          Int              @map(name: "household_id")
+  totalCarbonFootprint Decimal          @map(name: "total_carbon_footprint")
+  recordedDate         DateTime         @map(name: "recorded_date")
+  createdAt            DateTime         @default(now()) @map(name: "created_at")
+  createdBy            DateTime         @map(name: "created_by")
+  updatedAt            DateTime         @map(name: "updated_at")
+  updatedBy            DateTime         @map(name: "updated_by")
+  household            Household        @relation(fields: [householdId], references: [id])
+  carbonFootprint      CarbonFootprint?
+
+  @@unique([householdId, recordedDate])
+}
+
+model HouseholdElectricity {
+  id                   Int              @id @default(autoincrement())
+  householdId          Int              @map(name: "household_id")
+  totalCarbonFootprint Decimal          @map(name: "total_carbon_footprint")
+  recordedDate         DateTime         @map(name: "recorded_date")
+  createdAt            DateTime         @default(now()) @map(name: "created_at")
+  createdBy            DateTime         @map(name: "created_by")
+  updatedAt            DateTime         @map(name: "updated_at")
+  updatedBy            DateTime         @map(name: "updated_by")
+  household            Household        @relation(fields: [householdId], references: [id])
+  carbonFootprint      CarbonFootprint?
+
+  @@unique([householdId, recordedDate])
+}
+
+model ElectricityBill {
+  id                Int            @id @default(autoincrement())
+  householdId       Int            @map(name: "household_id")
+  emissionFactorId  Int            @map(name: "emission_factor_id")
+  amountConsumption Decimal        @map(name: "amount_consumption")
+  electricityMeter  Decimal        @map(name: "electricity_meter")
+  recordedDate      DateTime       @map(name: "recorded_date")
+  createdAt         DateTime       @default(now()) @map(name: "created_at")
+  createdBy         DateTime       @map(name: "created_by")
+  updatedAt         DateTime       @map(name: "updated_at")
+  updatedBy         DateTime       @map(name: "updated_by")
+  household         Household      @relation(fields: [householdId], references: [id])
+  emissionFactor    EmissionFactor @relation(fields: [emissionFactorId], references: [id])
+}
+
+model HouseholdWaterSupply {
+  id                   Int              @id @default(autoincrement())
+  householdId          Int              @map(name: "household_id")
+  totalCarbonFootprint Decimal          @map(name: "total_carbon_footprint")
+  recordedDate         DateTime         @map(name: "recorded_date")
+  createdAt            DateTime         @default(now()) @map(name: "created_at")
+  createdBy            DateTime         @map(name: "created_by")
+  updatedAt            DateTime         @map(name: "updated_at")
+  updatedBy            DateTime         @map(name: "updated_by")
+  household            Household        @relation(fields: [householdId], references: [id])
+  carbonFootprint      CarbonFootprint?
+
+  @@unique([householdId, recordedDate])
+}
+
+model WaterBill {
+  id                Int            @id @default(autoincrement())
+  householdId       Int            @map(name: "household_id")
+  emissionFactorId  Int            @map(name: "emission_factor_id")
+  amountConsumption Decimal        @map(name: "amount_consumption")
+  waterMeter        Decimal        @map(name: "water_meter")
+  recordedDate      DateTime       @map(name: "recorded_date")
+  createdAt         DateTime       @default(now()) @map(name: "created_at")
+  createdBy         DateTime       @map(name: "created_by")
+  updatedAt         DateTime       @map(name: "updated_at")
+  updatedBy         DateTime       @map(name: "updated_by")
+  household         Household      @relation(fields: [householdId], references: [id])
+  emissionFactor    EmissionFactor @relation(fields: [emissionFactorId], references: [id])
+}
+
+model HouseholdOtherEnergy {
+  id                   Int              @id @default(autoincrement())
+  householdId          Int              @map(name: "household_id")
+  totalCarbonFootprint Decimal          @map(name: "total_carbon_footprint")
+  recordedDate         DateTime         @map(name: "recorded_date")
+  createdAt            DateTime         @default(now()) @map(name: "created_at")
+  createdBy            DateTime         @map(name: "created_by")
+  updatedAt            DateTime         @map(name: "updated_at")
+  updatedBy            DateTime         @map(name: "updated_by")
+  household            Household        @relation(fields: [householdId], references: [id])
+  carbonFootprint      CarbonFootprint?
+
+  @@unique([householdId, recordedDate])
+}
+
+model OtherEnergyConsumption {
+  id                Int             @id @default(autoincrement())
+  householdId       Int             @map(name: "household_id")
+  emissionFactorId  Int             @map(name: "emission_factor_id")
+  energyUsageType   EnergyUsageType @map(name: "energy_usage_type")
+  amountConsumption Decimal         @map(name: "amount_consumption")
+  recordedDate      DateTime        @map(name: "recorded_date")
+  createdAt         DateTime        @default(now()) @map(name: "created_at")
+  createdBy         DateTime        @map(name: "created_by")
+  updatedAt         DateTime        @map(name: "updated_at")
+  updatedBy         DateTime        @map(name: "updated_by")
+  household         Household       @relation(fields: [householdId], references: [id])
+  emissionFactor    EmissionFactor  @relation(fields: [emissionFactorId], references: [id])
+}
+
+model Profile {
+  id                 Int                 @id @default(autoincrement())
+  firstname          String              @map(name: "firstname")
+  lastname           String              @map(name: "lastname")
+  email              String              @map(name: "email")
+  password           String              @map(name: "password")
+  phoneNumber        String              @map(name: "phone_number")
+  profileImg         String              @map(name: "profile_img")
+  isStaff            Boolean             @map(name: "is_staff")
+  isActive           Boolean             @map(name: "is_active")
+  createdAt          DateTime            @default(now()) @map(name: "created_at")
+  createdBy          DateTime            @map(name: "created_by")
+  updatedAt          DateTime            @map(name: "updated_at")
+  updatedBy          DateTime            @map(name: "updated_by")
+  profilePermissions ProfilePermission[]
+}
+
+model ProfilePermission {
+  id                 Int      @id @default(autoincrement())
+  profileId          Int      @map(name: "profile_id")
+  teamId             Int      @map(name: "team_id")
+  canEditSubdistrict Boolean  @map(name: "can_edit_subdistrict")
+  canGrant           Boolean  @map(name: "can_grant")
+  createdAt          DateTime @default(now()) @map(name: "created_at")
+  createdBy          DateTime @map(name: "created_by")
+  updatedAt          DateTime @map(name: "updated_at")
+  updatedBy          DateTime @map(name: "updated_by")
+  profile            Profile  @relation(fields: [profileId], references: [id])
+  team               Team     @relation(fields: [teamId], references: [id])
+}
+
+model Team {
+  id                 Int                 @id @default(autoincrement())
+  addressId          Int                 @map(name: "address_id")
+  title              String              @map(name: "title")
+  maximumLevel       MaximumLevel        @map(name: "maximum_level")
+  createdAt          DateTime            @default(now()) @map(name: "created_at")
+  createdBy          DateTime            @map(name: "created_by")
+  updatedAt          DateTime            @map(name: "updated_at")
+  updatedBy          DateTime            @map(name: "updated_by")
+  address            Address             @relation(fields: [addressId], references: [id])
+  profilePermissions ProfilePermission[]
+}
+
+enum HouseType {
+  SINGLE_HOUSE
+  TOWNHOUSE
+  CONDO
+  APARTMENT
+}
+
+enum SourceType {
+  PRIVATE_VEHICLE
+  PUBLIC_VEHICLE
+  ELECTRICITY
+  WATER_SUPPLY
+  COOKING
+  HEATING
+  COOLING
+  COMBUSTION
+}
+
+enum ModelType {
+  MODEL_1500_CC
+  MODEL_1600_CC
+  MODEL_1800_CC
+  MODEL_2000_CC
+  NGV
+  LPG
+}
+
+enum EnergyUsageType {
+  HEATING
+  COOKING
+  COOLING
+  COMBUSTION
+}
+
+enum MaximumLevel {
+  PROVINCE
+  DISTRICT
+  SUBDISTRICT
+}
