@@ -31,11 +31,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.5.2
- * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
+ * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
  */
 Prisma.prismaVersion = {
   client: "5.5.2",
-  engine: "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
+  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -135,7 +135,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/first/Desktop/JS/nest/nest-init/prisma/prisma/client",
+      "value": "/Users/ntha/Documents/ccb/ccb-api/prisma/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -157,7 +157,7 @@ const config = {
   },
   "relativePath": "../..",
   "clientVersion": "5.5.2",
-  "engineVersion": "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a",
+  "engineVersion": "78caf6feeaed953168c64e15a249c3e9a033ebe2",
   "datasourceNames": [
     "db"
   ],

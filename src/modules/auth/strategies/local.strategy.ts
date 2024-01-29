@@ -22,7 +22,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(req: requestDto, email: string, password: string): Promise<any> {
+  async validate(
+    req: requestDto,
+    email: string,
+    password: string,
+  ): Promise<any> {
     const { role } = req.body;
     const user = await this.authService.validateUser(email, password, role);
     if (!user) {

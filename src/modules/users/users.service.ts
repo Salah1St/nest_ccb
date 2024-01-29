@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import { Injectable } from "@nestjs/common";
+import * as bcrypt from "bcrypt";
 
-import { PrismaService } from 'src/prisma/prisma.service';
-import { ErrorException } from 'src/error/error.exception';
-import { Prisma } from '@prisma/client';
+import { PrismaService } from "src/prisma/prisma.service";
+import { ErrorException } from "src/error/error.exception";
+import { Prisma } from "@prisma/client";
 
 @Injectable()
 export class UsersService {
@@ -17,7 +17,7 @@ export class UsersService {
       });
       return newUser;
     } catch (error) {
-      throw new ErrorException('email already exists');
+      throw new ErrorException("email already exists");
     }
   }
   async findAll(params?: {
@@ -37,7 +37,7 @@ export class UsersService {
       where,
       include: { client: true },
     });
-    return this.exclude(user, ['password']);
+    return this.exclude(user, ["password"]);
   }
   exclude<User, Key extends keyof User>(
     user: User,
