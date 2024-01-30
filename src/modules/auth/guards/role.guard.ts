@@ -11,7 +11,7 @@ import { ROLE_KEY } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
 
 @Injectable()
-export class UserRoleGuard implements CanActivate {
+export class OldUserRoleGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {

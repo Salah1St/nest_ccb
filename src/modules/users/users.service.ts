@@ -4,18 +4,20 @@ import * as bcrypt from "bcrypt";
 import { PrismaService } from "src/prisma/prisma.service";
 import { ErrorException } from "src/error/error.exception";
 import { Prisma } from "@prisma/client";
+import { plainToInstance } from "class-transformer";
+import { OldUser } from "./entities/user.entity";
 
 @Injectable()
-export class UsersService {
+export class OldUsersService {
   constructor(private readonly prisma: PrismaService) {}
-  async create(user: Prisma.UserUncheckedCreateInput) {
+  async create(user: Prisma.OldUserUncheckedCreateInput) {
     try {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       user.password = hashedPassword;
-      const newUser = await this.prisma.user.create({
+      const newOldUser = await this.prisma.oldUser.create({
         data: user,
       });
-      return newUser;
+      return plainToInstance(OldUser, newOldUser);
     } catch (error) {
       throw new ErrorException("email already exists");
     }
@@ -23,26 +25,26 @@ export class UsersService {
   async findAll(params?: {
     skip?: number;
     take?: number;
-    cursor?: Prisma.UserWhereUniqueInput;
-    where?: Prisma.UserWhereInput;
-    orderBy?: Prisma.UserOrderByWithRelationInput;
+    cursor?: Prisma.OldUserWhereUniqueInput;
+    where?: Prisma.OldUserWhereInput;
+    orderBy?: Prisma.OldUserOrderByWithRelationInput;
   }) {
-    return await this.prisma.user.findMany({
+    return await this.prisma.oldUser.findMany({
       ...params,
     });
   }
 
-  async findOne(where: Prisma.UserWhereUniqueInput) {
-    const user = await this.prisma.user.findUniqueOrThrow({
+  async findOne(where: Prisma.OldUserWhereUniqueInput) {
+    const user = await this.prisma.oldUser.findUniqueOrThrow({
       where,
       include: { client: true },
     });
     return this.exclude(user, ["password"]);
   }
-  exclude<User, Key extends keyof User>(
-    user: User,
+  exclude<OldUser, Key extends keyof OldUser>(
+    user: OldUser,
     keys: Key[],
-  ): Omit<User, Key> {
+  ): Omit<OldUser, Key> {
     for (const key of keys) {
       delete user[key];
     }
@@ -50,19 +52,19 @@ export class UsersService {
   }
 
   async update(
-    where: Prisma.UserWhereUniqueInput,
-    data: Prisma.UserUpdateInput,
+    where: Prisma.OldUserWhereUniqueInput,
+    data: Prisma.OldUserUpdateInput,
   ) {
     if (data.password) {
       const hashedPassword = await bcrypt.hash(data.password.toString(), 10);
       data.password = hashedPassword;
     }
-    return await this.prisma.user.update({
+    return await this.prisma.oldUser.update({
       where,
       data,
     });
   }
-  async remove(where: Prisma.UserWhereUniqueInput) {
-    return await this.prisma.user.delete({ where });
+  async remove(where: Prisma.OldUserWhereUniqueInput) {
+    return await this.prisma.oldUser.delete({ where });
   }
 }
