@@ -93,6 +93,16 @@ export type ProfilePermission = $Result.DefaultSelection<Prisma.$ProfilePermissi
  * 
  */
 export type Team = $Result.DefaultSelection<Prisma.$TeamPayload>
+/**
+ * Model OldUser
+ * 
+ */
+export type OldUser = $Result.DefaultSelection<Prisma.$OldUserPayload>
+/**
+ * Model OldClient
+ * 
+ */
+export type OldClient = $Result.DefaultSelection<Prisma.$OldClientPayload>
 
 /**
  * Enums
@@ -152,6 +162,15 @@ export const MaximumLevel: {
 
 export type MaximumLevel = (typeof MaximumLevel)[keyof typeof MaximumLevel]
 
+
+export const Role: {
+  CLIENT: 'CLIENT',
+  OFFICER: 'OFFICER',
+  ADMIN: 'ADMIN'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
 }
 
 export type HouseType = $Enums.HouseType
@@ -173,6 +192,10 @@ export const EnergyUsageType: typeof $Enums.EnergyUsageType
 export type MaximumLevel = $Enums.MaximumLevel
 
 export const MaximumLevel: typeof $Enums.MaximumLevel
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
 
 /**
  * ##  Prisma Client ʲˢ
@@ -455,6 +478,26 @@ export class PrismaClient<
     * ```
     */
   get team(): Prisma.TeamDelegate<ExtArgs>;
+
+  /**
+   * `prisma.oldUser`: Exposes CRUD operations for the **OldUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OldUsers
+    * const oldUsers = await prisma.oldUser.findMany()
+    * ```
+    */
+  get oldUser(): Prisma.OldUserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.oldClient`: Exposes CRUD operations for the **OldClient** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OldClients
+    * const oldClients = await prisma.oldClient.findMany()
+    * ```
+    */
+  get oldClient(): Prisma.OldClientDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -940,7 +983,9 @@ export namespace Prisma {
     OtherEnergyConsumption: 'OtherEnergyConsumption',
     Profile: 'Profile',
     ProfilePermission: 'ProfilePermission',
-    Team: 'Team'
+    Team: 'Team',
+    OldUser: 'OldUser',
+    OldClient: 'OldClient'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -957,7 +1002,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'address' | 'household' | 'carbonFootprint' | 'emissionFactor' | 'vehicleProperty' | 'privateVehicle' | 'transportation' | 'householdElectricity' | 'electricityBill' | 'householdWaterSupply' | 'waterBill' | 'householdOtherEnergy' | 'otherEnergyConsumption' | 'profile' | 'profilePermission' | 'team'
+      modelProps: 'address' | 'household' | 'carbonFootprint' | 'emissionFactor' | 'vehicleProperty' | 'privateVehicle' | 'transportation' | 'householdElectricity' | 'electricityBill' | 'householdWaterSupply' | 'waterBill' | 'householdOtherEnergy' | 'otherEnergyConsumption' | 'profile' | 'profilePermission' | 'team' | 'oldUser' | 'oldClient'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2014,6 +2059,138 @@ export namespace Prisma {
           count: {
             args: Prisma.TeamCountArgs<ExtArgs>,
             result: $Utils.Optional<TeamCountAggregateOutputType> | number
+          }
+        }
+      }
+      OldUser: {
+        payload: Prisma.$OldUserPayload<ExtArgs>
+        fields: Prisma.OldUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OldUserFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OldUserFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          findFirst: {
+            args: Prisma.OldUserFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OldUserFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          findMany: {
+            args: Prisma.OldUserFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>[]
+          }
+          create: {
+            args: Prisma.OldUserCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          createMany: {
+            args: Prisma.OldUserCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.OldUserDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          update: {
+            args: Prisma.OldUserUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.OldUserDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OldUserUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.OldUserUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldUserPayload>
+          }
+          aggregate: {
+            args: Prisma.OldUserAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateOldUser>
+          }
+          groupBy: {
+            args: Prisma.OldUserGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<OldUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OldUserCountArgs<ExtArgs>,
+            result: $Utils.Optional<OldUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      OldClient: {
+        payload: Prisma.$OldClientPayload<ExtArgs>
+        fields: Prisma.OldClientFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OldClientFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OldClientFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          findFirst: {
+            args: Prisma.OldClientFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OldClientFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          findMany: {
+            args: Prisma.OldClientFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>[]
+          }
+          create: {
+            args: Prisma.OldClientCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          createMany: {
+            args: Prisma.OldClientCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.OldClientDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          update: {
+            args: Prisma.OldClientUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          deleteMany: {
+            args: Prisma.OldClientDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OldClientUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.OldClientUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$OldClientPayload>
+          }
+          aggregate: {
+            args: Prisma.OldClientAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateOldClient>
+          }
+          groupBy: {
+            args: Prisma.OldClientGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<OldClientGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OldClientCountArgs<ExtArgs>,
+            result: $Utils.Optional<OldClientCountAggregateOutputType> | number
           }
         }
       }
@@ -19227,6 +19404,1891 @@ export namespace Prisma {
 
 
   /**
+   * Model OldUser
+   */
+
+  export type AggregateOldUser = {
+    _count: OldUserCountAggregateOutputType | null
+    _min: OldUserMinAggregateOutputType | null
+    _max: OldUserMaxAggregateOutputType | null
+  }
+
+  export type OldUserMinAggregateOutputType = {
+    id: string | null
+    email: string | null
+    password: string | null
+    role: $Enums.Role | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type OldUserMaxAggregateOutputType = {
+    id: string | null
+    email: string | null
+    password: string | null
+    role: $Enums.Role | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type OldUserCountAggregateOutputType = {
+    id: number
+    email: number
+    password: number
+    role: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type OldUserMinAggregateInputType = {
+    id?: true
+    email?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type OldUserMaxAggregateInputType = {
+    id?: true
+    email?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type OldUserCountAggregateInputType = {
+    id?: true
+    email?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type OldUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OldUser to aggregate.
+     */
+    where?: OldUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldUsers to fetch.
+     */
+    orderBy?: OldUserOrderByWithRelationInput | OldUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OldUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OldUsers
+    **/
+    _count?: true | OldUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OldUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OldUserMaxAggregateInputType
+  }
+
+  export type GetOldUserAggregateType<T extends OldUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateOldUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOldUser[P]>
+      : GetScalarType<T[P], AggregateOldUser[P]>
+  }
+
+
+
+
+  export type OldUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OldUserWhereInput
+    orderBy?: OldUserOrderByWithAggregationInput | OldUserOrderByWithAggregationInput[]
+    by: OldUserScalarFieldEnum[] | OldUserScalarFieldEnum
+    having?: OldUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OldUserCountAggregateInputType | true
+    _min?: OldUserMinAggregateInputType
+    _max?: OldUserMaxAggregateInputType
+  }
+
+  export type OldUserGroupByOutputType = {
+    id: string
+    email: string
+    password: string
+    role: $Enums.Role
+    created_at: Date
+    updated_at: Date
+    _count: OldUserCountAggregateOutputType | null
+    _min: OldUserMinAggregateOutputType | null
+    _max: OldUserMaxAggregateOutputType | null
+  }
+
+  type GetOldUserGroupByPayload<T extends OldUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OldUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OldUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OldUserGroupByOutputType[P]>
+            : GetScalarType<T[P], OldUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OldUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    password?: boolean
+    role?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    client?: boolean | OldUser$clientArgs<ExtArgs>
+  }, ExtArgs["result"]["oldUser"]>
+
+  export type OldUserSelectScalar = {
+    id?: boolean
+    email?: boolean
+    password?: boolean
+    role?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type OldUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | OldUser$clientArgs<ExtArgs>
+  }
+
+
+  export type $OldUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OldUser"
+    objects: {
+      client: Prisma.$OldClientPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      email: string
+      password: string
+      role: $Enums.Role
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["oldUser"]>
+    composites: {}
+  }
+
+
+  type OldUserGetPayload<S extends boolean | null | undefined | OldUserDefaultArgs> = $Result.GetResult<Prisma.$OldUserPayload, S>
+
+  type OldUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OldUserFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: OldUserCountAggregateInputType | true
+    }
+
+  export interface OldUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OldUser'], meta: { name: 'OldUser' } }
+    /**
+     * Find zero or one OldUser that matches the filter.
+     * @param {OldUserFindUniqueArgs} args - Arguments to find a OldUser
+     * @example
+     * // Get one OldUser
+     * const oldUser = await prisma.oldUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends OldUserFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserFindUniqueArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one OldUser that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {OldUserFindUniqueOrThrowArgs} args - Arguments to find a OldUser
+     * @example
+     * // Get one OldUser
+     * const oldUser = await prisma.oldUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends OldUserFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first OldUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserFindFirstArgs} args - Arguments to find a OldUser
+     * @example
+     * // Get one OldUser
+     * const oldUser = await prisma.oldUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends OldUserFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserFindFirstArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first OldUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserFindFirstOrThrowArgs} args - Arguments to find a OldUser
+     * @example
+     * // Get one OldUser
+     * const oldUser = await prisma.oldUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends OldUserFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more OldUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OldUsers
+     * const oldUsers = await prisma.oldUser.findMany()
+     * 
+     * // Get first 10 OldUsers
+     * const oldUsers = await prisma.oldUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oldUserWithIdOnly = await prisma.oldUser.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends OldUserFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a OldUser.
+     * @param {OldUserCreateArgs} args - Arguments to create a OldUser.
+     * @example
+     * // Create one OldUser
+     * const OldUser = await prisma.oldUser.create({
+     *   data: {
+     *     // ... data to create a OldUser
+     *   }
+     * })
+     * 
+    **/
+    create<T extends OldUserCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserCreateArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many OldUsers.
+     *     @param {OldUserCreateManyArgs} args - Arguments to create many OldUsers.
+     *     @example
+     *     // Create many OldUsers
+     *     const oldUser = await prisma.oldUser.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends OldUserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a OldUser.
+     * @param {OldUserDeleteArgs} args - Arguments to delete one OldUser.
+     * @example
+     * // Delete one OldUser
+     * const OldUser = await prisma.oldUser.delete({
+     *   where: {
+     *     // ... filter to delete one OldUser
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends OldUserDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserDeleteArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one OldUser.
+     * @param {OldUserUpdateArgs} args - Arguments to update one OldUser.
+     * @example
+     * // Update one OldUser
+     * const oldUser = await prisma.oldUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends OldUserUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserUpdateArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more OldUsers.
+     * @param {OldUserDeleteManyArgs} args - Arguments to filter OldUsers to delete.
+     * @example
+     * // Delete a few OldUsers
+     * const { count } = await prisma.oldUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends OldUserDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldUserDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OldUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OldUsers
+     * const oldUser = await prisma.oldUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends OldUserUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OldUser.
+     * @param {OldUserUpsertArgs} args - Arguments to update or create a OldUser.
+     * @example
+     * // Update or create a OldUser
+     * const oldUser = await prisma.oldUser.upsert({
+     *   create: {
+     *     // ... data to create a OldUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OldUser we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends OldUserUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, OldUserUpsertArgs<ExtArgs>>
+    ): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of OldUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserCountArgs} args - Arguments to filter OldUsers to count.
+     * @example
+     * // Count the number of OldUsers
+     * const count = await prisma.oldUser.count({
+     *   where: {
+     *     // ... the filter for the OldUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends OldUserCountArgs>(
+      args?: Subset<T, OldUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OldUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OldUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OldUserAggregateArgs>(args: Subset<T, OldUserAggregateArgs>): Prisma.PrismaPromise<GetOldUserAggregateType<T>>
+
+    /**
+     * Group by OldUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OldUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OldUserGroupByArgs['orderBy'] }
+        : { orderBy?: OldUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OldUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOldUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OldUser model
+   */
+  readonly fields: OldUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OldUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OldUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    client<T extends OldUser$clientArgs<ExtArgs> = {}>(args?: Subset<T, OldUser$clientArgs<ExtArgs>>): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the OldUser model
+   */ 
+  interface OldUserFieldRefs {
+    readonly id: FieldRef<"OldUser", 'String'>
+    readonly email: FieldRef<"OldUser", 'String'>
+    readonly password: FieldRef<"OldUser", 'String'>
+    readonly role: FieldRef<"OldUser", 'Role'>
+    readonly created_at: FieldRef<"OldUser", 'DateTime'>
+    readonly updated_at: FieldRef<"OldUser", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * OldUser findUnique
+   */
+  export type OldUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter, which OldUser to fetch.
+     */
+    where: OldUserWhereUniqueInput
+  }
+
+
+  /**
+   * OldUser findUniqueOrThrow
+   */
+  export type OldUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter, which OldUser to fetch.
+     */
+    where: OldUserWhereUniqueInput
+  }
+
+
+  /**
+   * OldUser findFirst
+   */
+  export type OldUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter, which OldUser to fetch.
+     */
+    where?: OldUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldUsers to fetch.
+     */
+    orderBy?: OldUserOrderByWithRelationInput | OldUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OldUsers.
+     */
+    cursor?: OldUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OldUsers.
+     */
+    distinct?: OldUserScalarFieldEnum | OldUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldUser findFirstOrThrow
+   */
+  export type OldUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter, which OldUser to fetch.
+     */
+    where?: OldUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldUsers to fetch.
+     */
+    orderBy?: OldUserOrderByWithRelationInput | OldUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OldUsers.
+     */
+    cursor?: OldUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OldUsers.
+     */
+    distinct?: OldUserScalarFieldEnum | OldUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldUser findMany
+   */
+  export type OldUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter, which OldUsers to fetch.
+     */
+    where?: OldUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldUsers to fetch.
+     */
+    orderBy?: OldUserOrderByWithRelationInput | OldUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OldUsers.
+     */
+    cursor?: OldUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldUsers.
+     */
+    skip?: number
+    distinct?: OldUserScalarFieldEnum | OldUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldUser create
+   */
+  export type OldUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OldUser.
+     */
+    data: XOR<OldUserCreateInput, OldUserUncheckedCreateInput>
+  }
+
+
+  /**
+   * OldUser createMany
+   */
+  export type OldUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OldUsers.
+     */
+    data: OldUserCreateManyInput | OldUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * OldUser update
+   */
+  export type OldUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OldUser.
+     */
+    data: XOR<OldUserUpdateInput, OldUserUncheckedUpdateInput>
+    /**
+     * Choose, which OldUser to update.
+     */
+    where: OldUserWhereUniqueInput
+  }
+
+
+  /**
+   * OldUser updateMany
+   */
+  export type OldUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OldUsers.
+     */
+    data: XOR<OldUserUpdateManyMutationInput, OldUserUncheckedUpdateManyInput>
+    /**
+     * Filter which OldUsers to update
+     */
+    where?: OldUserWhereInput
+  }
+
+
+  /**
+   * OldUser upsert
+   */
+  export type OldUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OldUser to update in case it exists.
+     */
+    where: OldUserWhereUniqueInput
+    /**
+     * In case the OldUser found by the `where` argument doesn't exist, create a new OldUser with this data.
+     */
+    create: XOR<OldUserCreateInput, OldUserUncheckedCreateInput>
+    /**
+     * In case the OldUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OldUserUpdateInput, OldUserUncheckedUpdateInput>
+  }
+
+
+  /**
+   * OldUser delete
+   */
+  export type OldUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+    /**
+     * Filter which OldUser to delete.
+     */
+    where: OldUserWhereUniqueInput
+  }
+
+
+  /**
+   * OldUser deleteMany
+   */
+  export type OldUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OldUsers to delete
+     */
+    where?: OldUserWhereInput
+  }
+
+
+  /**
+   * OldUser.client
+   */
+  export type OldUser$clientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    where?: OldClientWhereInput
+  }
+
+
+  /**
+   * OldUser without action
+   */
+  export type OldUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldUser
+     */
+    select?: OldUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldUserInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model OldClient
+   */
+
+  export type AggregateOldClient = {
+    _count: OldClientCountAggregateOutputType | null
+    _min: OldClientMinAggregateOutputType | null
+    _max: OldClientMaxAggregateOutputType | null
+  }
+
+  export type OldClientMinAggregateOutputType = {
+    user_id: string | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    profileImage: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type OldClientMaxAggregateOutputType = {
+    user_id: string | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    profileImage: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type OldClientCountAggregateOutputType = {
+    user_id: number
+    firstName: number
+    lastName: number
+    phoneNumber: number
+    profileImage: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type OldClientMinAggregateInputType = {
+    user_id?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    profileImage?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type OldClientMaxAggregateInputType = {
+    user_id?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    profileImage?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type OldClientCountAggregateInputType = {
+    user_id?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    profileImage?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type OldClientAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OldClient to aggregate.
+     */
+    where?: OldClientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldClients to fetch.
+     */
+    orderBy?: OldClientOrderByWithRelationInput | OldClientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OldClientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldClients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldClients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OldClients
+    **/
+    _count?: true | OldClientCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OldClientMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OldClientMaxAggregateInputType
+  }
+
+  export type GetOldClientAggregateType<T extends OldClientAggregateArgs> = {
+        [P in keyof T & keyof AggregateOldClient]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOldClient[P]>
+      : GetScalarType<T[P], AggregateOldClient[P]>
+  }
+
+
+
+
+  export type OldClientGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OldClientWhereInput
+    orderBy?: OldClientOrderByWithAggregationInput | OldClientOrderByWithAggregationInput[]
+    by: OldClientScalarFieldEnum[] | OldClientScalarFieldEnum
+    having?: OldClientScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OldClientCountAggregateInputType | true
+    _min?: OldClientMinAggregateInputType
+    _max?: OldClientMaxAggregateInputType
+  }
+
+  export type OldClientGroupByOutputType = {
+    user_id: string
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at: Date
+    updated_at: Date
+    _count: OldClientCountAggregateOutputType | null
+    _min: OldClientMinAggregateOutputType | null
+    _max: OldClientMaxAggregateOutputType | null
+  }
+
+  type GetOldClientGroupByPayload<T extends OldClientGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OldClientGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OldClientGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OldClientGroupByOutputType[P]>
+            : GetScalarType<T[P], OldClientGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OldClientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    user_id?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    profileImage?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | OldUserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oldClient"]>
+
+  export type OldClientSelectScalar = {
+    user_id?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    profileImage?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type OldClientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | OldUserDefaultArgs<ExtArgs>
+  }
+
+
+  export type $OldClientPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OldClient"
+    objects: {
+      user: Prisma.$OldUserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      user_id: string
+      firstName: string
+      lastName: string
+      phoneNumber: string
+      profileImage: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["oldClient"]>
+    composites: {}
+  }
+
+
+  type OldClientGetPayload<S extends boolean | null | undefined | OldClientDefaultArgs> = $Result.GetResult<Prisma.$OldClientPayload, S>
+
+  type OldClientCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OldClientFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: OldClientCountAggregateInputType | true
+    }
+
+  export interface OldClientDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OldClient'], meta: { name: 'OldClient' } }
+    /**
+     * Find zero or one OldClient that matches the filter.
+     * @param {OldClientFindUniqueArgs} args - Arguments to find a OldClient
+     * @example
+     * // Get one OldClient
+     * const oldClient = await prisma.oldClient.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends OldClientFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientFindUniqueArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one OldClient that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {OldClientFindUniqueOrThrowArgs} args - Arguments to find a OldClient
+     * @example
+     * // Get one OldClient
+     * const oldClient = await prisma.oldClient.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends OldClientFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first OldClient that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientFindFirstArgs} args - Arguments to find a OldClient
+     * @example
+     * // Get one OldClient
+     * const oldClient = await prisma.oldClient.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends OldClientFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientFindFirstArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first OldClient that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientFindFirstOrThrowArgs} args - Arguments to find a OldClient
+     * @example
+     * // Get one OldClient
+     * const oldClient = await prisma.oldClient.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends OldClientFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more OldClients that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OldClients
+     * const oldClients = await prisma.oldClient.findMany()
+     * 
+     * // Get first 10 OldClients
+     * const oldClients = await prisma.oldClient.findMany({ take: 10 })
+     * 
+     * // Only select the `user_id`
+     * const oldClientWithUser_idOnly = await prisma.oldClient.findMany({ select: { user_id: true } })
+     * 
+    **/
+    findMany<T extends OldClientFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a OldClient.
+     * @param {OldClientCreateArgs} args - Arguments to create a OldClient.
+     * @example
+     * // Create one OldClient
+     * const OldClient = await prisma.oldClient.create({
+     *   data: {
+     *     // ... data to create a OldClient
+     *   }
+     * })
+     * 
+    **/
+    create<T extends OldClientCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientCreateArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many OldClients.
+     *     @param {OldClientCreateManyArgs} args - Arguments to create many OldClients.
+     *     @example
+     *     // Create many OldClients
+     *     const oldClient = await prisma.oldClient.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends OldClientCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a OldClient.
+     * @param {OldClientDeleteArgs} args - Arguments to delete one OldClient.
+     * @example
+     * // Delete one OldClient
+     * const OldClient = await prisma.oldClient.delete({
+     *   where: {
+     *     // ... filter to delete one OldClient
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends OldClientDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientDeleteArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one OldClient.
+     * @param {OldClientUpdateArgs} args - Arguments to update one OldClient.
+     * @example
+     * // Update one OldClient
+     * const oldClient = await prisma.oldClient.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends OldClientUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientUpdateArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more OldClients.
+     * @param {OldClientDeleteManyArgs} args - Arguments to filter OldClients to delete.
+     * @example
+     * // Delete a few OldClients
+     * const { count } = await prisma.oldClient.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends OldClientDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, OldClientDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OldClients.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OldClients
+     * const oldClient = await prisma.oldClient.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends OldClientUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OldClient.
+     * @param {OldClientUpsertArgs} args - Arguments to update or create a OldClient.
+     * @example
+     * // Update or create a OldClient
+     * const oldClient = await prisma.oldClient.upsert({
+     *   create: {
+     *     // ... data to create a OldClient
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OldClient we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends OldClientUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, OldClientUpsertArgs<ExtArgs>>
+    ): Prisma__OldClientClient<$Result.GetResult<Prisma.$OldClientPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of OldClients.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientCountArgs} args - Arguments to filter OldClients to count.
+     * @example
+     * // Count the number of OldClients
+     * const count = await prisma.oldClient.count({
+     *   where: {
+     *     // ... the filter for the OldClients we want to count
+     *   }
+     * })
+    **/
+    count<T extends OldClientCountArgs>(
+      args?: Subset<T, OldClientCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OldClientCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OldClient.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OldClientAggregateArgs>(args: Subset<T, OldClientAggregateArgs>): Prisma.PrismaPromise<GetOldClientAggregateType<T>>
+
+    /**
+     * Group by OldClient.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OldClientGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OldClientGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OldClientGroupByArgs['orderBy'] }
+        : { orderBy?: OldClientGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OldClientGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOldClientGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OldClient model
+   */
+  readonly fields: OldClientFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OldClient.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OldClientClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends OldUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OldUserDefaultArgs<ExtArgs>>): Prisma__OldUserClient<$Result.GetResult<Prisma.$OldUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the OldClient model
+   */ 
+  interface OldClientFieldRefs {
+    readonly user_id: FieldRef<"OldClient", 'String'>
+    readonly firstName: FieldRef<"OldClient", 'String'>
+    readonly lastName: FieldRef<"OldClient", 'String'>
+    readonly phoneNumber: FieldRef<"OldClient", 'String'>
+    readonly profileImage: FieldRef<"OldClient", 'String'>
+    readonly created_at: FieldRef<"OldClient", 'DateTime'>
+    readonly updated_at: FieldRef<"OldClient", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * OldClient findUnique
+   */
+  export type OldClientFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter, which OldClient to fetch.
+     */
+    where: OldClientWhereUniqueInput
+  }
+
+
+  /**
+   * OldClient findUniqueOrThrow
+   */
+  export type OldClientFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter, which OldClient to fetch.
+     */
+    where: OldClientWhereUniqueInput
+  }
+
+
+  /**
+   * OldClient findFirst
+   */
+  export type OldClientFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter, which OldClient to fetch.
+     */
+    where?: OldClientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldClients to fetch.
+     */
+    orderBy?: OldClientOrderByWithRelationInput | OldClientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OldClients.
+     */
+    cursor?: OldClientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldClients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldClients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OldClients.
+     */
+    distinct?: OldClientScalarFieldEnum | OldClientScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldClient findFirstOrThrow
+   */
+  export type OldClientFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter, which OldClient to fetch.
+     */
+    where?: OldClientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldClients to fetch.
+     */
+    orderBy?: OldClientOrderByWithRelationInput | OldClientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OldClients.
+     */
+    cursor?: OldClientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldClients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldClients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OldClients.
+     */
+    distinct?: OldClientScalarFieldEnum | OldClientScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldClient findMany
+   */
+  export type OldClientFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter, which OldClients to fetch.
+     */
+    where?: OldClientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OldClients to fetch.
+     */
+    orderBy?: OldClientOrderByWithRelationInput | OldClientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OldClients.
+     */
+    cursor?: OldClientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OldClients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OldClients.
+     */
+    skip?: number
+    distinct?: OldClientScalarFieldEnum | OldClientScalarFieldEnum[]
+  }
+
+
+  /**
+   * OldClient create
+   */
+  export type OldClientCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OldClient.
+     */
+    data: XOR<OldClientCreateInput, OldClientUncheckedCreateInput>
+  }
+
+
+  /**
+   * OldClient createMany
+   */
+  export type OldClientCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OldClients.
+     */
+    data: OldClientCreateManyInput | OldClientCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * OldClient update
+   */
+  export type OldClientUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OldClient.
+     */
+    data: XOR<OldClientUpdateInput, OldClientUncheckedUpdateInput>
+    /**
+     * Choose, which OldClient to update.
+     */
+    where: OldClientWhereUniqueInput
+  }
+
+
+  /**
+   * OldClient updateMany
+   */
+  export type OldClientUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OldClients.
+     */
+    data: XOR<OldClientUpdateManyMutationInput, OldClientUncheckedUpdateManyInput>
+    /**
+     * Filter which OldClients to update
+     */
+    where?: OldClientWhereInput
+  }
+
+
+  /**
+   * OldClient upsert
+   */
+  export type OldClientUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OldClient to update in case it exists.
+     */
+    where: OldClientWhereUniqueInput
+    /**
+     * In case the OldClient found by the `where` argument doesn't exist, create a new OldClient with this data.
+     */
+    create: XOR<OldClientCreateInput, OldClientUncheckedCreateInput>
+    /**
+     * In case the OldClient was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OldClientUpdateInput, OldClientUncheckedUpdateInput>
+  }
+
+
+  /**
+   * OldClient delete
+   */
+  export type OldClientDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+    /**
+     * Filter which OldClient to delete.
+     */
+    where: OldClientWhereUniqueInput
+  }
+
+
+  /**
+   * OldClient deleteMany
+   */
+  export type OldClientDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OldClients to delete
+     */
+    where?: OldClientWhereInput
+  }
+
+
+  /**
+   * OldClient without action
+   */
+  export type OldClientDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OldClient
+     */
+    select?: OldClientSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OldClientInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -19485,6 +21547,31 @@ export namespace Prisma {
   export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
 
 
+  export const OldUserScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    password: 'password',
+    role: 'role',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type OldUserScalarFieldEnum = (typeof OldUserScalarFieldEnum)[keyof typeof OldUserScalarFieldEnum]
+
+
+  export const OldClientScalarFieldEnum: {
+    user_id: 'user_id',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    phoneNumber: 'phoneNumber',
+    profileImage: 'profileImage',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type OldClientScalarFieldEnum = (typeof OldClientScalarFieldEnum)[keyof typeof OldClientScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -19636,6 +21723,20 @@ export namespace Prisma {
    * Reference to a field of type 'MaximumLevel[]'
    */
   export type ListEnumMaximumLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaximumLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -21000,6 +23101,131 @@ export namespace Prisma {
     createdBy?: DateTimeWithAggregatesFilter<"Team"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
     updatedBy?: DateTimeWithAggregatesFilter<"Team"> | Date | string
+  }
+
+  export type OldUserWhereInput = {
+    AND?: OldUserWhereInput | OldUserWhereInput[]
+    OR?: OldUserWhereInput[]
+    NOT?: OldUserWhereInput | OldUserWhereInput[]
+    id?: StringFilter<"OldUser"> | string
+    email?: StringFilter<"OldUser"> | string
+    password?: StringFilter<"OldUser"> | string
+    role?: EnumRoleFilter<"OldUser"> | $Enums.Role
+    created_at?: DateTimeFilter<"OldUser"> | Date | string
+    updated_at?: DateTimeFilter<"OldUser"> | Date | string
+    client?: XOR<OldClientNullableRelationFilter, OldClientWhereInput> | null
+  }
+
+  export type OldUserOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    client?: OldClientOrderByWithRelationInput
+  }
+
+  export type OldUserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: OldUserWhereInput | OldUserWhereInput[]
+    OR?: OldUserWhereInput[]
+    NOT?: OldUserWhereInput | OldUserWhereInput[]
+    password?: StringFilter<"OldUser"> | string
+    role?: EnumRoleFilter<"OldUser"> | $Enums.Role
+    created_at?: DateTimeFilter<"OldUser"> | Date | string
+    updated_at?: DateTimeFilter<"OldUser"> | Date | string
+    client?: XOR<OldClientNullableRelationFilter, OldClientWhereInput> | null
+  }, "id" | "email">
+
+  export type OldUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: OldUserCountOrderByAggregateInput
+    _max?: OldUserMaxOrderByAggregateInput
+    _min?: OldUserMinOrderByAggregateInput
+  }
+
+  export type OldUserScalarWhereWithAggregatesInput = {
+    AND?: OldUserScalarWhereWithAggregatesInput | OldUserScalarWhereWithAggregatesInput[]
+    OR?: OldUserScalarWhereWithAggregatesInput[]
+    NOT?: OldUserScalarWhereWithAggregatesInput | OldUserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OldUser"> | string
+    email?: StringWithAggregatesFilter<"OldUser"> | string
+    password?: StringWithAggregatesFilter<"OldUser"> | string
+    role?: EnumRoleWithAggregatesFilter<"OldUser"> | $Enums.Role
+    created_at?: DateTimeWithAggregatesFilter<"OldUser"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"OldUser"> | Date | string
+  }
+
+  export type OldClientWhereInput = {
+    AND?: OldClientWhereInput | OldClientWhereInput[]
+    OR?: OldClientWhereInput[]
+    NOT?: OldClientWhereInput | OldClientWhereInput[]
+    user_id?: StringFilter<"OldClient"> | string
+    firstName?: StringFilter<"OldClient"> | string
+    lastName?: StringFilter<"OldClient"> | string
+    phoneNumber?: StringFilter<"OldClient"> | string
+    profileImage?: StringFilter<"OldClient"> | string
+    created_at?: DateTimeFilter<"OldClient"> | Date | string
+    updated_at?: DateTimeFilter<"OldClient"> | Date | string
+    user?: XOR<OldUserRelationFilter, OldUserWhereInput>
+  }
+
+  export type OldClientOrderByWithRelationInput = {
+    user_id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    profileImage?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: OldUserOrderByWithRelationInput
+  }
+
+  export type OldClientWhereUniqueInput = Prisma.AtLeast<{
+    user_id?: string
+    AND?: OldClientWhereInput | OldClientWhereInput[]
+    OR?: OldClientWhereInput[]
+    NOT?: OldClientWhereInput | OldClientWhereInput[]
+    firstName?: StringFilter<"OldClient"> | string
+    lastName?: StringFilter<"OldClient"> | string
+    phoneNumber?: StringFilter<"OldClient"> | string
+    profileImage?: StringFilter<"OldClient"> | string
+    created_at?: DateTimeFilter<"OldClient"> | Date | string
+    updated_at?: DateTimeFilter<"OldClient"> | Date | string
+    user?: XOR<OldUserRelationFilter, OldUserWhereInput>
+  }, "user_id">
+
+  export type OldClientOrderByWithAggregationInput = {
+    user_id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    profileImage?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: OldClientCountOrderByAggregateInput
+    _max?: OldClientMaxOrderByAggregateInput
+    _min?: OldClientMinOrderByAggregateInput
+  }
+
+  export type OldClientScalarWhereWithAggregatesInput = {
+    AND?: OldClientScalarWhereWithAggregatesInput | OldClientScalarWhereWithAggregatesInput[]
+    OR?: OldClientScalarWhereWithAggregatesInput[]
+    NOT?: OldClientScalarWhereWithAggregatesInput | OldClientScalarWhereWithAggregatesInput[]
+    user_id?: StringWithAggregatesFilter<"OldClient"> | string
+    firstName?: StringWithAggregatesFilter<"OldClient"> | string
+    lastName?: StringWithAggregatesFilter<"OldClient"> | string
+    phoneNumber?: StringWithAggregatesFilter<"OldClient"> | string
+    profileImage?: StringWithAggregatesFilter<"OldClient"> | string
+    created_at?: DateTimeWithAggregatesFilter<"OldClient"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"OldClient"> | Date | string
   }
 
   export type AddressCreateInput = {
@@ -22402,6 +24628,142 @@ export namespace Prisma {
     updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OldUserCreateInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+    client?: OldClientCreateNestedOneWithoutUserInput
+  }
+
+  export type OldUserUncheckedCreateInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+    client?: OldClientUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type OldUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: OldClientUpdateOneWithoutUserNestedInput
+  }
+
+  export type OldUserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: OldClientUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type OldUserCreateManyInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldUserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldClientCreateInput = {
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user?: OldUserCreateNestedOneWithoutClientInput
+  }
+
+  export type OldClientUncheckedCreateInput = {
+    user_id?: string
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldClientUpdateInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: OldUserUpdateOneRequiredWithoutClientNestedInput
+  }
+
+  export type OldClientUncheckedUpdateInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldClientCreateManyInput = {
+    user_id?: string
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldClientUpdateManyMutationInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldClientUncheckedUpdateManyInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -23605,6 +25967,90 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaximumLevelFilter<$PrismaModel>
     _max?: NestedEnumMaximumLevelFilter<$PrismaModel>
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type OldClientNullableRelationFilter = {
+    is?: OldClientWhereInput | null
+    isNot?: OldClientWhereInput | null
+  }
+
+  export type OldUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type OldUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type OldUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type OldUserRelationFilter = {
+    is?: OldUserWhereInput
+    isNot?: OldUserWhereInput
+  }
+
+  export type OldClientCountOrderByAggregateInput = {
+    user_id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    profileImage?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type OldClientMaxOrderByAggregateInput = {
+    user_id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    profileImage?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type OldClientMinOrderByAggregateInput = {
+    user_id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    profileImage?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type HouseholdCreateNestedManyWithoutAddressInput = {
@@ -24847,6 +27293,56 @@ export namespace Prisma {
     deleteMany?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
   }
 
+  export type OldClientCreateNestedOneWithoutUserInput = {
+    create?: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OldClientCreateOrConnectWithoutUserInput
+    connect?: OldClientWhereUniqueInput
+  }
+
+  export type OldClientUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OldClientCreateOrConnectWithoutUserInput
+    connect?: OldClientWhereUniqueInput
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
+  export type OldClientUpdateOneWithoutUserNestedInput = {
+    create?: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OldClientCreateOrConnectWithoutUserInput
+    upsert?: OldClientUpsertWithoutUserInput
+    disconnect?: OldClientWhereInput | boolean
+    delete?: OldClientWhereInput | boolean
+    connect?: OldClientWhereUniqueInput
+    update?: XOR<XOR<OldClientUpdateToOneWithWhereWithoutUserInput, OldClientUpdateWithoutUserInput>, OldClientUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OldClientUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OldClientCreateOrConnectWithoutUserInput
+    upsert?: OldClientUpsertWithoutUserInput
+    disconnect?: OldClientWhereInput | boolean
+    delete?: OldClientWhereInput | boolean
+    connect?: OldClientWhereUniqueInput
+    update?: XOR<XOR<OldClientUpdateToOneWithWhereWithoutUserInput, OldClientUpdateWithoutUserInput>, OldClientUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OldUserCreateNestedOneWithoutClientInput = {
+    create?: XOR<OldUserCreateWithoutClientInput, OldUserUncheckedCreateWithoutClientInput>
+    connectOrCreate?: OldUserCreateOrConnectWithoutClientInput
+    connect?: OldUserWhereUniqueInput
+  }
+
+  export type OldUserUpdateOneRequiredWithoutClientNestedInput = {
+    create?: XOR<OldUserCreateWithoutClientInput, OldUserUncheckedCreateWithoutClientInput>
+    connectOrCreate?: OldUserCreateOrConnectWithoutClientInput
+    upsert?: OldUserUpsertWithoutClientInput
+    connect?: OldUserWhereUniqueInput
+    update?: XOR<XOR<OldUserUpdateToOneWithWhereWithoutClientInput, OldUserUpdateWithoutClientInput>, OldUserUncheckedUpdateWithoutClientInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -25064,6 +27560,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaximumLevelFilter<$PrismaModel>
     _max?: NestedEnumMaximumLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type HouseholdCreateWithoutAddressInput = {
@@ -28124,6 +30637,110 @@ export namespace Prisma {
     data: XOR<ProfilePermissionUpdateManyMutationInput, ProfilePermissionUncheckedUpdateManyWithoutTeamInput>
   }
 
+  export type OldClientCreateWithoutUserInput = {
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldClientUncheckedCreateWithoutUserInput = {
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    profileImage: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldClientCreateOrConnectWithoutUserInput = {
+    where: OldClientWhereUniqueInput
+    create: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+  }
+
+  export type OldClientUpsertWithoutUserInput = {
+    update: XOR<OldClientUpdateWithoutUserInput, OldClientUncheckedUpdateWithoutUserInput>
+    create: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
+    where?: OldClientWhereInput
+  }
+
+  export type OldClientUpdateToOneWithWhereWithoutUserInput = {
+    where?: OldClientWhereInput
+    data: XOR<OldClientUpdateWithoutUserInput, OldClientUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OldClientUpdateWithoutUserInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldClientUncheckedUpdateWithoutUserInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldUserCreateWithoutClientInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldUserUncheckedCreateWithoutClientInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type OldUserCreateOrConnectWithoutClientInput = {
+    where: OldUserWhereUniqueInput
+    create: XOR<OldUserCreateWithoutClientInput, OldUserUncheckedCreateWithoutClientInput>
+  }
+
+  export type OldUserUpsertWithoutClientInput = {
+    update: XOR<OldUserUpdateWithoutClientInput, OldUserUncheckedUpdateWithoutClientInput>
+    create: XOR<OldUserCreateWithoutClientInput, OldUserUncheckedCreateWithoutClientInput>
+    where?: OldUserWhereInput
+  }
+
+  export type OldUserUpdateToOneWithWhereWithoutClientInput = {
+    where?: OldUserWhereInput
+    data: XOR<OldUserUpdateWithoutClientInput, OldUserUncheckedUpdateWithoutClientInput>
+  }
+
+  export type OldUserUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OldUserUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type HouseholdCreateManyAddressInput = {
     id?: number
     addressDetail: string
@@ -29095,6 +31712,14 @@ export namespace Prisma {
      * @deprecated Use TeamDefaultArgs instead
      */
     export type TeamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TeamDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OldUserDefaultArgs instead
+     */
+    export type OldUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OldUserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OldClientDefaultArgs instead
+     */
+    export type OldClientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OldClientDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

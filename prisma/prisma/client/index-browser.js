@@ -304,6 +304,25 @@ exports.Prisma.TeamScalarFieldEnum = {
   updatedBy: 'updatedBy'
 };
 
+exports.Prisma.OldUserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.OldClientScalarFieldEnum = {
+  user_id: 'user_id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phoneNumber: 'phoneNumber',
+  profileImage: 'profileImage',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -353,6 +372,12 @@ exports.MaximumLevel = exports.$Enums.MaximumLevel = {
   SUBDISTRICT: 'SUBDISTRICT'
 };
 
+exports.Role = exports.$Enums.Role = {
+  CLIENT: 'CLIENT',
+  OFFICER: 'OFFICER',
+  ADMIN: 'ADMIN'
+};
+
 exports.Prisma.ModelName = {
   Address: 'Address',
   Household: 'Household',
@@ -369,7 +394,9 @@ exports.Prisma.ModelName = {
   OtherEnergyConsumption: 'OtherEnergyConsumption',
   Profile: 'Profile',
   ProfilePermission: 'ProfilePermission',
-  Team: 'Team'
+  Team: 'Team',
+  OldUser: 'OldUser',
+  OldClient: 'OldClient'
 };
 
 /**
