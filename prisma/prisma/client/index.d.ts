@@ -154,6 +154,15 @@ export const EnergyUsageType: {
 export type EnergyUsageType = (typeof EnergyUsageType)[keyof typeof EnergyUsageType]
 
 
+export const TeamStatus: {
+  PENDING: 'PENDING',
+  CREATED: 'CREATED',
+  REJECTED: 'REJECTED'
+};
+
+export type TeamStatus = (typeof TeamStatus)[keyof typeof TeamStatus]
+
+
 export const MaximumLevel: {
   PROVINCE: 'PROVINCE',
   DISTRICT: 'DISTRICT',
@@ -188,6 +197,10 @@ export const ModelType: typeof $Enums.ModelType
 export type EnergyUsageType = $Enums.EnergyUsageType
 
 export const EnergyUsageType: typeof $Enums.EnergyUsageType
+
+export type TeamStatus = $Enums.TeamStatus
+
+export const TeamStatus: typeof $Enums.TeamStatus
 
 export type MaximumLevel = $Enums.MaximumLevel
 
@@ -555,8 +568,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.5.2
-   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+   * Prisma Client JS version: 5.8.1
+   * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
    */
   export type PrismaVersion = {
     client: string
@@ -2914,7 +2927,7 @@ export namespace Prisma {
   type AddressGetPayload<S extends boolean | null | undefined | AddressDefaultArgs> = $Result.GetResult<Prisma.$AddressPayload, S>
 
   type AddressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: AddressCountAggregateInputType | true
     }
 
@@ -3707,9 +3720,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdMaxAggregateOutputType = {
@@ -3719,9 +3732,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdCountAggregateOutputType = {
@@ -3878,9 +3891,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: HouseholdCountAggregateOutputType | null
     _avg: HouseholdAvgAggregateOutputType | null
     _sum: HouseholdSumAggregateOutputType | null
@@ -3973,9 +3986,9 @@ export namespace Prisma {
       houseType: $Enums.HouseType
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["household"]>
     composites: {}
   }
@@ -3984,7 +3997,7 @@ export namespace Prisma {
   type HouseholdGetPayload<S extends boolean | null | undefined | HouseholdDefaultArgs> = $Result.GetResult<Prisma.$HouseholdPayload, S>
 
   type HouseholdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HouseholdFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HouseholdFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HouseholdCountAggregateInputType | true
     }
 
@@ -4395,9 +4408,9 @@ export namespace Prisma {
     readonly houseType: FieldRef<"Household", 'HouseType'>
     readonly recordedDate: FieldRef<"Household", 'DateTime'>
     readonly createdAt: FieldRef<"Household", 'DateTime'>
-    readonly createdBy: FieldRef<"Household", 'DateTime'>
+    readonly createdBy: FieldRef<"Household", 'String'>
     readonly updatedAt: FieldRef<"Household", 'DateTime'>
-    readonly updatedBy: FieldRef<"Household", 'DateTime'>
+    readonly updatedBy: FieldRef<"Household", 'String'>
   }
     
 
@@ -4956,9 +4969,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type CarbonFootprintMaxAggregateOutputType = {
@@ -4971,9 +4984,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type CarbonFootprintCountAggregateOutputType = {
@@ -5148,16 +5161,16 @@ export namespace Prisma {
   export type CarbonFootprintGroupByOutputType = {
     id: number
     householdId: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId: number | null
+    householdWaterSupplyId: number | null
+    householdOtherEnergyId: number | null
+    transportaionId: number | null
     totalCarbonFootprint: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: CarbonFootprintCountAggregateOutputType | null
     _avg: CarbonFootprintAvgAggregateOutputType | null
     _sum: CarbonFootprintSumAggregateOutputType | null
@@ -5193,10 +5206,10 @@ export namespace Prisma {
     updatedAt?: boolean
     updatedBy?: boolean
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
-    householdElectricity?: boolean | HouseholdElectricityDefaultArgs<ExtArgs>
-    householdWaterSupply?: boolean | HouseholdWaterSupplyDefaultArgs<ExtArgs>
-    householdOtherEnergy?: boolean | HouseholdOtherEnergyDefaultArgs<ExtArgs>
-    transportation?: boolean | TransportationDefaultArgs<ExtArgs>
+    householdElectricity?: boolean | CarbonFootprint$householdElectricityArgs<ExtArgs>
+    householdWaterSupply?: boolean | CarbonFootprint$householdWaterSupplyArgs<ExtArgs>
+    householdOtherEnergy?: boolean | CarbonFootprint$householdOtherEnergyArgs<ExtArgs>
+    transportation?: boolean | CarbonFootprint$transportationArgs<ExtArgs>
   }, ExtArgs["result"]["carbonFootprint"]>
 
   export type CarbonFootprintSelectScalar = {
@@ -5216,10 +5229,10 @@ export namespace Prisma {
 
   export type CarbonFootprintInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     household?: boolean | HouseholdDefaultArgs<ExtArgs>
-    householdElectricity?: boolean | HouseholdElectricityDefaultArgs<ExtArgs>
-    householdWaterSupply?: boolean | HouseholdWaterSupplyDefaultArgs<ExtArgs>
-    householdOtherEnergy?: boolean | HouseholdOtherEnergyDefaultArgs<ExtArgs>
-    transportation?: boolean | TransportationDefaultArgs<ExtArgs>
+    householdElectricity?: boolean | CarbonFootprint$householdElectricityArgs<ExtArgs>
+    householdWaterSupply?: boolean | CarbonFootprint$householdWaterSupplyArgs<ExtArgs>
+    householdOtherEnergy?: boolean | CarbonFootprint$householdOtherEnergyArgs<ExtArgs>
+    transportation?: boolean | CarbonFootprint$transportationArgs<ExtArgs>
   }
 
 
@@ -5227,24 +5240,24 @@ export namespace Prisma {
     name: "CarbonFootprint"
     objects: {
       household: Prisma.$HouseholdPayload<ExtArgs>
-      householdElectricity: Prisma.$HouseholdElectricityPayload<ExtArgs>
-      householdWaterSupply: Prisma.$HouseholdWaterSupplyPayload<ExtArgs>
-      householdOtherEnergy: Prisma.$HouseholdOtherEnergyPayload<ExtArgs>
-      transportation: Prisma.$TransportationPayload<ExtArgs>
+      householdElectricity: Prisma.$HouseholdElectricityPayload<ExtArgs> | null
+      householdWaterSupply: Prisma.$HouseholdWaterSupplyPayload<ExtArgs> | null
+      householdOtherEnergy: Prisma.$HouseholdOtherEnergyPayload<ExtArgs> | null
+      transportation: Prisma.$TransportationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       householdId: number
-      householdElectricityId: number
-      householdWaterSupplyId: number
-      householdOtherEnergyId: number
-      transportaionId: number
+      householdElectricityId: number | null
+      householdWaterSupplyId: number | null
+      householdOtherEnergyId: number | null
+      transportaionId: number | null
       totalCarbonFootprint: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["carbonFootprint"]>
     composites: {}
   }
@@ -5253,7 +5266,7 @@ export namespace Prisma {
   type CarbonFootprintGetPayload<S extends boolean | null | undefined | CarbonFootprintDefaultArgs> = $Result.GetResult<Prisma.$CarbonFootprintPayload, S>
 
   type CarbonFootprintCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<CarbonFootprintFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<CarbonFootprintFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: CarbonFootprintCountAggregateInputType | true
     }
 
@@ -5612,13 +5625,13 @@ export namespace Prisma {
 
     household<T extends HouseholdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdDefaultArgs<ExtArgs>>): Prisma__HouseholdClient<$Result.GetResult<Prisma.$HouseholdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    householdElectricity<T extends HouseholdElectricityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdElectricityDefaultArgs<ExtArgs>>): Prisma__HouseholdElectricityClient<$Result.GetResult<Prisma.$HouseholdElectricityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    householdElectricity<T extends CarbonFootprint$householdElectricityArgs<ExtArgs> = {}>(args?: Subset<T, CarbonFootprint$householdElectricityArgs<ExtArgs>>): Prisma__HouseholdElectricityClient<$Result.GetResult<Prisma.$HouseholdElectricityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    householdWaterSupply<T extends HouseholdWaterSupplyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdWaterSupplyDefaultArgs<ExtArgs>>): Prisma__HouseholdWaterSupplyClient<$Result.GetResult<Prisma.$HouseholdWaterSupplyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    householdWaterSupply<T extends CarbonFootprint$householdWaterSupplyArgs<ExtArgs> = {}>(args?: Subset<T, CarbonFootprint$householdWaterSupplyArgs<ExtArgs>>): Prisma__HouseholdWaterSupplyClient<$Result.GetResult<Prisma.$HouseholdWaterSupplyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    householdOtherEnergy<T extends HouseholdOtherEnergyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdOtherEnergyDefaultArgs<ExtArgs>>): Prisma__HouseholdOtherEnergyClient<$Result.GetResult<Prisma.$HouseholdOtherEnergyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    householdOtherEnergy<T extends CarbonFootprint$householdOtherEnergyArgs<ExtArgs> = {}>(args?: Subset<T, CarbonFootprint$householdOtherEnergyArgs<ExtArgs>>): Prisma__HouseholdOtherEnergyClient<$Result.GetResult<Prisma.$HouseholdOtherEnergyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    transportation<T extends TransportationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportationDefaultArgs<ExtArgs>>): Prisma__TransportationClient<$Result.GetResult<Prisma.$TransportationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    transportation<T extends CarbonFootprint$transportationArgs<ExtArgs> = {}>(args?: Subset<T, CarbonFootprint$transportationArgs<ExtArgs>>): Prisma__TransportationClient<$Result.GetResult<Prisma.$TransportationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5657,9 +5670,9 @@ export namespace Prisma {
     readonly totalCarbonFootprint: FieldRef<"CarbonFootprint", 'Decimal'>
     readonly recordedDate: FieldRef<"CarbonFootprint", 'DateTime'>
     readonly createdAt: FieldRef<"CarbonFootprint", 'DateTime'>
-    readonly createdBy: FieldRef<"CarbonFootprint", 'DateTime'>
+    readonly createdBy: FieldRef<"CarbonFootprint", 'String'>
     readonly updatedAt: FieldRef<"CarbonFootprint", 'DateTime'>
-    readonly updatedBy: FieldRef<"CarbonFootprint", 'DateTime'>
+    readonly updatedBy: FieldRef<"CarbonFootprint", 'String'>
   }
     
 
@@ -5972,6 +5985,70 @@ export namespace Prisma {
 
 
   /**
+   * CarbonFootprint.householdElectricity
+   */
+  export type CarbonFootprint$householdElectricityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdElectricity
+     */
+    select?: HouseholdElectricitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HouseholdElectricityInclude<ExtArgs> | null
+    where?: HouseholdElectricityWhereInput
+  }
+
+
+  /**
+   * CarbonFootprint.householdWaterSupply
+   */
+  export type CarbonFootprint$householdWaterSupplyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdWaterSupply
+     */
+    select?: HouseholdWaterSupplySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HouseholdWaterSupplyInclude<ExtArgs> | null
+    where?: HouseholdWaterSupplyWhereInput
+  }
+
+
+  /**
+   * CarbonFootprint.householdOtherEnergy
+   */
+  export type CarbonFootprint$householdOtherEnergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HouseholdOtherEnergy
+     */
+    select?: HouseholdOtherEnergySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HouseholdOtherEnergyInclude<ExtArgs> | null
+    where?: HouseholdOtherEnergyWhereInput
+  }
+
+
+  /**
+   * CarbonFootprint.transportation
+   */
+  export type CarbonFootprint$transportationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transportation
+     */
+    select?: TransportationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransportationInclude<ExtArgs> | null
+    where?: TransportationWhereInput
+  }
+
+
+  /**
    * CarbonFootprint without action
    */
   export type CarbonFootprintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6015,10 +6092,11 @@ export namespace Prisma {
     name: string | null
     carbonCoefficient: Decimal | null
     unit: string | null
+    recorded_date: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type EmissionFactorMaxAggregateOutputType = {
@@ -6027,10 +6105,11 @@ export namespace Prisma {
     name: string | null
     carbonCoefficient: Decimal | null
     unit: string | null
+    recorded_date: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type EmissionFactorCountAggregateOutputType = {
@@ -6039,6 +6118,7 @@ export namespace Prisma {
     name: number
     carbonCoefficient: number
     unit: number
+    recorded_date: number
     createdAt: number
     createdBy: number
     updatedAt: number
@@ -6063,6 +6143,7 @@ export namespace Prisma {
     name?: true
     carbonCoefficient?: true
     unit?: true
+    recorded_date?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
@@ -6075,6 +6156,7 @@ export namespace Prisma {
     name?: true
     carbonCoefficient?: true
     unit?: true
+    recorded_date?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
@@ -6087,6 +6169,7 @@ export namespace Prisma {
     name?: true
     carbonCoefficient?: true
     unit?: true
+    recorded_date?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
@@ -6186,10 +6269,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal
     unit: string
+    recorded_date: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: EmissionFactorCountAggregateOutputType | null
     _avg: EmissionFactorAvgAggregateOutputType | null
     _sum: EmissionFactorSumAggregateOutputType | null
@@ -6217,6 +6301,7 @@ export namespace Prisma {
     name?: boolean
     carbonCoefficient?: boolean
     unit?: boolean
+    recorded_date?: boolean
     createdAt?: boolean
     createdBy?: boolean
     updatedAt?: boolean
@@ -6234,6 +6319,7 @@ export namespace Prisma {
     name?: boolean
     carbonCoefficient?: boolean
     unit?: boolean
+    recorded_date?: boolean
     createdAt?: boolean
     createdBy?: boolean
     updatedAt?: boolean
@@ -6263,10 +6349,11 @@ export namespace Prisma {
       name: string
       carbonCoefficient: Prisma.Decimal
       unit: string
+      recorded_date: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["emissionFactor"]>
     composites: {}
   }
@@ -6275,7 +6362,7 @@ export namespace Prisma {
   type EmissionFactorGetPayload<S extends boolean | null | undefined | EmissionFactorDefaultArgs> = $Result.GetResult<Prisma.$EmissionFactorPayload, S>
 
   type EmissionFactorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<EmissionFactorFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<EmissionFactorFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: EmissionFactorCountAggregateInputType | true
     }
 
@@ -6673,10 +6760,11 @@ export namespace Prisma {
     readonly name: FieldRef<"EmissionFactor", 'String'>
     readonly carbonCoefficient: FieldRef<"EmissionFactor", 'Decimal'>
     readonly unit: FieldRef<"EmissionFactor", 'String'>
+    readonly recorded_date: FieldRef<"EmissionFactor", 'DateTime'>
     readonly createdAt: FieldRef<"EmissionFactor", 'DateTime'>
-    readonly createdBy: FieldRef<"EmissionFactor", 'DateTime'>
+    readonly createdBy: FieldRef<"EmissionFactor", 'String'>
     readonly updatedAt: FieldRef<"EmissionFactor", 'DateTime'>
-    readonly updatedBy: FieldRef<"EmissionFactor", 'DateTime'>
+    readonly updatedBy: FieldRef<"EmissionFactor", 'String'>
   }
     
 
@@ -7115,9 +7203,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType | null
     consumptionRate: Decimal | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type VehiclePropertyMaxAggregateOutputType = {
@@ -7125,9 +7213,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType | null
     consumptionRate: Decimal | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type VehiclePropertyCountAggregateOutputType = {
@@ -7274,9 +7362,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType
     consumptionRate: Decimal
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: VehiclePropertyCountAggregateOutputType | null
     _avg: VehiclePropertyAvgAggregateOutputType | null
     _sum: VehiclePropertySumAggregateOutputType | null
@@ -7336,9 +7424,9 @@ export namespace Prisma {
       modelType: $Enums.ModelType
       consumptionRate: Prisma.Decimal
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["vehicleProperty"]>
     composites: {}
   }
@@ -7347,7 +7435,7 @@ export namespace Prisma {
   type VehiclePropertyGetPayload<S extends boolean | null | undefined | VehiclePropertyDefaultArgs> = $Result.GetResult<Prisma.$VehiclePropertyPayload, S>
 
   type VehiclePropertyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<VehiclePropertyFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<VehiclePropertyFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: VehiclePropertyCountAggregateInputType | true
     }
 
@@ -7738,9 +7826,9 @@ export namespace Prisma {
     readonly modelType: FieldRef<"VehicleProperty", 'ModelType'>
     readonly consumptionRate: FieldRef<"VehicleProperty", 'Decimal'>
     readonly createdAt: FieldRef<"VehicleProperty", 'DateTime'>
-    readonly createdBy: FieldRef<"VehicleProperty", 'DateTime'>
+    readonly createdBy: FieldRef<"VehicleProperty", 'String'>
     readonly updatedAt: FieldRef<"VehicleProperty", 'DateTime'>
-    readonly updatedBy: FieldRef<"VehicleProperty", 'DateTime'>
+    readonly updatedBy: FieldRef<"VehicleProperty", 'String'>
   }
     
 
@@ -8135,9 +8223,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type PrivateVehicleMaxAggregateOutputType = {
@@ -8152,9 +8240,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type PrivateVehicleCountAggregateOutputType = {
@@ -8348,9 +8436,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: PrivateVehicleCountAggregateOutputType | null
     _avg: PrivateVehicleAvgAggregateOutputType | null
     _sum: PrivateVehicleSumAggregateOutputType | null
@@ -8435,9 +8523,9 @@ export namespace Prisma {
       carbonEmissionEq: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["privateVehicle"]>
     composites: {}
   }
@@ -8446,7 +8534,7 @@ export namespace Prisma {
   type PrivateVehicleGetPayload<S extends boolean | null | undefined | PrivateVehicleDefaultArgs> = $Result.GetResult<Prisma.$PrivateVehiclePayload, S>
 
   type PrivateVehicleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PrivateVehicleFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<PrivateVehicleFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: PrivateVehicleCountAggregateInputType | true
     }
 
@@ -8848,9 +8936,9 @@ export namespace Prisma {
     readonly carbonEmissionEq: FieldRef<"PrivateVehicle", 'Decimal'>
     readonly recordedDate: FieldRef<"PrivateVehicle", 'DateTime'>
     readonly createdAt: FieldRef<"PrivateVehicle", 'DateTime'>
-    readonly createdBy: FieldRef<"PrivateVehicle", 'DateTime'>
+    readonly createdBy: FieldRef<"PrivateVehicle", 'String'>
     readonly updatedAt: FieldRef<"PrivateVehicle", 'DateTime'>
-    readonly updatedBy: FieldRef<"PrivateVehicle", 'DateTime'>
+    readonly updatedBy: FieldRef<"PrivateVehicle", 'String'>
   }
     
 
@@ -9208,9 +9296,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type TransportationMaxAggregateOutputType = {
@@ -9219,9 +9307,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type TransportationCountAggregateOutputType = {
@@ -9375,9 +9463,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: TransportationCountAggregateOutputType | null
     _avg: TransportationAvgAggregateOutputType | null
     _sum: TransportationSumAggregateOutputType | null
@@ -9441,9 +9529,9 @@ export namespace Prisma {
       totalCarbonFootprint: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["transportation"]>
     composites: {}
   }
@@ -9452,7 +9540,7 @@ export namespace Prisma {
   type TransportationGetPayload<S extends boolean | null | undefined | TransportationDefaultArgs> = $Result.GetResult<Prisma.$TransportationPayload, S>
 
   type TransportationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TransportationFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<TransportationFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: TransportationCountAggregateInputType | true
     }
 
@@ -9846,9 +9934,9 @@ export namespace Prisma {
     readonly totalCarbonFootprint: FieldRef<"Transportation", 'Decimal'>
     readonly recordedDate: FieldRef<"Transportation", 'DateTime'>
     readonly createdAt: FieldRef<"Transportation", 'DateTime'>
-    readonly createdBy: FieldRef<"Transportation", 'DateTime'>
+    readonly createdBy: FieldRef<"Transportation", 'String'>
     readonly updatedAt: FieldRef<"Transportation", 'DateTime'>
-    readonly updatedBy: FieldRef<"Transportation", 'DateTime'>
+    readonly updatedBy: FieldRef<"Transportation", 'String'>
   }
     
 
@@ -10222,9 +10310,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdElectricityMaxAggregateOutputType = {
@@ -10233,9 +10321,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdElectricityCountAggregateOutputType = {
@@ -10389,9 +10477,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: HouseholdElectricityCountAggregateOutputType | null
     _avg: HouseholdElectricityAvgAggregateOutputType | null
     _sum: HouseholdElectricitySumAggregateOutputType | null
@@ -10455,9 +10543,9 @@ export namespace Prisma {
       totalCarbonFootprint: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["householdElectricity"]>
     composites: {}
   }
@@ -10466,7 +10554,7 @@ export namespace Prisma {
   type HouseholdElectricityGetPayload<S extends boolean | null | undefined | HouseholdElectricityDefaultArgs> = $Result.GetResult<Prisma.$HouseholdElectricityPayload, S>
 
   type HouseholdElectricityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HouseholdElectricityFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HouseholdElectricityFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HouseholdElectricityCountAggregateInputType | true
     }
 
@@ -10860,9 +10948,9 @@ export namespace Prisma {
     readonly totalCarbonFootprint: FieldRef<"HouseholdElectricity", 'Decimal'>
     readonly recordedDate: FieldRef<"HouseholdElectricity", 'DateTime'>
     readonly createdAt: FieldRef<"HouseholdElectricity", 'DateTime'>
-    readonly createdBy: FieldRef<"HouseholdElectricity", 'DateTime'>
+    readonly createdBy: FieldRef<"HouseholdElectricity", 'String'>
     readonly updatedAt: FieldRef<"HouseholdElectricity", 'DateTime'>
-    readonly updatedBy: FieldRef<"HouseholdElectricity", 'DateTime'>
+    readonly updatedBy: FieldRef<"HouseholdElectricity", 'String'>
   }
     
 
@@ -11242,9 +11330,9 @@ export namespace Prisma {
     electricityMeter: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ElectricityBillMaxAggregateOutputType = {
@@ -11255,9 +11343,9 @@ export namespace Prisma {
     electricityMeter: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ElectricityBillCountAggregateOutputType = {
@@ -11425,9 +11513,9 @@ export namespace Prisma {
     electricityMeter: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: ElectricityBillCountAggregateOutputType | null
     _avg: ElectricityBillAvgAggregateOutputType | null
     _sum: ElectricityBillSumAggregateOutputType | null
@@ -11497,9 +11585,9 @@ export namespace Prisma {
       electricityMeter: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["electricityBill"]>
     composites: {}
   }
@@ -11508,7 +11596,7 @@ export namespace Prisma {
   type ElectricityBillGetPayload<S extends boolean | null | undefined | ElectricityBillDefaultArgs> = $Result.GetResult<Prisma.$ElectricityBillPayload, S>
 
   type ElectricityBillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ElectricityBillFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<ElectricityBillFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: ElectricityBillCountAggregateInputType | true
     }
 
@@ -11904,9 +11992,9 @@ export namespace Prisma {
     readonly electricityMeter: FieldRef<"ElectricityBill", 'Decimal'>
     readonly recordedDate: FieldRef<"ElectricityBill", 'DateTime'>
     readonly createdAt: FieldRef<"ElectricityBill", 'DateTime'>
-    readonly createdBy: FieldRef<"ElectricityBill", 'DateTime'>
+    readonly createdBy: FieldRef<"ElectricityBill", 'String'>
     readonly updatedAt: FieldRef<"ElectricityBill", 'DateTime'>
-    readonly updatedBy: FieldRef<"ElectricityBill", 'DateTime'>
+    readonly updatedBy: FieldRef<"ElectricityBill", 'String'>
   }
     
 
@@ -12264,9 +12352,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdWaterSupplyMaxAggregateOutputType = {
@@ -12275,9 +12363,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdWaterSupplyCountAggregateOutputType = {
@@ -12431,9 +12519,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: HouseholdWaterSupplyCountAggregateOutputType | null
     _avg: HouseholdWaterSupplyAvgAggregateOutputType | null
     _sum: HouseholdWaterSupplySumAggregateOutputType | null
@@ -12497,9 +12585,9 @@ export namespace Prisma {
       totalCarbonFootprint: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["householdWaterSupply"]>
     composites: {}
   }
@@ -12508,7 +12596,7 @@ export namespace Prisma {
   type HouseholdWaterSupplyGetPayload<S extends boolean | null | undefined | HouseholdWaterSupplyDefaultArgs> = $Result.GetResult<Prisma.$HouseholdWaterSupplyPayload, S>
 
   type HouseholdWaterSupplyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HouseholdWaterSupplyFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HouseholdWaterSupplyFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HouseholdWaterSupplyCountAggregateInputType | true
     }
 
@@ -12902,9 +12990,9 @@ export namespace Prisma {
     readonly totalCarbonFootprint: FieldRef<"HouseholdWaterSupply", 'Decimal'>
     readonly recordedDate: FieldRef<"HouseholdWaterSupply", 'DateTime'>
     readonly createdAt: FieldRef<"HouseholdWaterSupply", 'DateTime'>
-    readonly createdBy: FieldRef<"HouseholdWaterSupply", 'DateTime'>
+    readonly createdBy: FieldRef<"HouseholdWaterSupply", 'String'>
     readonly updatedAt: FieldRef<"HouseholdWaterSupply", 'DateTime'>
-    readonly updatedBy: FieldRef<"HouseholdWaterSupply", 'DateTime'>
+    readonly updatedBy: FieldRef<"HouseholdWaterSupply", 'String'>
   }
     
 
@@ -13284,9 +13372,9 @@ export namespace Prisma {
     waterMeter: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type WaterBillMaxAggregateOutputType = {
@@ -13297,9 +13385,9 @@ export namespace Prisma {
     waterMeter: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type WaterBillCountAggregateOutputType = {
@@ -13467,9 +13555,9 @@ export namespace Prisma {
     waterMeter: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: WaterBillCountAggregateOutputType | null
     _avg: WaterBillAvgAggregateOutputType | null
     _sum: WaterBillSumAggregateOutputType | null
@@ -13539,9 +13627,9 @@ export namespace Prisma {
       waterMeter: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["waterBill"]>
     composites: {}
   }
@@ -13550,7 +13638,7 @@ export namespace Prisma {
   type WaterBillGetPayload<S extends boolean | null | undefined | WaterBillDefaultArgs> = $Result.GetResult<Prisma.$WaterBillPayload, S>
 
   type WaterBillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<WaterBillFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<WaterBillFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: WaterBillCountAggregateInputType | true
     }
 
@@ -13946,9 +14034,9 @@ export namespace Prisma {
     readonly waterMeter: FieldRef<"WaterBill", 'Decimal'>
     readonly recordedDate: FieldRef<"WaterBill", 'DateTime'>
     readonly createdAt: FieldRef<"WaterBill", 'DateTime'>
-    readonly createdBy: FieldRef<"WaterBill", 'DateTime'>
+    readonly createdBy: FieldRef<"WaterBill", 'String'>
     readonly updatedAt: FieldRef<"WaterBill", 'DateTime'>
-    readonly updatedBy: FieldRef<"WaterBill", 'DateTime'>
+    readonly updatedBy: FieldRef<"WaterBill", 'String'>
   }
     
 
@@ -14306,9 +14394,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdOtherEnergyMaxAggregateOutputType = {
@@ -14317,9 +14405,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type HouseholdOtherEnergyCountAggregateOutputType = {
@@ -14473,9 +14561,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: HouseholdOtherEnergyCountAggregateOutputType | null
     _avg: HouseholdOtherEnergyAvgAggregateOutputType | null
     _sum: HouseholdOtherEnergySumAggregateOutputType | null
@@ -14539,9 +14627,9 @@ export namespace Prisma {
       totalCarbonFootprint: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["householdOtherEnergy"]>
     composites: {}
   }
@@ -14550,7 +14638,7 @@ export namespace Prisma {
   type HouseholdOtherEnergyGetPayload<S extends boolean | null | undefined | HouseholdOtherEnergyDefaultArgs> = $Result.GetResult<Prisma.$HouseholdOtherEnergyPayload, S>
 
   type HouseholdOtherEnergyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HouseholdOtherEnergyFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HouseholdOtherEnergyFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HouseholdOtherEnergyCountAggregateInputType | true
     }
 
@@ -14944,9 +15032,9 @@ export namespace Prisma {
     readonly totalCarbonFootprint: FieldRef<"HouseholdOtherEnergy", 'Decimal'>
     readonly recordedDate: FieldRef<"HouseholdOtherEnergy", 'DateTime'>
     readonly createdAt: FieldRef<"HouseholdOtherEnergy", 'DateTime'>
-    readonly createdBy: FieldRef<"HouseholdOtherEnergy", 'DateTime'>
+    readonly createdBy: FieldRef<"HouseholdOtherEnergy", 'String'>
     readonly updatedAt: FieldRef<"HouseholdOtherEnergy", 'DateTime'>
-    readonly updatedBy: FieldRef<"HouseholdOtherEnergy", 'DateTime'>
+    readonly updatedBy: FieldRef<"HouseholdOtherEnergy", 'String'>
   }
     
 
@@ -15324,9 +15412,9 @@ export namespace Prisma {
     amountConsumption: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type OtherEnergyConsumptionMaxAggregateOutputType = {
@@ -15337,9 +15425,9 @@ export namespace Prisma {
     amountConsumption: Decimal | null
     recordedDate: Date | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type OtherEnergyConsumptionCountAggregateOutputType = {
@@ -15505,9 +15593,9 @@ export namespace Prisma {
     amountConsumption: Decimal
     recordedDate: Date
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: OtherEnergyConsumptionCountAggregateOutputType | null
     _avg: OtherEnergyConsumptionAvgAggregateOutputType | null
     _sum: OtherEnergyConsumptionSumAggregateOutputType | null
@@ -15577,9 +15665,9 @@ export namespace Prisma {
       amountConsumption: Prisma.Decimal
       recordedDate: Date
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["otherEnergyConsumption"]>
     composites: {}
   }
@@ -15588,7 +15676,7 @@ export namespace Prisma {
   type OtherEnergyConsumptionGetPayload<S extends boolean | null | undefined | OtherEnergyConsumptionDefaultArgs> = $Result.GetResult<Prisma.$OtherEnergyConsumptionPayload, S>
 
   type OtherEnergyConsumptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<OtherEnergyConsumptionFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<OtherEnergyConsumptionFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: OtherEnergyConsumptionCountAggregateInputType | true
     }
 
@@ -15984,9 +16072,9 @@ export namespace Prisma {
     readonly amountConsumption: FieldRef<"OtherEnergyConsumption", 'Decimal'>
     readonly recordedDate: FieldRef<"OtherEnergyConsumption", 'DateTime'>
     readonly createdAt: FieldRef<"OtherEnergyConsumption", 'DateTime'>
-    readonly createdBy: FieldRef<"OtherEnergyConsumption", 'DateTime'>
+    readonly createdBy: FieldRef<"OtherEnergyConsumption", 'String'>
     readonly updatedAt: FieldRef<"OtherEnergyConsumption", 'DateTime'>
-    readonly updatedBy: FieldRef<"OtherEnergyConsumption", 'DateTime'>
+    readonly updatedBy: FieldRef<"OtherEnergyConsumption", 'String'>
   }
     
 
@@ -16338,6 +16426,9 @@ export namespace Prisma {
     id: number | null
     firstname: string | null
     lastname: string | null
+    citizenId: string | null
+    officerId: string | null
+    officerCardImage: string | null
     email: string | null
     password: string | null
     phoneNumber: string | null
@@ -16345,15 +16436,18 @@ export namespace Prisma {
     isStaff: boolean | null
     isActive: boolean | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ProfileMaxAggregateOutputType = {
     id: number | null
     firstname: string | null
     lastname: string | null
+    citizenId: string | null
+    officerId: string | null
+    officerCardImage: string | null
     email: string | null
     password: string | null
     phoneNumber: string | null
@@ -16361,15 +16455,18 @@ export namespace Prisma {
     isStaff: boolean | null
     isActive: boolean | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ProfileCountAggregateOutputType = {
     id: number
     firstname: number
     lastname: number
+    citizenId: number
+    officerId: number
+    officerCardImage: number
     email: number
     password: number
     phoneNumber: number
@@ -16396,6 +16493,9 @@ export namespace Prisma {
     id?: true
     firstname?: true
     lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
@@ -16412,6 +16512,9 @@ export namespace Prisma {
     id?: true
     firstname?: true
     lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
@@ -16428,6 +16531,9 @@ export namespace Prisma {
     id?: true
     firstname?: true
     lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
@@ -16531,16 +16637,19 @@ export namespace Prisma {
     id: number
     firstname: string
     lastname: string
+    citizenId: string
+    officerId: string | null
+    officerCardImage: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
+    phoneNumber: string | null
+    profileImg: string | null
     isStaff: boolean
     isActive: boolean
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
     _sum: ProfileSumAggregateOutputType | null
@@ -16566,6 +16675,9 @@ export namespace Prisma {
     id?: boolean
     firstname?: boolean
     lastname?: boolean
+    citizenId?: boolean
+    officerId?: boolean
+    officerCardImage?: boolean
     email?: boolean
     password?: boolean
     phoneNumber?: boolean
@@ -16584,6 +16696,9 @@ export namespace Prisma {
     id?: boolean
     firstname?: boolean
     lastname?: boolean
+    citizenId?: boolean
+    officerId?: boolean
+    officerCardImage?: boolean
     email?: boolean
     password?: boolean
     phoneNumber?: boolean
@@ -16611,16 +16726,19 @@ export namespace Prisma {
       id: number
       firstname: string
       lastname: string
+      citizenId: string
+      officerId: string | null
+      officerCardImage: string | null
       email: string
       password: string
-      phoneNumber: string
-      profileImg: string
+      phoneNumber: string | null
+      profileImg: string | null
       isStaff: boolean
       isActive: boolean
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -16629,7 +16747,7 @@ export namespace Prisma {
   type ProfileGetPayload<S extends boolean | null | undefined | ProfileDefaultArgs> = $Result.GetResult<Prisma.$ProfilePayload, S>
 
   type ProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProfileFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<ProfileFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: ProfileCountAggregateInputType | true
     }
 
@@ -17019,6 +17137,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Profile", 'Int'>
     readonly firstname: FieldRef<"Profile", 'String'>
     readonly lastname: FieldRef<"Profile", 'String'>
+    readonly citizenId: FieldRef<"Profile", 'String'>
+    readonly officerId: FieldRef<"Profile", 'String'>
+    readonly officerCardImage: FieldRef<"Profile", 'String'>
     readonly email: FieldRef<"Profile", 'String'>
     readonly password: FieldRef<"Profile", 'String'>
     readonly phoneNumber: FieldRef<"Profile", 'String'>
@@ -17026,9 +17147,9 @@ export namespace Prisma {
     readonly isStaff: FieldRef<"Profile", 'Boolean'>
     readonly isActive: FieldRef<"Profile", 'Boolean'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
-    readonly createdBy: FieldRef<"Profile", 'DateTime'>
+    readonly createdBy: FieldRef<"Profile", 'String'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
-    readonly updatedBy: FieldRef<"Profile", 'DateTime'>
+    readonly updatedBy: FieldRef<"Profile", 'String'>
   }
     
 
@@ -17408,9 +17529,9 @@ export namespace Prisma {
     canEditSubdistrict: boolean | null
     canGrant: boolean | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ProfilePermissionMaxAggregateOutputType = {
@@ -17420,9 +17541,9 @@ export namespace Prisma {
     canEditSubdistrict: boolean | null
     canGrant: boolean | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type ProfilePermissionCountAggregateOutputType = {
@@ -17581,9 +17702,9 @@ export namespace Prisma {
     canEditSubdistrict: boolean
     canGrant: boolean
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: ProfilePermissionCountAggregateOutputType | null
     _avg: ProfilePermissionAvgAggregateOutputType | null
     _sum: ProfilePermissionSumAggregateOutputType | null
@@ -17650,9 +17771,9 @@ export namespace Prisma {
       canEditSubdistrict: boolean
       canGrant: boolean
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["profilePermission"]>
     composites: {}
   }
@@ -17661,7 +17782,7 @@ export namespace Prisma {
   type ProfilePermissionGetPayload<S extends boolean | null | undefined | ProfilePermissionDefaultArgs> = $Result.GetResult<Prisma.$ProfilePermissionPayload, S>
 
   type ProfilePermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProfilePermissionFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<ProfilePermissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: ProfilePermissionCountAggregateInputType | true
     }
 
@@ -18056,9 +18177,9 @@ export namespace Prisma {
     readonly canEditSubdistrict: FieldRef<"ProfilePermission", 'Boolean'>
     readonly canGrant: FieldRef<"ProfilePermission", 'Boolean'>
     readonly createdAt: FieldRef<"ProfilePermission", 'DateTime'>
-    readonly createdBy: FieldRef<"ProfilePermission", 'DateTime'>
+    readonly createdBy: FieldRef<"ProfilePermission", 'String'>
     readonly updatedAt: FieldRef<"ProfilePermission", 'DateTime'>
-    readonly updatedBy: FieldRef<"ProfilePermission", 'DateTime'>
+    readonly updatedBy: FieldRef<"ProfilePermission", 'String'>
   }
     
 
@@ -18412,28 +18533,40 @@ export namespace Prisma {
     id: number | null
     addressId: number | null
     title: string | null
+    LogoImg: string | null
+    OrganizationEmail: string | null
+    Status: $Enums.TeamStatus | null
+    RequestDocument: string | null
     maximumLevel: $Enums.MaximumLevel | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type TeamMaxAggregateOutputType = {
     id: number | null
     addressId: number | null
     title: string | null
+    LogoImg: string | null
+    OrganizationEmail: string | null
+    Status: $Enums.TeamStatus | null
+    RequestDocument: string | null
     maximumLevel: $Enums.MaximumLevel | null
     createdAt: Date | null
-    createdBy: Date | null
+    createdBy: string | null
     updatedAt: Date | null
-    updatedBy: Date | null
+    updatedBy: string | null
   }
 
   export type TeamCountAggregateOutputType = {
     id: number
     addressId: number
     title: number
+    LogoImg: number
+    OrganizationEmail: number
+    Status: number
+    RequestDocument: number
     maximumLevel: number
     createdAt: number
     createdBy: number
@@ -18457,6 +18590,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
+    LogoImg?: true
+    OrganizationEmail?: true
+    Status?: true
+    RequestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -18468,6 +18605,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
+    LogoImg?: true
+    OrganizationEmail?: true
+    Status?: true
+    RequestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -18479,6 +18620,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
+    LogoImg?: true
+    OrganizationEmail?: true
+    Status?: true
+    RequestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -18577,11 +18722,15 @@ export namespace Prisma {
     id: number
     addressId: number
     title: string
+    LogoImg: string | null
+    OrganizationEmail: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt: Date
-    createdBy: Date
+    createdBy: string
     updatedAt: Date
-    updatedBy: Date
+    updatedBy: string
     _count: TeamCountAggregateOutputType | null
     _avg: TeamAvgAggregateOutputType | null
     _sum: TeamSumAggregateOutputType | null
@@ -18607,6 +18756,10 @@ export namespace Prisma {
     id?: boolean
     addressId?: boolean
     title?: boolean
+    LogoImg?: boolean
+    OrganizationEmail?: boolean
+    Status?: boolean
+    RequestDocument?: boolean
     maximumLevel?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -18621,6 +18774,10 @@ export namespace Prisma {
     id?: boolean
     addressId?: boolean
     title?: boolean
+    LogoImg?: boolean
+    OrganizationEmail?: boolean
+    Status?: boolean
+    RequestDocument?: boolean
     maximumLevel?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -18645,11 +18802,15 @@ export namespace Prisma {
       id: number
       addressId: number
       title: string
+      LogoImg: string | null
+      OrganizationEmail: string | null
+      Status: $Enums.TeamStatus
+      RequestDocument: string
       maximumLevel: $Enums.MaximumLevel
       createdAt: Date
-      createdBy: Date
+      createdBy: string
       updatedAt: Date
-      updatedBy: Date
+      updatedBy: string
     }, ExtArgs["result"]["team"]>
     composites: {}
   }
@@ -18658,7 +18819,7 @@ export namespace Prisma {
   type TeamGetPayload<S extends boolean | null | undefined | TeamDefaultArgs> = $Result.GetResult<Prisma.$TeamPayload, S>
 
   type TeamCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TeamFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<TeamFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: TeamCountAggregateInputType | true
     }
 
@@ -19050,11 +19211,15 @@ export namespace Prisma {
     readonly id: FieldRef<"Team", 'Int'>
     readonly addressId: FieldRef<"Team", 'Int'>
     readonly title: FieldRef<"Team", 'String'>
+    readonly LogoImg: FieldRef<"Team", 'String'>
+    readonly OrganizationEmail: FieldRef<"Team", 'String'>
+    readonly Status: FieldRef<"Team", 'TeamStatus'>
+    readonly RequestDocument: FieldRef<"Team", 'String'>
     readonly maximumLevel: FieldRef<"Team", 'MaximumLevel'>
     readonly createdAt: FieldRef<"Team", 'DateTime'>
-    readonly createdBy: FieldRef<"Team", 'DateTime'>
+    readonly createdBy: FieldRef<"Team", 'String'>
     readonly updatedAt: FieldRef<"Team", 'DateTime'>
-    readonly updatedBy: FieldRef<"Team", 'DateTime'>
+    readonly updatedBy: FieldRef<"Team", 'String'>
   }
     
 
@@ -19612,7 +19777,7 @@ export namespace Prisma {
   type OldUserGetPayload<S extends boolean | null | undefined | OldUserDefaultArgs> = $Result.GetResult<Prisma.$OldUserPayload, S>
 
   type OldUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<OldUserFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<OldUserFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: OldUserCountAggregateInputType | true
     }
 
@@ -20567,7 +20732,7 @@ export namespace Prisma {
   type OldClientGetPayload<S extends boolean | null | undefined | OldClientDefaultArgs> = $Result.GetResult<Prisma.$OldClientPayload, S>
 
   type OldClientCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<OldClientFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<OldClientFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: OldClientCountAggregateInputType | true
     }
 
@@ -21353,6 +21518,7 @@ export namespace Prisma {
     name: 'name',
     carbonCoefficient: 'carbonCoefficient',
     unit: 'unit',
+    recorded_date: 'recorded_date',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
     updatedAt: 'updatedAt',
@@ -21503,6 +21669,9 @@ export namespace Prisma {
     id: 'id',
     firstname: 'firstname',
     lastname: 'lastname',
+    citizenId: 'citizenId',
+    officerId: 'officerId',
+    officerCardImage: 'officerCardImage',
     email: 'email',
     password: 'password',
     phoneNumber: 'phoneNumber',
@@ -21537,6 +21706,10 @@ export namespace Prisma {
     id: 'id',
     addressId: 'addressId',
     title: 'title',
+    LogoImg: 'LogoImg',
+    OrganizationEmail: 'OrganizationEmail',
+    Status: 'Status',
+    RequestDocument: 'RequestDocument',
     maximumLevel: 'maximumLevel',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
@@ -21586,6 +21759,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -21713,6 +21894,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TeamStatus'
+   */
+  export type EnumTeamStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TeamStatus[]'
+   */
+  export type ListEnumTeamStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'MaximumLevel'
    */
   export type EnumMaximumLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaximumLevel'>
@@ -21832,9 +22027,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFilter<"Household"> | $Enums.HouseType
     recordedDate?: DateTimeFilter<"Household"> | Date | string
     createdAt?: DateTimeFilter<"Household"> | Date | string
-    createdBy?: DateTimeFilter<"Household"> | Date | string
+    createdBy?: StringFilter<"Household"> | string
     updatedAt?: DateTimeFilter<"Household"> | Date | string
-    updatedBy?: DateTimeFilter<"Household"> | Date | string
+    updatedBy?: StringFilter<"Household"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     carbonFootprints?: CarbonFootprintListRelationFilter
     privateVehicles?: PrivateVehicleListRelationFilter
@@ -21879,9 +22074,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFilter<"Household"> | $Enums.HouseType
     recordedDate?: DateTimeFilter<"Household"> | Date | string
     createdAt?: DateTimeFilter<"Household"> | Date | string
-    createdBy?: DateTimeFilter<"Household"> | Date | string
+    createdBy?: StringFilter<"Household"> | string
     updatedAt?: DateTimeFilter<"Household"> | Date | string
-    updatedBy?: DateTimeFilter<"Household"> | Date | string
+    updatedBy?: StringFilter<"Household"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     carbonFootprints?: CarbonFootprintListRelationFilter
     privateVehicles?: PrivateVehicleListRelationFilter
@@ -21921,9 +22116,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeWithAggregatesFilter<"Household"> | $Enums.HouseType
     recordedDate?: DateTimeWithAggregatesFilter<"Household"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Household"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"Household"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Household"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Household"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"Household"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Household"> | string
   }
 
   export type CarbonFootprintWhereInput = {
@@ -21932,30 +22127,30 @@ export namespace Prisma {
     NOT?: CarbonFootprintWhereInput | CarbonFootprintWhereInput[]
     id?: IntFilter<"CarbonFootprint"> | number
     householdId?: IntFilter<"CarbonFootprint"> | number
-    householdElectricityId?: IntFilter<"CarbonFootprint"> | number
-    householdWaterSupplyId?: IntFilter<"CarbonFootprint"> | number
-    householdOtherEnergyId?: IntFilter<"CarbonFootprint"> | number
-    transportaionId?: IntFilter<"CarbonFootprint"> | number
+    householdElectricityId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    householdWaterSupplyId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    householdOtherEnergyId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    transportaionId?: IntNullableFilter<"CarbonFootprint"> | number | null
     totalCarbonFootprint?: DecimalFilter<"CarbonFootprint"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"CarbonFootprint"> | Date | string
     createdAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    createdBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    createdBy?: StringFilter<"CarbonFootprint"> | string
     updatedAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    updatedBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    updatedBy?: StringFilter<"CarbonFootprint"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
-    householdElectricity?: XOR<HouseholdElectricityRelationFilter, HouseholdElectricityWhereInput>
-    householdWaterSupply?: XOR<HouseholdWaterSupplyRelationFilter, HouseholdWaterSupplyWhereInput>
-    householdOtherEnergy?: XOR<HouseholdOtherEnergyRelationFilter, HouseholdOtherEnergyWhereInput>
-    transportation?: XOR<TransportationRelationFilter, TransportationWhereInput>
+    householdElectricity?: XOR<HouseholdElectricityNullableRelationFilter, HouseholdElectricityWhereInput> | null
+    householdWaterSupply?: XOR<HouseholdWaterSupplyNullableRelationFilter, HouseholdWaterSupplyWhereInput> | null
+    householdOtherEnergy?: XOR<HouseholdOtherEnergyNullableRelationFilter, HouseholdOtherEnergyWhereInput> | null
+    transportation?: XOR<TransportationNullableRelationFilter, TransportationWhereInput> | null
   }
 
   export type CarbonFootprintOrderByWithRelationInput = {
     id?: SortOrder
     householdId?: SortOrder
-    householdElectricityId?: SortOrder
-    householdWaterSupplyId?: SortOrder
-    householdOtherEnergyId?: SortOrder
-    transportaionId?: SortOrder
+    householdElectricityId?: SortOrderInput | SortOrder
+    householdWaterSupplyId?: SortOrderInput | SortOrder
+    householdOtherEnergyId?: SortOrderInput | SortOrder
+    transportaionId?: SortOrderInput | SortOrder
     totalCarbonFootprint?: SortOrder
     recordedDate?: SortOrder
     createdAt?: SortOrder
@@ -21971,7 +22166,6 @@ export namespace Prisma {
 
   export type CarbonFootprintWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    householdId?: number
     householdElectricityId?: number
     householdWaterSupplyId?: number
     householdOtherEnergyId?: number
@@ -21980,26 +22174,27 @@ export namespace Prisma {
     AND?: CarbonFootprintWhereInput | CarbonFootprintWhereInput[]
     OR?: CarbonFootprintWhereInput[]
     NOT?: CarbonFootprintWhereInput | CarbonFootprintWhereInput[]
+    householdId?: IntFilter<"CarbonFootprint"> | number
     totalCarbonFootprint?: DecimalFilter<"CarbonFootprint"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"CarbonFootprint"> | Date | string
     createdAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    createdBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    createdBy?: StringFilter<"CarbonFootprint"> | string
     updatedAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    updatedBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    updatedBy?: StringFilter<"CarbonFootprint"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
-    householdElectricity?: XOR<HouseholdElectricityRelationFilter, HouseholdElectricityWhereInput>
-    householdWaterSupply?: XOR<HouseholdWaterSupplyRelationFilter, HouseholdWaterSupplyWhereInput>
-    householdOtherEnergy?: XOR<HouseholdOtherEnergyRelationFilter, HouseholdOtherEnergyWhereInput>
-    transportation?: XOR<TransportationRelationFilter, TransportationWhereInput>
-  }, "id" | "householdId" | "householdElectricityId" | "householdWaterSupplyId" | "householdOtherEnergyId" | "transportaionId" | "householdId_recordedDate">
+    householdElectricity?: XOR<HouseholdElectricityNullableRelationFilter, HouseholdElectricityWhereInput> | null
+    householdWaterSupply?: XOR<HouseholdWaterSupplyNullableRelationFilter, HouseholdWaterSupplyWhereInput> | null
+    householdOtherEnergy?: XOR<HouseholdOtherEnergyNullableRelationFilter, HouseholdOtherEnergyWhereInput> | null
+    transportation?: XOR<TransportationNullableRelationFilter, TransportationWhereInput> | null
+  }, "id" | "householdElectricityId" | "householdWaterSupplyId" | "householdOtherEnergyId" | "transportaionId" | "householdId_recordedDate">
 
   export type CarbonFootprintOrderByWithAggregationInput = {
     id?: SortOrder
     householdId?: SortOrder
-    householdElectricityId?: SortOrder
-    householdWaterSupplyId?: SortOrder
-    householdOtherEnergyId?: SortOrder
-    transportaionId?: SortOrder
+    householdElectricityId?: SortOrderInput | SortOrder
+    householdWaterSupplyId?: SortOrderInput | SortOrder
+    householdOtherEnergyId?: SortOrderInput | SortOrder
+    transportaionId?: SortOrderInput | SortOrder
     totalCarbonFootprint?: SortOrder
     recordedDate?: SortOrder
     createdAt?: SortOrder
@@ -22019,16 +22214,16 @@ export namespace Prisma {
     NOT?: CarbonFootprintScalarWhereWithAggregatesInput | CarbonFootprintScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"CarbonFootprint"> | number
     householdId?: IntWithAggregatesFilter<"CarbonFootprint"> | number
-    householdElectricityId?: IntWithAggregatesFilter<"CarbonFootprint"> | number
-    householdWaterSupplyId?: IntWithAggregatesFilter<"CarbonFootprint"> | number
-    householdOtherEnergyId?: IntWithAggregatesFilter<"CarbonFootprint"> | number
-    transportaionId?: IntWithAggregatesFilter<"CarbonFootprint"> | number
+    householdElectricityId?: IntNullableWithAggregatesFilter<"CarbonFootprint"> | number | null
+    householdWaterSupplyId?: IntNullableWithAggregatesFilter<"CarbonFootprint"> | number | null
+    householdOtherEnergyId?: IntNullableWithAggregatesFilter<"CarbonFootprint"> | number | null
+    transportaionId?: IntNullableWithAggregatesFilter<"CarbonFootprint"> | number | null
     totalCarbonFootprint?: DecimalWithAggregatesFilter<"CarbonFootprint"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"CarbonFootprint"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"CarbonFootprint"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"CarbonFootprint"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"CarbonFootprint"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"CarbonFootprint"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"CarbonFootprint"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"CarbonFootprint"> | string
   }
 
   export type EmissionFactorWhereInput = {
@@ -22040,10 +22235,11 @@ export namespace Prisma {
     name?: StringFilter<"EmissionFactor"> | string
     carbonCoefficient?: DecimalFilter<"EmissionFactor"> | Decimal | DecimalJsLike | number | string
     unit?: StringFilter<"EmissionFactor"> | string
+    recorded_date?: DateTimeFilter<"EmissionFactor"> | Date | string
     createdAt?: DateTimeFilter<"EmissionFactor"> | Date | string
-    createdBy?: DateTimeFilter<"EmissionFactor"> | Date | string
+    createdBy?: StringFilter<"EmissionFactor"> | string
     updatedAt?: DateTimeFilter<"EmissionFactor"> | Date | string
-    updatedBy?: DateTimeFilter<"EmissionFactor"> | Date | string
+    updatedBy?: StringFilter<"EmissionFactor"> | string
     privateVehicles?: PrivateVehicleListRelationFilter
     electricityBills?: ElectricityBillListRelationFilter
     waterBills?: WaterBillListRelationFilter
@@ -22056,6 +22252,7 @@ export namespace Prisma {
     name?: SortOrder
     carbonCoefficient?: SortOrder
     unit?: SortOrder
+    recorded_date?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
@@ -22075,10 +22272,11 @@ export namespace Prisma {
     name?: StringFilter<"EmissionFactor"> | string
     carbonCoefficient?: DecimalFilter<"EmissionFactor"> | Decimal | DecimalJsLike | number | string
     unit?: StringFilter<"EmissionFactor"> | string
+    recorded_date?: DateTimeFilter<"EmissionFactor"> | Date | string
     createdAt?: DateTimeFilter<"EmissionFactor"> | Date | string
-    createdBy?: DateTimeFilter<"EmissionFactor"> | Date | string
+    createdBy?: StringFilter<"EmissionFactor"> | string
     updatedAt?: DateTimeFilter<"EmissionFactor"> | Date | string
-    updatedBy?: DateTimeFilter<"EmissionFactor"> | Date | string
+    updatedBy?: StringFilter<"EmissionFactor"> | string
     privateVehicles?: PrivateVehicleListRelationFilter
     electricityBills?: ElectricityBillListRelationFilter
     waterBills?: WaterBillListRelationFilter
@@ -22091,6 +22289,7 @@ export namespace Prisma {
     name?: SortOrder
     carbonCoefficient?: SortOrder
     unit?: SortOrder
+    recorded_date?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
@@ -22111,10 +22310,11 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"EmissionFactor"> | string
     carbonCoefficient?: DecimalWithAggregatesFilter<"EmissionFactor"> | Decimal | DecimalJsLike | number | string
     unit?: StringWithAggregatesFilter<"EmissionFactor"> | string
+    recorded_date?: DateTimeWithAggregatesFilter<"EmissionFactor"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"EmissionFactor"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"EmissionFactor"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"EmissionFactor"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"EmissionFactor"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"EmissionFactor"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"EmissionFactor"> | string
   }
 
   export type VehiclePropertyWhereInput = {
@@ -22125,9 +22325,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFilter<"VehicleProperty"> | $Enums.ModelType
     consumptionRate?: DecimalFilter<"VehicleProperty"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"VehicleProperty"> | Date | string
-    createdBy?: DateTimeFilter<"VehicleProperty"> | Date | string
+    createdBy?: StringFilter<"VehicleProperty"> | string
     updatedAt?: DateTimeFilter<"VehicleProperty"> | Date | string
-    updatedBy?: DateTimeFilter<"VehicleProperty"> | Date | string
+    updatedBy?: StringFilter<"VehicleProperty"> | string
     privateVehicles?: PrivateVehicleListRelationFilter
   }
 
@@ -22150,9 +22350,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFilter<"VehicleProperty"> | $Enums.ModelType
     consumptionRate?: DecimalFilter<"VehicleProperty"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"VehicleProperty"> | Date | string
-    createdBy?: DateTimeFilter<"VehicleProperty"> | Date | string
+    createdBy?: StringFilter<"VehicleProperty"> | string
     updatedAt?: DateTimeFilter<"VehicleProperty"> | Date | string
-    updatedBy?: DateTimeFilter<"VehicleProperty"> | Date | string
+    updatedBy?: StringFilter<"VehicleProperty"> | string
     privateVehicles?: PrivateVehicleListRelationFilter
   }, "id">
 
@@ -22179,9 +22379,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeWithAggregatesFilter<"VehicleProperty"> | $Enums.ModelType
     consumptionRate?: DecimalWithAggregatesFilter<"VehicleProperty"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"VehicleProperty"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"VehicleProperty"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"VehicleProperty"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"VehicleProperty"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"VehicleProperty"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"VehicleProperty"> | string
   }
 
   export type PrivateVehicleWhereInput = {
@@ -22199,9 +22399,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFilter<"PrivateVehicle"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"PrivateVehicle"> | Date | string
     createdAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    createdBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    createdBy?: StringFilter<"PrivateVehicle"> | string
     updatedAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    updatedBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    updatedBy?: StringFilter<"PrivateVehicle"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
     vehicleProperty?: XOR<VehiclePropertyRelationFilter, VehiclePropertyWhereInput>
@@ -22242,9 +22442,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFilter<"PrivateVehicle"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"PrivateVehicle"> | Date | string
     createdAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    createdBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    createdBy?: StringFilter<"PrivateVehicle"> | string
     updatedAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    updatedBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    updatedBy?: StringFilter<"PrivateVehicle"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
     vehicleProperty?: XOR<VehiclePropertyRelationFilter, VehiclePropertyWhereInput>
@@ -22287,9 +22487,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalWithAggregatesFilter<"PrivateVehicle"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"PrivateVehicle"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"PrivateVehicle"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"PrivateVehicle"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"PrivateVehicle"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"PrivateVehicle"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"PrivateVehicle"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"PrivateVehicle"> | string
   }
 
   export type TransportationWhereInput = {
@@ -22301,9 +22501,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"Transportation"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"Transportation"> | Date | string
     createdAt?: DateTimeFilter<"Transportation"> | Date | string
-    createdBy?: DateTimeFilter<"Transportation"> | Date | string
+    createdBy?: StringFilter<"Transportation"> | string
     updatedAt?: DateTimeFilter<"Transportation"> | Date | string
-    updatedBy?: DateTimeFilter<"Transportation"> | Date | string
+    updatedBy?: StringFilter<"Transportation"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }
@@ -22331,9 +22531,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"Transportation"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"Transportation"> | Date | string
     createdAt?: DateTimeFilter<"Transportation"> | Date | string
-    createdBy?: DateTimeFilter<"Transportation"> | Date | string
+    createdBy?: StringFilter<"Transportation"> | string
     updatedAt?: DateTimeFilter<"Transportation"> | Date | string
-    updatedBy?: DateTimeFilter<"Transportation"> | Date | string
+    updatedBy?: StringFilter<"Transportation"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }, "id" | "householdId_recordedDate">
@@ -22363,9 +22563,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalWithAggregatesFilter<"Transportation"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"Transportation"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Transportation"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"Transportation"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Transportation"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transportation"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"Transportation"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Transportation"> | string
   }
 
   export type HouseholdElectricityWhereInput = {
@@ -22377,9 +22577,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdElectricity"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdElectricity"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    createdBy?: StringFilter<"HouseholdElectricity"> | string
     updatedAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    updatedBy?: StringFilter<"HouseholdElectricity"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }
@@ -22407,9 +22607,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdElectricity"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdElectricity"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    createdBy?: StringFilter<"HouseholdElectricity"> | string
     updatedAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    updatedBy?: StringFilter<"HouseholdElectricity"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }, "id" | "householdId_recordedDate">
@@ -22439,9 +22639,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalWithAggregatesFilter<"HouseholdElectricity"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"HouseholdElectricity"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"HouseholdElectricity"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"HouseholdElectricity"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"HouseholdElectricity"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"HouseholdElectricity"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"HouseholdElectricity"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"HouseholdElectricity"> | string
   }
 
   export type ElectricityBillWhereInput = {
@@ -22455,9 +22655,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFilter<"ElectricityBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"ElectricityBill"> | Date | string
     createdAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    createdBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    createdBy?: StringFilter<"ElectricityBill"> | string
     updatedAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    updatedBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    updatedBy?: StringFilter<"ElectricityBill"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }
@@ -22488,9 +22688,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFilter<"ElectricityBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"ElectricityBill"> | Date | string
     createdAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    createdBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    createdBy?: StringFilter<"ElectricityBill"> | string
     updatedAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    updatedBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    updatedBy?: StringFilter<"ElectricityBill"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }, "id">
@@ -22524,9 +22724,9 @@ export namespace Prisma {
     electricityMeter?: DecimalWithAggregatesFilter<"ElectricityBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"ElectricityBill"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"ElectricityBill"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"ElectricityBill"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"ElectricityBill"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"ElectricityBill"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"ElectricityBill"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"ElectricityBill"> | string
   }
 
   export type HouseholdWaterSupplyWhereInput = {
@@ -22538,9 +22738,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdWaterSupply"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    createdBy?: StringFilter<"HouseholdWaterSupply"> | string
     updatedAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    updatedBy?: StringFilter<"HouseholdWaterSupply"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }
@@ -22568,9 +22768,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdWaterSupply"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    createdBy?: StringFilter<"HouseholdWaterSupply"> | string
     updatedAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    updatedBy?: StringFilter<"HouseholdWaterSupply"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }, "id" | "householdId_recordedDate">
@@ -22600,9 +22800,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalWithAggregatesFilter<"HouseholdWaterSupply"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"HouseholdWaterSupply"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"HouseholdWaterSupply"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"HouseholdWaterSupply"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"HouseholdWaterSupply"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"HouseholdWaterSupply"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"HouseholdWaterSupply"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"HouseholdWaterSupply"> | string
   }
 
   export type WaterBillWhereInput = {
@@ -22616,9 +22816,9 @@ export namespace Prisma {
     waterMeter?: DecimalFilter<"WaterBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"WaterBill"> | Date | string
     createdAt?: DateTimeFilter<"WaterBill"> | Date | string
-    createdBy?: DateTimeFilter<"WaterBill"> | Date | string
+    createdBy?: StringFilter<"WaterBill"> | string
     updatedAt?: DateTimeFilter<"WaterBill"> | Date | string
-    updatedBy?: DateTimeFilter<"WaterBill"> | Date | string
+    updatedBy?: StringFilter<"WaterBill"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }
@@ -22649,9 +22849,9 @@ export namespace Prisma {
     waterMeter?: DecimalFilter<"WaterBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"WaterBill"> | Date | string
     createdAt?: DateTimeFilter<"WaterBill"> | Date | string
-    createdBy?: DateTimeFilter<"WaterBill"> | Date | string
+    createdBy?: StringFilter<"WaterBill"> | string
     updatedAt?: DateTimeFilter<"WaterBill"> | Date | string
-    updatedBy?: DateTimeFilter<"WaterBill"> | Date | string
+    updatedBy?: StringFilter<"WaterBill"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }, "id">
@@ -22685,9 +22885,9 @@ export namespace Prisma {
     waterMeter?: DecimalWithAggregatesFilter<"WaterBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"WaterBill"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"WaterBill"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"WaterBill"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"WaterBill"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"WaterBill"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"WaterBill"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"WaterBill"> | string
   }
 
   export type HouseholdOtherEnergyWhereInput = {
@@ -22699,9 +22899,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdOtherEnergy"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    createdBy?: StringFilter<"HouseholdOtherEnergy"> | string
     updatedAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    updatedBy?: StringFilter<"HouseholdOtherEnergy"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }
@@ -22729,9 +22929,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdOtherEnergy"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    createdBy?: StringFilter<"HouseholdOtherEnergy"> | string
     updatedAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    updatedBy?: StringFilter<"HouseholdOtherEnergy"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     carbonFootprint?: XOR<CarbonFootprintNullableRelationFilter, CarbonFootprintWhereInput> | null
   }, "id" | "householdId_recordedDate">
@@ -22761,9 +22961,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalWithAggregatesFilter<"HouseholdOtherEnergy"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"HouseholdOtherEnergy"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"HouseholdOtherEnergy"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"HouseholdOtherEnergy"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"HouseholdOtherEnergy"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"HouseholdOtherEnergy"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"HouseholdOtherEnergy"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"HouseholdOtherEnergy"> | string
   }
 
   export type OtherEnergyConsumptionWhereInput = {
@@ -22777,9 +22977,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFilter<"OtherEnergyConsumption"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
     createdAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    createdBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    createdBy?: StringFilter<"OtherEnergyConsumption"> | string
     updatedAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    updatedBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    updatedBy?: StringFilter<"OtherEnergyConsumption"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }
@@ -22810,9 +23010,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFilter<"OtherEnergyConsumption"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
     createdAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    createdBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    createdBy?: StringFilter<"OtherEnergyConsumption"> | string
     updatedAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    updatedBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    updatedBy?: StringFilter<"OtherEnergyConsumption"> | string
     household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
     emissionFactor?: XOR<EmissionFactorRelationFilter, EmissionFactorWhereInput>
   }, "id">
@@ -22846,9 +23046,9 @@ export namespace Prisma {
     amountConsumption?: DecimalWithAggregatesFilter<"OtherEnergyConsumption"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeWithAggregatesFilter<"OtherEnergyConsumption"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"OtherEnergyConsumption"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"OtherEnergyConsumption"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"OtherEnergyConsumption"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"OtherEnergyConsumption"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"OtherEnergyConsumption"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"OtherEnergyConsumption"> | string
   }
 
   export type ProfileWhereInput = {
@@ -22858,16 +23058,19 @@ export namespace Prisma {
     id?: IntFilter<"Profile"> | number
     firstname?: StringFilter<"Profile"> | string
     lastname?: StringFilter<"Profile"> | string
+    citizenId?: StringFilter<"Profile"> | string
+    officerId?: StringNullableFilter<"Profile"> | string | null
+    officerCardImage?: StringNullableFilter<"Profile"> | string | null
     email?: StringFilter<"Profile"> | string
     password?: StringFilter<"Profile"> | string
-    phoneNumber?: StringFilter<"Profile"> | string
-    profileImg?: StringFilter<"Profile"> | string
+    phoneNumber?: StringNullableFilter<"Profile"> | string | null
+    profileImg?: StringNullableFilter<"Profile"> | string | null
     isStaff?: BoolFilter<"Profile"> | boolean
     isActive?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
-    createdBy?: DateTimeFilter<"Profile"> | Date | string
+    createdBy?: StringFilter<"Profile"> | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedBy?: DateTimeFilter<"Profile"> | Date | string
+    updatedBy?: StringFilter<"Profile"> | string
     profilePermissions?: ProfilePermissionListRelationFilter
   }
 
@@ -22875,10 +23078,13 @@ export namespace Prisma {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrderInput | SortOrder
+    officerCardImage?: SortOrderInput | SortOrder
     email?: SortOrder
     password?: SortOrder
-    phoneNumber?: SortOrder
-    profileImg?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    profileImg?: SortOrderInput | SortOrder
     isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -22895,16 +23101,19 @@ export namespace Prisma {
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     firstname?: StringFilter<"Profile"> | string
     lastname?: StringFilter<"Profile"> | string
+    citizenId?: StringFilter<"Profile"> | string
+    officerId?: StringNullableFilter<"Profile"> | string | null
+    officerCardImage?: StringNullableFilter<"Profile"> | string | null
     email?: StringFilter<"Profile"> | string
     password?: StringFilter<"Profile"> | string
-    phoneNumber?: StringFilter<"Profile"> | string
-    profileImg?: StringFilter<"Profile"> | string
+    phoneNumber?: StringNullableFilter<"Profile"> | string | null
+    profileImg?: StringNullableFilter<"Profile"> | string | null
     isStaff?: BoolFilter<"Profile"> | boolean
     isActive?: BoolFilter<"Profile"> | boolean
     createdAt?: DateTimeFilter<"Profile"> | Date | string
-    createdBy?: DateTimeFilter<"Profile"> | Date | string
+    createdBy?: StringFilter<"Profile"> | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedBy?: DateTimeFilter<"Profile"> | Date | string
+    updatedBy?: StringFilter<"Profile"> | string
     profilePermissions?: ProfilePermissionListRelationFilter
   }, "id">
 
@@ -22912,10 +23121,13 @@ export namespace Prisma {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrderInput | SortOrder
+    officerCardImage?: SortOrderInput | SortOrder
     email?: SortOrder
     password?: SortOrder
-    phoneNumber?: SortOrder
-    profileImg?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    profileImg?: SortOrderInput | SortOrder
     isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -22936,16 +23148,19 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Profile"> | number
     firstname?: StringWithAggregatesFilter<"Profile"> | string
     lastname?: StringWithAggregatesFilter<"Profile"> | string
+    citizenId?: StringWithAggregatesFilter<"Profile"> | string
+    officerId?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    officerCardImage?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     email?: StringWithAggregatesFilter<"Profile"> | string
     password?: StringWithAggregatesFilter<"Profile"> | string
-    phoneNumber?: StringWithAggregatesFilter<"Profile"> | string
-    profileImg?: StringWithAggregatesFilter<"Profile"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    profileImg?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     isStaff?: BoolWithAggregatesFilter<"Profile"> | boolean
     isActive?: BoolWithAggregatesFilter<"Profile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Profile"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Profile"> | string
   }
 
   export type ProfilePermissionWhereInput = {
@@ -22958,9 +23173,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
     canGrant?: BoolFilter<"ProfilePermission"> | boolean
     createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    createdBy?: StringFilter<"ProfilePermission"> | string
     updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    updatedBy?: StringFilter<"ProfilePermission"> | string
     profile?: XOR<ProfileRelationFilter, ProfileWhereInput>
     team?: XOR<TeamRelationFilter, TeamWhereInput>
   }
@@ -22989,9 +23204,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
     canGrant?: BoolFilter<"ProfilePermission"> | boolean
     createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    createdBy?: StringFilter<"ProfilePermission"> | string
     updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    updatedBy?: StringFilter<"ProfilePermission"> | string
     profile?: XOR<ProfileRelationFilter, ProfileWhereInput>
     team?: XOR<TeamRelationFilter, TeamWhereInput>
   }, "id">
@@ -23023,9 +23238,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolWithAggregatesFilter<"ProfilePermission"> | boolean
     canGrant?: BoolWithAggregatesFilter<"ProfilePermission"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"ProfilePermission"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"ProfilePermission"> | string
   }
 
   export type TeamWhereInput = {
@@ -23035,11 +23250,15 @@ export namespace Prisma {
     id?: IntFilter<"Team"> | number
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
+    LogoImg?: StringNullableFilter<"Team"> | string | null
+    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
+    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    RequestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
-    createdBy?: DateTimeFilter<"Team"> | Date | string
+    createdBy?: StringFilter<"Team"> | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
-    updatedBy?: DateTimeFilter<"Team"> | Date | string
+    updatedBy?: StringFilter<"Team"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     profilePermissions?: ProfilePermissionListRelationFilter
   }
@@ -23048,6 +23267,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
+    LogoImg?: SortOrderInput | SortOrder
+    OrganizationEmail?: SortOrderInput | SortOrder
+    Status?: SortOrder
+    RequestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -23064,11 +23287,15 @@ export namespace Prisma {
     NOT?: TeamWhereInput | TeamWhereInput[]
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
+    LogoImg?: StringNullableFilter<"Team"> | string | null
+    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
+    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    RequestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
-    createdBy?: DateTimeFilter<"Team"> | Date | string
+    createdBy?: StringFilter<"Team"> | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
-    updatedBy?: DateTimeFilter<"Team"> | Date | string
+    updatedBy?: StringFilter<"Team"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     profilePermissions?: ProfilePermissionListRelationFilter
   }, "id">
@@ -23077,6 +23304,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
+    LogoImg?: SortOrderInput | SortOrder
+    OrganizationEmail?: SortOrderInput | SortOrder
+    Status?: SortOrder
+    RequestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -23096,11 +23327,15 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Team"> | number
     addressId?: IntWithAggregatesFilter<"Team"> | number
     title?: StringWithAggregatesFilter<"Team"> | string
+    LogoImg?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    OrganizationEmail?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    Status?: EnumTeamStatusWithAggregatesFilter<"Team"> | $Enums.TeamStatus
+    RequestDocument?: StringWithAggregatesFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelWithAggregatesFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
-    createdBy?: DateTimeWithAggregatesFilter<"Team"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Team"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
-    updatedBy?: DateTimeWithAggregatesFilter<"Team"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Team"> | string
   }
 
   export type OldUserWhereInput = {
@@ -23301,9 +23536,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -23323,9 +23558,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -23342,9 +23577,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -23364,9 +23599,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -23385,9 +23620,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdUpdateManyMutationInput = {
@@ -23395,9 +23630,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdUncheckedUpdateManyInput = {
@@ -23407,106 +23642,106 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type CarbonFootprintCreateInput = {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutCarbonFootprintsInput
-    householdElectricity: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
-    householdWaterSupply: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
-    householdOtherEnergy: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
-    transportation: TransportationCreateNestedOneWithoutCarbonFootprintInput
+    householdElectricity?: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
+    householdWaterSupply?: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
+    householdOtherEnergy?: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
+    transportation?: TransportationCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateInput = {
     id?: number
     householdId: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintUpdateInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutCarbonFootprintsNestedInput
-    householdElectricity?: HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdWaterSupply?: HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    transportation?: TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    householdElectricity?: HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput
+    householdWaterSupply?: HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput
+    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput
+    transportation?: TransportationUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type CarbonFootprintCreateManyInput = {
     id?: number
     householdId: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintUpdateManyMutationInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type CarbonFootprintUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmissionFactorCreateInput = {
@@ -23515,10 +23750,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillCreateNestedManyWithoutEmissionFactorInput
@@ -23531,10 +23767,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillUncheckedCreateNestedManyWithoutEmissionFactorInput
@@ -23547,10 +23784,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUpdateManyWithoutEmissionFactorNestedInput
@@ -23563,10 +23801,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
@@ -23579,10 +23818,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type EmissionFactorUpdateManyMutationInput = {
@@ -23591,10 +23831,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmissionFactorUncheckedUpdateManyInput = {
@@ -23603,19 +23844,20 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type VehiclePropertyCreateInput = {
     modelType: $Enums.ModelType
     consumptionRate: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutVehiclePropertyInput
   }
 
@@ -23624,9 +23866,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType
     consumptionRate: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutVehiclePropertyInput
   }
 
@@ -23634,9 +23876,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUpdateManyWithoutVehiclePropertyNestedInput
   }
 
@@ -23645,9 +23887,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutVehiclePropertyNestedInput
   }
 
@@ -23656,18 +23898,18 @@ export namespace Prisma {
     modelType: $Enums.ModelType
     consumptionRate: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type VehiclePropertyUpdateManyMutationInput = {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type VehiclePropertyUncheckedUpdateManyInput = {
@@ -23675,9 +23917,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleCreateInput = {
@@ -23688,9 +23930,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutPrivateVehiclesInput
     emissionFactor: EmissionFactorCreateNestedOneWithoutPrivateVehiclesInput
     vehicleProperty: VehiclePropertyCreateNestedOneWithoutPrivateVehiclesInput
@@ -23708,9 +23950,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleUpdateInput = {
@@ -23721,9 +23963,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutPrivateVehiclesNestedInput
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutPrivateVehiclesNestedInput
     vehicleProperty?: VehiclePropertyUpdateOneRequiredWithoutPrivateVehiclesNestedInput
@@ -23741,9 +23983,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleCreateManyInput = {
@@ -23758,9 +24000,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleUpdateManyMutationInput = {
@@ -23771,9 +24013,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleUncheckedUpdateManyInput = {
@@ -23788,18 +24030,18 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransportationCreateInput = {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutTransportationsInput
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutTransportationInput
   }
@@ -23810,9 +24052,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutTransportationInput
   }
 
@@ -23820,9 +24062,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutTransportationsNestedInput
     carbonFootprint?: CarbonFootprintUpdateOneWithoutTransportationNestedInput
   }
@@ -23833,9 +24075,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutTransportationNestedInput
   }
 
@@ -23845,18 +24087,18 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TransportationUpdateManyMutationInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransportationUncheckedUpdateManyInput = {
@@ -23865,18 +24107,18 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdElectricityCreateInput = {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdElectricitiesInput
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdElectricityInput
   }
@@ -23887,9 +24129,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdElectricityInput
   }
 
@@ -23897,9 +24139,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdElectricitiesNestedInput
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdElectricityNestedInput
   }
@@ -23910,9 +24152,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdElectricityNestedInput
   }
 
@@ -23922,18 +24164,18 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdElectricityUpdateManyMutationInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdElectricityUncheckedUpdateManyInput = {
@@ -23942,9 +24184,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillCreateInput = {
@@ -23952,9 +24194,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutElectricityBillsInput
     emissionFactor: EmissionFactorCreateNestedOneWithoutElectricityBillsInput
   }
@@ -23967,9 +24209,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillUpdateInput = {
@@ -23977,9 +24219,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutElectricityBillsNestedInput
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutElectricityBillsNestedInput
   }
@@ -23992,9 +24234,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillCreateManyInput = {
@@ -24005,9 +24247,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillUpdateManyMutationInput = {
@@ -24015,9 +24257,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillUncheckedUpdateManyInput = {
@@ -24028,18 +24270,18 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdWaterSupplyCreateInput = {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdWaterSuppliesInput
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdWaterSupplyInput
   }
@@ -24050,9 +24292,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdWaterSupplyInput
   }
 
@@ -24060,9 +24302,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdWaterSuppliesNestedInput
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdWaterSupplyNestedInput
   }
@@ -24073,9 +24315,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdWaterSupplyNestedInput
   }
 
@@ -24085,18 +24327,18 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdWaterSupplyUpdateManyMutationInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdWaterSupplyUncheckedUpdateManyInput = {
@@ -24105,9 +24347,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillCreateInput = {
@@ -24115,9 +24357,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutWaterBillsInput
     emissionFactor: EmissionFactorCreateNestedOneWithoutWaterBillsInput
   }
@@ -24130,9 +24372,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillUpdateInput = {
@@ -24140,9 +24382,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutWaterBillsNestedInput
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutWaterBillsNestedInput
   }
@@ -24155,9 +24397,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillCreateManyInput = {
@@ -24168,9 +24410,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillUpdateManyMutationInput = {
@@ -24178,9 +24420,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillUncheckedUpdateManyInput = {
@@ -24191,18 +24433,18 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdOtherEnergyCreateInput = {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdOtherEnergiesInput
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdOtherEnergyInput
   }
@@ -24213,9 +24455,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdOtherEnergyInput
   }
 
@@ -24223,9 +24465,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdOtherEnergiesNestedInput
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdOtherEnergyNestedInput
   }
@@ -24236,9 +24478,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdOtherEnergyNestedInput
   }
 
@@ -24248,18 +24490,18 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdOtherEnergyUpdateManyMutationInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdOtherEnergyUncheckedUpdateManyInput = {
@@ -24268,9 +24510,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionCreateInput = {
@@ -24278,9 +24520,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutOtherEnergyConsumptionsInput
     emissionFactor: EmissionFactorCreateNestedOneWithoutOtherEnergyConsumptionsInput
   }
@@ -24293,9 +24535,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionUpdateInput = {
@@ -24303,9 +24545,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutOtherEnergyConsumptionsNestedInput
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutOtherEnergyConsumptionsNestedInput
   }
@@ -24318,9 +24560,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionCreateManyInput = {
@@ -24331,9 +24573,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionUpdateManyMutationInput = {
@@ -24341,9 +24583,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionUncheckedUpdateManyInput = {
@@ -24354,24 +24596,27 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileCreateInput = {
     firstname: string
     lastname: string
+    citizenId: string
+    officerId?: string | null
+    officerCardImage?: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
-    isStaff: boolean
-    isActive: boolean
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isStaff?: boolean
+    isActive?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profilePermissions?: ProfilePermissionCreateNestedManyWithoutProfileInput
   }
 
@@ -24379,32 +24624,38 @@ export namespace Prisma {
     id?: number
     firstname: string
     lastname: string
+    citizenId: string
+    officerId?: string | null
+    officerCardImage?: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
-    isStaff: boolean
-    isActive: boolean
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isStaff?: boolean
+    isActive?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUpdateInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profilePermissions?: ProfilePermissionUpdateManyWithoutProfileNestedInput
   }
 
@@ -24412,16 +24663,19 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutProfileNestedInput
   }
 
@@ -24429,56 +24683,65 @@ export namespace Prisma {
     id?: number
     firstname: string
     lastname: string
+    citizenId: string
+    officerId?: string | null
+    officerCardImage?: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
-    isStaff: boolean
-    isActive: boolean
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isStaff?: boolean
+    isActive?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfileUpdateManyMutationInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionCreateInput = {
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profile: ProfileCreateNestedOneWithoutProfilePermissionsInput
     team: TeamCreateNestedOneWithoutProfilePermissionsInput
   }
@@ -24487,21 +24750,21 @@ export namespace Prisma {
     id?: number
     profileId: number
     teamId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionUpdateInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profile?: ProfileUpdateOneRequiredWithoutProfilePermissionsNestedInput
     team?: TeamUpdateOneRequiredWithoutProfilePermissionsNestedInput
   }
@@ -24513,30 +24776,30 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionCreateManyInput = {
     id?: number
     profileId: number
     teamId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionUpdateManyMutationInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionUncheckedUpdateManyInput = {
@@ -24546,18 +24809,22 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TeamCreateInput = {
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutTeamsInput
     profilePermissions?: ProfilePermissionCreateNestedManyWithoutTeamInput
   }
@@ -24566,21 +24833,29 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutTeamsNestedInput
     profilePermissions?: ProfilePermissionUpdateManyWithoutTeamNestedInput
   }
@@ -24589,11 +24864,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutTeamNestedInput
   }
 
@@ -24601,31 +24880,43 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TeamUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TeamUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OldUserCreateInput = {
@@ -25062,6 +25353,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -25078,24 +25380,29 @@ export namespace Prisma {
     isNot?: HouseholdWhereInput
   }
 
-  export type HouseholdElectricityRelationFilter = {
-    is?: HouseholdElectricityWhereInput
-    isNot?: HouseholdElectricityWhereInput
+  export type HouseholdElectricityNullableRelationFilter = {
+    is?: HouseholdElectricityWhereInput | null
+    isNot?: HouseholdElectricityWhereInput | null
   }
 
-  export type HouseholdWaterSupplyRelationFilter = {
-    is?: HouseholdWaterSupplyWhereInput
-    isNot?: HouseholdWaterSupplyWhereInput
+  export type HouseholdWaterSupplyNullableRelationFilter = {
+    is?: HouseholdWaterSupplyWhereInput | null
+    isNot?: HouseholdWaterSupplyWhereInput | null
   }
 
-  export type HouseholdOtherEnergyRelationFilter = {
-    is?: HouseholdOtherEnergyWhereInput
-    isNot?: HouseholdOtherEnergyWhereInput
+  export type HouseholdOtherEnergyNullableRelationFilter = {
+    is?: HouseholdOtherEnergyWhereInput | null
+    isNot?: HouseholdOtherEnergyWhereInput | null
   }
 
-  export type TransportationRelationFilter = {
-    is?: TransportationWhereInput
-    isNot?: TransportationWhereInput
+  export type TransportationNullableRelationFilter = {
+    is?: TransportationWhereInput | null
+    isNot?: TransportationWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CarbonFootprintHouseholdIdRecordedDateCompoundUniqueInput = {
@@ -25168,6 +25475,22 @@ export namespace Prisma {
     totalCarbonFootprint?: SortOrder
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -25197,6 +25520,7 @@ export namespace Prisma {
     name?: SortOrder
     carbonCoefficient?: SortOrder
     unit?: SortOrder
+    recorded_date?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
@@ -25214,6 +25538,7 @@ export namespace Prisma {
     name?: SortOrder
     carbonCoefficient?: SortOrder
     unit?: SortOrder
+    recorded_date?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
@@ -25226,6 +25551,7 @@ export namespace Prisma {
     name?: SortOrder
     carbonCoefficient?: SortOrder
     unit?: SortOrder
+    recorded_date?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
@@ -25785,6 +26111,21 @@ export namespace Prisma {
     _max?: NestedEnumEnergyUsageTypeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ProfilePermissionListRelationFilter = {
     every?: ProfilePermissionWhereInput
     some?: ProfilePermissionWhereInput
@@ -25799,6 +26140,9 @@ export namespace Prisma {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
@@ -25819,6 +26163,9 @@ export namespace Prisma {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
@@ -25835,6 +26182,9 @@ export namespace Prisma {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
@@ -25849,6 +26199,24 @@ export namespace Prisma {
 
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type ProfileRelationFilter = {
@@ -25909,6 +26277,13 @@ export namespace Prisma {
     teamId?: SortOrder
   }
 
+  export type EnumTeamStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamStatus | EnumTeamStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTeamStatusFilter<$PrismaModel> | $Enums.TeamStatus
+  }
+
   export type EnumMaximumLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.MaximumLevel | EnumMaximumLevelFieldRefInput<$PrismaModel>
     in?: $Enums.MaximumLevel[] | ListEnumMaximumLevelFieldRefInput<$PrismaModel>
@@ -25920,6 +26295,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
+    LogoImg?: SortOrder
+    OrganizationEmail?: SortOrder
+    Status?: SortOrder
+    RequestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -25936,6 +26315,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
+    LogoImg?: SortOrder
+    OrganizationEmail?: SortOrder
+    Status?: SortOrder
+    RequestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -25947,6 +26330,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
+    LogoImg?: SortOrder
+    OrganizationEmail?: SortOrder
+    Status?: SortOrder
+    RequestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -25957,6 +26344,16 @@ export namespace Prisma {
   export type TeamSumOrderByAggregateInput = {
     id?: SortOrder
     addressId?: SortOrder
+  }
+
+  export type EnumTeamStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamStatus | EnumTeamStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTeamStatusWithAggregatesFilter<$PrismaModel> | $Enums.TeamStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTeamStatusFilter<$PrismaModel>
+    _max?: NestedEnumTeamStatusFilter<$PrismaModel>
   }
 
   export type EnumMaximumLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -26595,36 +26992,52 @@ export namespace Prisma {
     update?: XOR<XOR<HouseholdUpdateToOneWithWhereWithoutCarbonFootprintsInput, HouseholdUpdateWithoutCarbonFootprintsInput>, HouseholdUncheckedUpdateWithoutCarbonFootprintsInput>
   }
 
-  export type HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput = {
+  export type HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput = {
     create?: XOR<HouseholdElectricityCreateWithoutCarbonFootprintInput, HouseholdElectricityUncheckedCreateWithoutCarbonFootprintInput>
     connectOrCreate?: HouseholdElectricityCreateOrConnectWithoutCarbonFootprintInput
     upsert?: HouseholdElectricityUpsertWithoutCarbonFootprintInput
+    disconnect?: HouseholdElectricityWhereInput | boolean
+    delete?: HouseholdElectricityWhereInput | boolean
     connect?: HouseholdElectricityWhereUniqueInput
     update?: XOR<XOR<HouseholdElectricityUpdateToOneWithWhereWithoutCarbonFootprintInput, HouseholdElectricityUpdateWithoutCarbonFootprintInput>, HouseholdElectricityUncheckedUpdateWithoutCarbonFootprintInput>
   }
 
-  export type HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput = {
+  export type HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput = {
     create?: XOR<HouseholdWaterSupplyCreateWithoutCarbonFootprintInput, HouseholdWaterSupplyUncheckedCreateWithoutCarbonFootprintInput>
     connectOrCreate?: HouseholdWaterSupplyCreateOrConnectWithoutCarbonFootprintInput
     upsert?: HouseholdWaterSupplyUpsertWithoutCarbonFootprintInput
+    disconnect?: HouseholdWaterSupplyWhereInput | boolean
+    delete?: HouseholdWaterSupplyWhereInput | boolean
     connect?: HouseholdWaterSupplyWhereUniqueInput
     update?: XOR<XOR<HouseholdWaterSupplyUpdateToOneWithWhereWithoutCarbonFootprintInput, HouseholdWaterSupplyUpdateWithoutCarbonFootprintInput>, HouseholdWaterSupplyUncheckedUpdateWithoutCarbonFootprintInput>
   }
 
-  export type HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput = {
+  export type HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput = {
     create?: XOR<HouseholdOtherEnergyCreateWithoutCarbonFootprintInput, HouseholdOtherEnergyUncheckedCreateWithoutCarbonFootprintInput>
     connectOrCreate?: HouseholdOtherEnergyCreateOrConnectWithoutCarbonFootprintInput
     upsert?: HouseholdOtherEnergyUpsertWithoutCarbonFootprintInput
+    disconnect?: HouseholdOtherEnergyWhereInput | boolean
+    delete?: HouseholdOtherEnergyWhereInput | boolean
     connect?: HouseholdOtherEnergyWhereUniqueInput
     update?: XOR<XOR<HouseholdOtherEnergyUpdateToOneWithWhereWithoutCarbonFootprintInput, HouseholdOtherEnergyUpdateWithoutCarbonFootprintInput>, HouseholdOtherEnergyUncheckedUpdateWithoutCarbonFootprintInput>
   }
 
-  export type TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput = {
+  export type TransportationUpdateOneWithoutCarbonFootprintNestedInput = {
     create?: XOR<TransportationCreateWithoutCarbonFootprintInput, TransportationUncheckedCreateWithoutCarbonFootprintInput>
     connectOrCreate?: TransportationCreateOrConnectWithoutCarbonFootprintInput
     upsert?: TransportationUpsertWithoutCarbonFootprintInput
+    disconnect?: TransportationWhereInput | boolean
+    delete?: TransportationWhereInput | boolean
     connect?: TransportationWhereUniqueInput
     update?: XOR<XOR<TransportationUpdateToOneWithWhereWithoutCarbonFootprintInput, TransportationUpdateWithoutCarbonFootprintInput>, TransportationUncheckedUpdateWithoutCarbonFootprintInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type PrivateVehicleCreateNestedManyWithoutEmissionFactorInput = {
@@ -27177,6 +27590,10 @@ export namespace Prisma {
     connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type ProfilePermissionUpdateManyWithoutProfileNestedInput = {
     create?: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput> | ProfilePermissionCreateWithoutProfileInput[] | ProfilePermissionUncheckedCreateWithoutProfileInput[]
     connectOrCreate?: ProfilePermissionCreateOrConnectWithoutProfileInput | ProfilePermissionCreateOrConnectWithoutProfileInput[]
@@ -27251,6 +27668,10 @@ export namespace Prisma {
     connectOrCreate?: ProfilePermissionCreateOrConnectWithoutTeamInput | ProfilePermissionCreateOrConnectWithoutTeamInput[]
     createMany?: ProfilePermissionCreateManyTeamInputEnvelope
     connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
+  }
+
+  export type EnumTeamStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TeamStatus
   }
 
   export type EnumMaximumLevelFieldUpdateOperationsInput = {
@@ -27454,6 +27875,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -27463,6 +27895,33 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -27545,11 +28004,59 @@ export namespace Prisma {
     _max?: NestedEnumEnergyUsageTypeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTeamStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamStatus | EnumTeamStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTeamStatusFilter<$PrismaModel> | $Enums.TeamStatus
+  }
+
   export type NestedEnumMaximumLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.MaximumLevel | EnumMaximumLevelFieldRefInput<$PrismaModel>
     in?: $Enums.MaximumLevel[] | ListEnumMaximumLevelFieldRefInput<$PrismaModel>
     notIn?: $Enums.MaximumLevel[] | ListEnumMaximumLevelFieldRefInput<$PrismaModel>
     not?: NestedEnumMaximumLevelFilter<$PrismaModel> | $Enums.MaximumLevel
+  }
+
+  export type NestedEnumTeamStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamStatus | EnumTeamStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTeamStatusWithAggregatesFilter<$PrismaModel> | $Enums.TeamStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTeamStatusFilter<$PrismaModel>
+    _max?: NestedEnumTeamStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumMaximumLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -27584,9 +28091,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationCreateNestedManyWithoutHouseholdInput
@@ -27604,9 +28111,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -27630,22 +28137,30 @@ export namespace Prisma {
 
   export type TeamCreateWithoutAddressInput = {
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profilePermissions?: ProfilePermissionCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutAddressInput = {
     id?: number
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutTeamInput
   }
 
@@ -27685,9 +28200,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFilter<"Household"> | $Enums.HouseType
     recordedDate?: DateTimeFilter<"Household"> | Date | string
     createdAt?: DateTimeFilter<"Household"> | Date | string
-    createdBy?: DateTimeFilter<"Household"> | Date | string
+    createdBy?: StringFilter<"Household"> | string
     updatedAt?: DateTimeFilter<"Household"> | Date | string
-    updatedBy?: DateTimeFilter<"Household"> | Date | string
+    updatedBy?: StringFilter<"Household"> | string
   }
 
   export type TeamUpsertWithWhereUniqueWithoutAddressInput = {
@@ -27713,11 +28228,15 @@ export namespace Prisma {
     id?: IntFilter<"Team"> | number
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
+    LogoImg?: StringNullableFilter<"Team"> | string | null
+    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
+    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    RequestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
-    createdBy?: DateTimeFilter<"Team"> | Date | string
+    createdBy?: StringFilter<"Team"> | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
-    updatedBy?: DateTimeFilter<"Team"> | Date | string
+    updatedBy?: StringFilter<"Team"> | string
   }
 
   export type AddressCreateWithoutHouseholdsInput = {
@@ -27748,27 +28267,27 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
-    householdElectricity: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
-    householdWaterSupply: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
-    householdOtherEnergy: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
-    transportation: TransportationCreateNestedOneWithoutCarbonFootprintInput
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    householdElectricity?: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
+    householdWaterSupply?: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
+    householdOtherEnergy?: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
+    transportation?: TransportationCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateWithoutHouseholdInput = {
     id?: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintCreateOrConnectWithoutHouseholdInput = {
@@ -27789,9 +28308,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     emissionFactor: EmissionFactorCreateNestedOneWithoutPrivateVehiclesInput
     vehicleProperty: VehiclePropertyCreateNestedOneWithoutPrivateVehiclesInput
   }
@@ -27807,9 +28326,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleCreateOrConnectWithoutHouseholdInput = {
@@ -27826,9 +28345,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutTransportationInput
   }
 
@@ -27837,9 +28356,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutTransportationInput
   }
 
@@ -27857,9 +28376,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdElectricityInput
   }
 
@@ -27868,9 +28387,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdElectricityInput
   }
 
@@ -27889,9 +28408,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     emissionFactor: EmissionFactorCreateNestedOneWithoutWaterBillsInput
   }
 
@@ -27902,9 +28421,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillCreateOrConnectWithoutHouseholdInput = {
@@ -27921,9 +28440,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdOtherEnergyInput
   }
 
@@ -27932,9 +28451,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdOtherEnergyInput
   }
 
@@ -27953,9 +28472,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     emissionFactor: EmissionFactorCreateNestedOneWithoutElectricityBillsInput
   }
 
@@ -27966,9 +28485,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillCreateOrConnectWithoutHouseholdInput = {
@@ -27985,9 +28504,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintCreateNestedOneWithoutHouseholdWaterSupplyInput
   }
 
@@ -27996,9 +28515,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprint?: CarbonFootprintUncheckedCreateNestedOneWithoutHouseholdWaterSupplyInput
   }
 
@@ -28017,9 +28536,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     emissionFactor: EmissionFactorCreateNestedOneWithoutOtherEnergyConsumptionsInput
   }
 
@@ -28030,9 +28549,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionCreateOrConnectWithoutHouseholdInput = {
@@ -28097,16 +28616,16 @@ export namespace Prisma {
     NOT?: CarbonFootprintScalarWhereInput | CarbonFootprintScalarWhereInput[]
     id?: IntFilter<"CarbonFootprint"> | number
     householdId?: IntFilter<"CarbonFootprint"> | number
-    householdElectricityId?: IntFilter<"CarbonFootprint"> | number
-    householdWaterSupplyId?: IntFilter<"CarbonFootprint"> | number
-    householdOtherEnergyId?: IntFilter<"CarbonFootprint"> | number
-    transportaionId?: IntFilter<"CarbonFootprint"> | number
+    householdElectricityId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    householdWaterSupplyId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    householdOtherEnergyId?: IntNullableFilter<"CarbonFootprint"> | number | null
+    transportaionId?: IntNullableFilter<"CarbonFootprint"> | number | null
     totalCarbonFootprint?: DecimalFilter<"CarbonFootprint"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"CarbonFootprint"> | Date | string
     createdAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    createdBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    createdBy?: StringFilter<"CarbonFootprint"> | string
     updatedAt?: DateTimeFilter<"CarbonFootprint"> | Date | string
-    updatedBy?: DateTimeFilter<"CarbonFootprint"> | Date | string
+    updatedBy?: StringFilter<"CarbonFootprint"> | string
   }
 
   export type PrivateVehicleUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28140,9 +28659,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFilter<"PrivateVehicle"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"PrivateVehicle"> | Date | string
     createdAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    createdBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    createdBy?: StringFilter<"PrivateVehicle"> | string
     updatedAt?: DateTimeFilter<"PrivateVehicle"> | Date | string
-    updatedBy?: DateTimeFilter<"PrivateVehicle"> | Date | string
+    updatedBy?: StringFilter<"PrivateVehicle"> | string
   }
 
   export type TransportationUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28170,9 +28689,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"Transportation"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"Transportation"> | Date | string
     createdAt?: DateTimeFilter<"Transportation"> | Date | string
-    createdBy?: DateTimeFilter<"Transportation"> | Date | string
+    createdBy?: StringFilter<"Transportation"> | string
     updatedAt?: DateTimeFilter<"Transportation"> | Date | string
-    updatedBy?: DateTimeFilter<"Transportation"> | Date | string
+    updatedBy?: StringFilter<"Transportation"> | string
   }
 
   export type HouseholdElectricityUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28200,9 +28719,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdElectricity"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdElectricity"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    createdBy?: StringFilter<"HouseholdElectricity"> | string
     updatedAt?: DateTimeFilter<"HouseholdElectricity"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdElectricity"> | Date | string
+    updatedBy?: StringFilter<"HouseholdElectricity"> | string
   }
 
   export type WaterBillUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28232,9 +28751,9 @@ export namespace Prisma {
     waterMeter?: DecimalFilter<"WaterBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"WaterBill"> | Date | string
     createdAt?: DateTimeFilter<"WaterBill"> | Date | string
-    createdBy?: DateTimeFilter<"WaterBill"> | Date | string
+    createdBy?: StringFilter<"WaterBill"> | string
     updatedAt?: DateTimeFilter<"WaterBill"> | Date | string
-    updatedBy?: DateTimeFilter<"WaterBill"> | Date | string
+    updatedBy?: StringFilter<"WaterBill"> | string
   }
 
   export type HouseholdOtherEnergyUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28262,9 +28781,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdOtherEnergy"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    createdBy?: StringFilter<"HouseholdOtherEnergy"> | string
     updatedAt?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdOtherEnergy"> | Date | string
+    updatedBy?: StringFilter<"HouseholdOtherEnergy"> | string
   }
 
   export type ElectricityBillUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28294,9 +28813,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFilter<"ElectricityBill"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"ElectricityBill"> | Date | string
     createdAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    createdBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    createdBy?: StringFilter<"ElectricityBill"> | string
     updatedAt?: DateTimeFilter<"ElectricityBill"> | Date | string
-    updatedBy?: DateTimeFilter<"ElectricityBill"> | Date | string
+    updatedBy?: StringFilter<"ElectricityBill"> | string
   }
 
   export type HouseholdWaterSupplyUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28324,9 +28843,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFilter<"HouseholdWaterSupply"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
     createdAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    createdBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    createdBy?: StringFilter<"HouseholdWaterSupply"> | string
     updatedAt?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
-    updatedBy?: DateTimeFilter<"HouseholdWaterSupply"> | Date | string
+    updatedBy?: StringFilter<"HouseholdWaterSupply"> | string
   }
 
   export type OtherEnergyConsumptionUpsertWithWhereUniqueWithoutHouseholdInput = {
@@ -28356,9 +28875,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFilter<"OtherEnergyConsumption"> | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
     createdAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    createdBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    createdBy?: StringFilter<"OtherEnergyConsumption"> | string
     updatedAt?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
-    updatedBy?: DateTimeFilter<"OtherEnergyConsumption"> | Date | string
+    updatedBy?: StringFilter<"OtherEnergyConsumption"> | string
   }
 
   export type HouseholdCreateWithoutCarbonFootprintsInput = {
@@ -28366,9 +28885,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationCreateNestedManyWithoutHouseholdInput
@@ -28387,9 +28906,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
     householdElectricities?: HouseholdElectricityUncheckedCreateNestedManyWithoutHouseholdInput
@@ -28409,9 +28928,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdElectricitiesInput
   }
 
@@ -28421,9 +28940,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdElectricityCreateOrConnectWithoutCarbonFootprintInput = {
@@ -28435,9 +28954,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdWaterSuppliesInput
   }
 
@@ -28447,9 +28966,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdWaterSupplyCreateOrConnectWithoutCarbonFootprintInput = {
@@ -28461,9 +28980,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutHouseholdOtherEnergiesInput
   }
 
@@ -28473,9 +28992,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdOtherEnergyCreateOrConnectWithoutCarbonFootprintInput = {
@@ -28487,9 +29006,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutTransportationsInput
   }
 
@@ -28499,9 +29018,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TransportationCreateOrConnectWithoutCarbonFootprintInput = {
@@ -28525,9 +29044,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUpdateManyWithoutHouseholdNestedInput
@@ -28546,9 +29065,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
     householdElectricities?: HouseholdElectricityUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -28574,9 +29093,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdElectricitiesNestedInput
   }
 
@@ -28586,9 +29105,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdWaterSupplyUpsertWithoutCarbonFootprintInput = {
@@ -28606,9 +29125,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdWaterSuppliesNestedInput
   }
 
@@ -28618,9 +29137,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdOtherEnergyUpsertWithoutCarbonFootprintInput = {
@@ -28638,9 +29157,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutHouseholdOtherEnergiesNestedInput
   }
 
@@ -28650,9 +29169,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransportationUpsertWithoutCarbonFootprintInput = {
@@ -28670,9 +29189,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutTransportationsNestedInput
   }
 
@@ -28682,9 +29201,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleCreateWithoutEmissionFactorInput = {
@@ -28695,9 +29214,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutPrivateVehiclesInput
     vehicleProperty: VehiclePropertyCreateNestedOneWithoutPrivateVehiclesInput
   }
@@ -28713,9 +29232,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleCreateOrConnectWithoutEmissionFactorInput = {
@@ -28733,9 +29252,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutElectricityBillsInput
   }
 
@@ -28746,9 +29265,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillCreateOrConnectWithoutEmissionFactorInput = {
@@ -28766,9 +29285,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutWaterBillsInput
   }
 
@@ -28779,9 +29298,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillCreateOrConnectWithoutEmissionFactorInput = {
@@ -28799,9 +29318,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutOtherEnergyConsumptionsInput
   }
 
@@ -28812,9 +29331,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionCreateOrConnectWithoutEmissionFactorInput = {
@@ -28899,9 +29418,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutPrivateVehiclesInput
     emissionFactor: EmissionFactorCreateNestedOneWithoutPrivateVehiclesInput
   }
@@ -28917,9 +29436,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleCreateOrConnectWithoutVehiclePropertyInput = {
@@ -28953,9 +29472,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationCreateNestedManyWithoutHouseholdInput
@@ -28974,9 +29493,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
     householdElectricities?: HouseholdElectricityUncheckedCreateNestedManyWithoutHouseholdInput
@@ -28998,10 +29517,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     electricityBills?: ElectricityBillCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutEmissionFactorInput
@@ -29013,10 +29533,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutEmissionFactorInput
@@ -29031,9 +29552,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType
     consumptionRate: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type VehiclePropertyUncheckedCreateWithoutPrivateVehiclesInput = {
@@ -29041,9 +29562,9 @@ export namespace Prisma {
     modelType: $Enums.ModelType
     consumptionRate: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type VehiclePropertyCreateOrConnectWithoutPrivateVehiclesInput = {
@@ -29067,9 +29588,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUpdateManyWithoutHouseholdNestedInput
@@ -29088,9 +29609,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
     householdElectricities?: HouseholdElectricityUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29118,10 +29639,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     electricityBills?: ElectricityBillUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutEmissionFactorNestedInput
@@ -29133,10 +29655,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutEmissionFactorNestedInput
@@ -29157,9 +29680,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type VehiclePropertyUncheckedUpdateWithoutPrivateVehiclesInput = {
@@ -29167,9 +29690,9 @@ export namespace Prisma {
     modelType?: EnumModelTypeFieldUpdateOperationsInput | $Enums.ModelType
     consumptionRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateWithoutTransportationsInput = {
@@ -29177,9 +29700,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -29198,9 +29721,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     householdElectricities?: HouseholdElectricityUncheckedCreateNestedManyWithoutHouseholdInput
@@ -29220,27 +29743,27 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutCarbonFootprintsInput
-    householdElectricity: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
-    householdWaterSupply: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
-    householdOtherEnergy: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
+    householdElectricity?: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
+    householdWaterSupply?: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
+    householdOtherEnergy?: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateWithoutTransportationInput = {
     id?: number
     householdId: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintCreateOrConnectWithoutTransportationInput = {
@@ -29264,9 +29787,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -29285,9 +29808,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     householdElectricities?: HouseholdElectricityUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29313,27 +29836,27 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutCarbonFootprintsNestedInput
-    householdElectricity?: HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdWaterSupply?: HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    householdElectricity?: HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput
+    householdWaterSupply?: HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput
+    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateWithoutTransportationInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateWithoutHouseholdElectricitiesInput = {
@@ -29341,9 +29864,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -29362,9 +29885,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -29384,27 +29907,27 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutCarbonFootprintsInput
-    householdWaterSupply: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
-    householdOtherEnergy: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
-    transportation: TransportationCreateNestedOneWithoutCarbonFootprintInput
+    householdWaterSupply?: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
+    householdOtherEnergy?: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
+    transportation?: TransportationCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateWithoutHouseholdElectricityInput = {
     id?: number
     householdId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintCreateOrConnectWithoutHouseholdElectricityInput = {
@@ -29428,9 +29951,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -29449,9 +29972,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29477,27 +30000,27 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutCarbonFootprintsNestedInput
-    householdWaterSupply?: HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    transportation?: TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    householdWaterSupply?: HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput
+    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput
+    transportation?: TransportationUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateWithoutHouseholdElectricityInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateWithoutElectricityBillsInput = {
@@ -29505,9 +30028,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -29526,9 +30049,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -29550,10 +30073,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutEmissionFactorInput
@@ -29565,10 +30089,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutEmissionFactorInput
@@ -29595,9 +30120,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -29616,9 +30141,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29646,10 +30171,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutEmissionFactorNestedInput
@@ -29661,10 +30187,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutEmissionFactorNestedInput
@@ -29675,9 +30202,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -29696,9 +30223,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -29718,27 +30245,27 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutCarbonFootprintsInput
-    householdElectricity: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
-    householdOtherEnergy: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
-    transportation: TransportationCreateNestedOneWithoutCarbonFootprintInput
+    householdElectricity?: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
+    householdOtherEnergy?: HouseholdOtherEnergyCreateNestedOneWithoutCarbonFootprintInput
+    transportation?: TransportationCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateWithoutHouseholdWaterSupplyInput = {
     id?: number
     householdId: number
-    householdElectricityId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintCreateOrConnectWithoutHouseholdWaterSupplyInput = {
@@ -29762,9 +30289,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -29783,9 +30310,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29811,27 +30338,27 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutCarbonFootprintsNestedInput
-    householdElectricity?: HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    transportation?: TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    householdElectricity?: HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput
+    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput
+    transportation?: TransportationUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateWithoutHouseholdWaterSupplyInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateWithoutWaterBillsInput = {
@@ -29839,9 +30366,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -29860,9 +30387,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -29884,10 +30411,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutEmissionFactorInput
@@ -29899,10 +30427,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutEmissionFactorInput
@@ -29929,9 +30458,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -29950,9 +30479,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -29980,10 +30509,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutEmissionFactorNestedInput
@@ -29995,10 +30525,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutEmissionFactorNestedInput
@@ -30009,9 +30540,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -30030,9 +30561,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -30052,27 +30583,27 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     household: HouseholdCreateNestedOneWithoutCarbonFootprintsInput
-    householdElectricity: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
-    householdWaterSupply: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
-    transportation: TransportationCreateNestedOneWithoutCarbonFootprintInput
+    householdElectricity?: HouseholdElectricityCreateNestedOneWithoutCarbonFootprintInput
+    householdWaterSupply?: HouseholdWaterSupplyCreateNestedOneWithoutCarbonFootprintInput
+    transportation?: TransportationCreateNestedOneWithoutCarbonFootprintInput
   }
 
   export type CarbonFootprintUncheckedCreateWithoutHouseholdOtherEnergyInput = {
     id?: number
     householdId: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintCreateOrConnectWithoutHouseholdOtherEnergyInput = {
@@ -30096,9 +30627,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -30117,9 +30648,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -30145,27 +30676,27 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutCarbonFootprintsNestedInput
-    householdElectricity?: HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdWaterSupply?: HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    transportation?: TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    householdElectricity?: HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput
+    householdWaterSupply?: HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput
+    transportation?: TransportationUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateWithoutHouseholdOtherEnergyInput = {
     id?: IntFieldUpdateOperationsInput | number
     householdId?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateWithoutOtherEnergyConsumptionsInput = {
@@ -30173,9 +30704,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutHouseholdsInput
     carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
@@ -30194,9 +30725,9 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
     transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
@@ -30218,10 +30749,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillCreateNestedManyWithoutEmissionFactorInput
@@ -30233,10 +30765,11 @@ export namespace Prisma {
     name: string
     carbonCoefficient: Decimal | DecimalJsLike | number | string
     unit: string
+    recorded_date: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutEmissionFactorInput
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutEmissionFactorInput
     waterBills?: WaterBillUncheckedCreateNestedManyWithoutEmissionFactorInput
@@ -30263,9 +30796,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
@@ -30284,9 +30817,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -30314,10 +30847,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUpdateManyWithoutEmissionFactorNestedInput
@@ -30329,34 +30863,35 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     carbonCoefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit?: StringFieldUpdateOperationsInput | string
+    recorded_date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutEmissionFactorNestedInput
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
     waterBills?: WaterBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
   }
 
   export type ProfilePermissionCreateWithoutProfileInput = {
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     team: TeamCreateNestedOneWithoutProfilePermissionsInput
   }
 
   export type ProfilePermissionUncheckedCreateWithoutProfileInput = {
     id?: number
     teamId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionCreateOrConnectWithoutProfileInput = {
@@ -30395,40 +30930,46 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
     canGrant?: BoolFilter<"ProfilePermission"> | boolean
     createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    createdBy?: StringFilter<"ProfilePermission"> | string
     updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: DateTimeFilter<"ProfilePermission"> | Date | string
+    updatedBy?: StringFilter<"ProfilePermission"> | string
   }
 
   export type ProfileCreateWithoutProfilePermissionsInput = {
     firstname: string
     lastname: string
+    citizenId: string
+    officerId?: string | null
+    officerCardImage?: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
-    isStaff: boolean
-    isActive: boolean
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isStaff?: boolean
+    isActive?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfileUncheckedCreateWithoutProfilePermissionsInput = {
     id?: number
     firstname: string
     lastname: string
+    citizenId: string
+    officerId?: string | null
+    officerCardImage?: string | null
     email: string
     password: string
-    phoneNumber: string
-    profileImg: string
-    isStaff: boolean
-    isActive: boolean
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isStaff?: boolean
+    isActive?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfileCreateOrConnectWithoutProfilePermissionsInput = {
@@ -30438,11 +30979,15 @@ export namespace Prisma {
 
   export type TeamCreateWithoutProfilePermissionsInput = {
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     address: AddressCreateNestedOneWithoutTeamsInput
   }
 
@@ -30450,11 +30995,15 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TeamCreateOrConnectWithoutProfilePermissionsInput = {
@@ -30476,32 +31025,38 @@ export namespace Prisma {
   export type ProfileUpdateWithoutProfilePermissionsInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileUncheckedUpdateWithoutProfilePermissionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    profileImg?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TeamUpsertWithoutProfilePermissionsInput = {
@@ -30517,11 +31072,15 @@ export namespace Prisma {
 
   export type TeamUpdateWithoutProfilePermissionsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutTeamsNestedInput
   }
 
@@ -30529,11 +31088,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddressCreateWithoutTeamsInput = {
@@ -30561,24 +31124,24 @@ export namespace Prisma {
   }
 
   export type ProfilePermissionCreateWithoutTeamInput = {
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
     profile: ProfileCreateNestedOneWithoutProfilePermissionsInput
   }
 
   export type ProfilePermissionUncheckedCreateWithoutTeamInput = {
     id?: number
     profileId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionCreateOrConnectWithoutTeamInput = {
@@ -30747,19 +31310,23 @@ export namespace Prisma {
     houseType: $Enums.HouseType
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TeamCreateManyAddressInput = {
     id?: number
     title: string
+    LogoImg?: string | null
+    OrganizationEmail?: string | null
+    Status: $Enums.TeamStatus
+    RequestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdUpdateWithoutAddressInput = {
@@ -30767,9 +31334,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUpdateManyWithoutHouseholdNestedInput
@@ -30787,9 +31354,9 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
     privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
     transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
@@ -30807,54 +31374,66 @@ export namespace Prisma {
     houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TeamUpdateWithoutAddressInput = {
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profilePermissions?: ProfilePermissionUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutAddressInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateManyWithoutAddressInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    RequestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type CarbonFootprintCreateManyHouseholdInput = {
     id?: number
-    householdElectricityId: number
-    householdWaterSupplyId: number
-    householdOtherEnergyId: number
-    transportaionId: number
+    householdElectricityId?: number | null
+    householdWaterSupplyId?: number | null
+    householdOtherEnergyId?: number | null
+    transportaionId?: number | null
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleCreateManyHouseholdInput = {
@@ -30868,9 +31447,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type TransportationCreateManyHouseholdInput = {
@@ -30878,9 +31457,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdElectricityCreateManyHouseholdInput = {
@@ -30888,9 +31467,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillCreateManyHouseholdInput = {
@@ -30900,9 +31479,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdOtherEnergyCreateManyHouseholdInput = {
@@ -30910,9 +31489,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillCreateManyHouseholdInput = {
@@ -30922,9 +31501,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type HouseholdWaterSupplyCreateManyHouseholdInput = {
@@ -30932,9 +31511,9 @@ export namespace Prisma {
     totalCarbonFootprint: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionCreateManyHouseholdInput = {
@@ -30944,50 +31523,50 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type CarbonFootprintUpdateWithoutHouseholdInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
-    householdElectricity?: HouseholdElectricityUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdWaterSupply?: HouseholdWaterSupplyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneRequiredWithoutCarbonFootprintNestedInput
-    transportation?: TransportationUpdateOneRequiredWithoutCarbonFootprintNestedInput
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    householdElectricity?: HouseholdElectricityUpdateOneWithoutCarbonFootprintNestedInput
+    householdWaterSupply?: HouseholdWaterSupplyUpdateOneWithoutCarbonFootprintNestedInput
+    householdOtherEnergy?: HouseholdOtherEnergyUpdateOneWithoutCarbonFootprintNestedInput
+    transportation?: TransportationUpdateOneWithoutCarbonFootprintNestedInput
   }
 
   export type CarbonFootprintUncheckedUpdateWithoutHouseholdInput = {
     id?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type CarbonFootprintUncheckedUpdateManyWithoutHouseholdInput = {
     id?: IntFieldUpdateOperationsInput | number
-    householdElectricityId?: IntFieldUpdateOperationsInput | number
-    householdWaterSupplyId?: IntFieldUpdateOperationsInput | number
-    householdOtherEnergyId?: IntFieldUpdateOperationsInput | number
-    transportaionId?: IntFieldUpdateOperationsInput | number
+    householdElectricityId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdWaterSupplyId?: NullableIntFieldUpdateOperationsInput | number | null
+    householdOtherEnergyId?: NullableIntFieldUpdateOperationsInput | number | null
+    transportaionId?: NullableIntFieldUpdateOperationsInput | number | null
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleUpdateWithoutHouseholdInput = {
@@ -30998,9 +31577,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutPrivateVehiclesNestedInput
     vehicleProperty?: VehiclePropertyUpdateOneRequiredWithoutPrivateVehiclesNestedInput
   }
@@ -31016,9 +31595,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleUncheckedUpdateManyWithoutHouseholdInput = {
@@ -31032,18 +31611,18 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransportationUpdateWithoutHouseholdInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUpdateOneWithoutTransportationNestedInput
   }
 
@@ -31052,9 +31631,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutTransportationNestedInput
   }
 
@@ -31063,18 +31642,18 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdElectricityUpdateWithoutHouseholdInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdElectricityNestedInput
   }
 
@@ -31083,9 +31662,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdElectricityNestedInput
   }
 
@@ -31094,9 +31673,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillUpdateWithoutHouseholdInput = {
@@ -31104,9 +31683,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutWaterBillsNestedInput
   }
 
@@ -31117,9 +31696,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillUncheckedUpdateManyWithoutHouseholdInput = {
@@ -31129,18 +31708,18 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdOtherEnergyUpdateWithoutHouseholdInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdOtherEnergyNestedInput
   }
 
@@ -31149,9 +31728,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdOtherEnergyNestedInput
   }
 
@@ -31160,9 +31739,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillUpdateWithoutHouseholdInput = {
@@ -31170,9 +31749,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutElectricityBillsNestedInput
   }
 
@@ -31183,9 +31762,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillUncheckedUpdateManyWithoutHouseholdInput = {
@@ -31195,18 +31774,18 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdWaterSupplyUpdateWithoutHouseholdInput = {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUpdateOneWithoutHouseholdWaterSupplyNestedInput
   }
 
@@ -31215,9 +31794,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     carbonFootprint?: CarbonFootprintUncheckedUpdateOneWithoutHouseholdWaterSupplyNestedInput
   }
 
@@ -31226,9 +31805,9 @@ export namespace Prisma {
     totalCarbonFootprint?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionUpdateWithoutHouseholdInput = {
@@ -31236,9 +31815,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutOtherEnergyConsumptionsNestedInput
   }
 
@@ -31249,9 +31828,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdInput = {
@@ -31261,9 +31840,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleCreateManyEmissionFactorInput = {
@@ -31277,9 +31856,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ElectricityBillCreateManyEmissionFactorInput = {
@@ -31289,9 +31868,9 @@ export namespace Prisma {
     electricityMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type WaterBillCreateManyEmissionFactorInput = {
@@ -31301,9 +31880,9 @@ export namespace Prisma {
     waterMeter: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type OtherEnergyConsumptionCreateManyEmissionFactorInput = {
@@ -31313,9 +31892,9 @@ export namespace Prisma {
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleUpdateWithoutEmissionFactorInput = {
@@ -31326,9 +31905,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutPrivateVehiclesNestedInput
     vehicleProperty?: VehiclePropertyUpdateOneRequiredWithoutPrivateVehiclesNestedInput
   }
@@ -31344,9 +31923,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleUncheckedUpdateManyWithoutEmissionFactorInput = {
@@ -31360,9 +31939,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillUpdateWithoutEmissionFactorInput = {
@@ -31370,9 +31949,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutElectricityBillsNestedInput
   }
 
@@ -31383,9 +31962,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ElectricityBillUncheckedUpdateManyWithoutEmissionFactorInput = {
@@ -31395,9 +31974,9 @@ export namespace Prisma {
     electricityMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillUpdateWithoutEmissionFactorInput = {
@@ -31405,9 +31984,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutWaterBillsNestedInput
   }
 
@@ -31418,9 +31997,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type WaterBillUncheckedUpdateManyWithoutEmissionFactorInput = {
@@ -31430,9 +32009,9 @@ export namespace Prisma {
     waterMeter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionUpdateWithoutEmissionFactorInput = {
@@ -31440,9 +32019,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutOtherEnergyConsumptionsNestedInput
   }
 
@@ -31453,9 +32032,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type OtherEnergyConsumptionUncheckedUpdateManyWithoutEmissionFactorInput = {
@@ -31465,9 +32044,9 @@ export namespace Prisma {
     amountConsumption?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleCreateManyVehiclePropertyInput = {
@@ -31481,9 +32060,9 @@ export namespace Prisma {
     carbonEmissionEq: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type PrivateVehicleUpdateWithoutVehiclePropertyInput = {
@@ -31494,9 +32073,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     household?: HouseholdUpdateOneRequiredWithoutPrivateVehiclesNestedInput
     emissionFactor?: EmissionFactorUpdateOneRequiredWithoutPrivateVehiclesNestedInput
   }
@@ -31512,9 +32091,9 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrivateVehicleUncheckedUpdateManyWithoutVehiclePropertyInput = {
@@ -31528,29 +32107,29 @@ export namespace Prisma {
     carbonEmissionEq?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionCreateManyProfileInput = {
     id?: number
     teamId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionUpdateWithoutProfileInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     team?: TeamUpdateOneRequiredWithoutProfilePermissionsNestedInput
   }
 
@@ -31560,9 +32139,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionUncheckedUpdateManyWithoutProfileInput = {
@@ -31571,29 +32150,29 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionCreateManyTeamInput = {
     id?: number
     profileId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
     createdAt?: Date | string
-    createdBy: Date | string
-    updatedAt: Date | string
-    updatedBy: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
   }
 
   export type ProfilePermissionUpdateWithoutTeamInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
     profile?: ProfileUpdateOneRequiredWithoutProfilePermissionsNestedInput
   }
 
@@ -31603,9 +32182,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfilePermissionUncheckedUpdateManyWithoutTeamInput = {
@@ -31614,9 +32193,9 @@ export namespace Prisma {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedBy?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
 

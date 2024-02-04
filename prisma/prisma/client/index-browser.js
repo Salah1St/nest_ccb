@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.5.2
- * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+ * Prisma Client JS version: 5.8.1
+ * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
  */
 Prisma.prismaVersion = {
-  client: "5.5.2",
-  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
+  client: "5.8.1",
+  engine: "23fdc5965b1e05fc54e5f26ed3de66776b93de64"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -149,6 +149,7 @@ exports.Prisma.EmissionFactorScalarFieldEnum = {
   name: 'name',
   carbonCoefficient: 'carbonCoefficient',
   unit: 'unit',
+  recorded_date: 'recorded_date',
   createdAt: 'createdAt',
   createdBy: 'createdBy',
   updatedAt: 'updatedAt',
@@ -269,6 +270,9 @@ exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   firstname: 'firstname',
   lastname: 'lastname',
+  citizenId: 'citizenId',
+  officerId: 'officerId',
+  officerCardImage: 'officerCardImage',
   email: 'email',
   password: 'password',
   phoneNumber: 'phoneNumber',
@@ -297,6 +301,10 @@ exports.Prisma.TeamScalarFieldEnum = {
   id: 'id',
   addressId: 'addressId',
   title: 'title',
+  LogoImg: 'LogoImg',
+  OrganizationEmail: 'OrganizationEmail',
+  Status: 'Status',
+  RequestDocument: 'RequestDocument',
   maximumLevel: 'maximumLevel',
   createdAt: 'createdAt',
   createdBy: 'createdBy',
@@ -332,6 +340,11 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.HouseType = exports.$Enums.HouseType = {
   SINGLE_HOUSE: 'SINGLE_HOUSE',
   TOWNHOUSE: 'TOWNHOUSE',
@@ -364,6 +377,12 @@ exports.EnergyUsageType = exports.$Enums.EnergyUsageType = {
   COOKING: 'COOKING',
   COOLING: 'COOLING',
   COMBUSTION: 'COMBUSTION'
+};
+
+exports.TeamStatus = exports.$Enums.TeamStatus = {
+  PENDING: 'PENDING',
+  CREATED: 'CREATED',
+  REJECTED: 'REJECTED'
 };
 
 exports.MaximumLevel = exports.$Enums.MaximumLevel = {
