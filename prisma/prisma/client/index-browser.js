@@ -266,18 +266,15 @@ exports.Prisma.OtherEnergyConsumptionScalarFieldEnum = {
   updatedBy: 'updatedBy'
 };
 
-exports.Prisma.ProfileScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   firstname: 'firstname',
   lastname: 'lastname',
   citizenId: 'citizenId',
-  officerId: 'officerId',
-  officerCardImage: 'officerCardImage',
   email: 'email',
   password: 'password',
   phoneNumber: 'phoneNumber',
   profileImg: 'profileImg',
-  isStaff: 'isStaff',
   isActive: 'isActive',
   createdAt: 'createdAt',
   createdBy: 'createdBy',
@@ -285,9 +282,38 @@ exports.Prisma.ProfileScalarFieldEnum = {
   updatedBy: 'updatedBy'
 };
 
-exports.Prisma.ProfilePermissionScalarFieldEnum = {
+exports.Prisma.UserHouseholdScalarFieldEnum = {
   id: 'id',
-  profileId: 'profileId',
+  userId: 'userId',
+  householdId: 'householdId',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  firstname: 'firstname',
+  lastname: 'lastname',
+  citizenId: 'citizenId',
+  officerId: 'officerId',
+  officerCardImg: 'officerCardImg',
+  email: 'email',
+  password: 'password',
+  phoneNumber: 'phoneNumber',
+  profileImg: 'profileImg',
+  role: 'role',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
   teamId: 'teamId',
   canEditSubdistrict: 'canEditSubdistrict',
   canGrant: 'canGrant',
@@ -379,6 +405,11 @@ exports.EnergyUsageType = exports.$Enums.EnergyUsageType = {
   COMBUSTION: 'COMBUSTION'
 };
 
+exports.Role = exports.$Enums.Role = {
+  STAFF: 'STAFF',
+  SUPER_ADMIN: 'SUPER_ADMIN'
+};
+
 exports.TeamStatus = exports.$Enums.TeamStatus = {
   PENDING: 'PENDING',
   CREATED: 'CREATED',
@@ -389,12 +420,6 @@ exports.MaximumLevel = exports.$Enums.MaximumLevel = {
   PROVINCE: 'PROVINCE',
   DISTRICT: 'DISTRICT',
   SUBDISTRICT: 'SUBDISTRICT'
-};
-
-exports.Role = exports.$Enums.Role = {
-  CLIENT: 'CLIENT',
-  OFFICER: 'OFFICER',
-  ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {
@@ -411,8 +436,10 @@ exports.Prisma.ModelName = {
   WaterBill: 'WaterBill',
   HouseholdOtherEnergy: 'HouseholdOtherEnergy',
   OtherEnergyConsumption: 'OtherEnergyConsumption',
-  Profile: 'Profile',
-  ProfilePermission: 'ProfilePermission',
+  User: 'User',
+  UserHousehold: 'UserHousehold',
+  Admin: 'Admin',
+  Permission: 'Permission',
   Team: 'Team',
   OldUser: 'OldUser',
   OldClient: 'OldClient'

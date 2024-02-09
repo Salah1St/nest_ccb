@@ -1,140 +1,23 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "HouseType" AS ENUM ('SINGLE_HOUSE', 'TOWNHOUSE', 'CONDO', 'APARTMENT');
 
-  - You are about to drop the `Address` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `CarbonFootprint` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `ElectricityBill` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `EmissionFactor` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Household` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `HouseholdElectricity` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `HouseholdOtherEnergy` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `HouseholdWaterSupply` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `OtherEnergyConsumption` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `PrivateVehicle` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Profile` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `ProfilePermission` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Team` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Transportation` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `VehicleProperty` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `WaterBill` table. If the table is not empty, all the data it contains will be lost.
+-- CreateEnum
+CREATE TYPE "SourceType" AS ENUM ('PRIVATE_VEHICLE', 'PUBLIC_VEHICLE', 'ELECTRICITY', 'WATER_SUPPLY', 'COOKING', 'HEATING', 'COOLING', 'COMBUSTION');
 
-*/
+-- CreateEnum
+CREATE TYPE "ModelType" AS ENUM ('MODEL_1500_CC', 'MODEL_1600_CC', 'MODEL_1800_CC', 'MODEL_2000_CC', 'NGV', 'LPG');
+
+-- CreateEnum
+CREATE TYPE "EnergyUsageType" AS ENUM ('HEATING', 'COOKING', 'COOLING', 'COMBUSTION');
+
+-- CreateEnum
+CREATE TYPE "MaximumLevel" AS ENUM ('PROVINCE', 'DISTRICT', 'SUBDISTRICT');
+
 -- CreateEnum
 CREATE TYPE "TeamStatus" AS ENUM ('PENDING', 'CREATED', 'REJECTED');
 
--- DropForeignKey
-ALTER TABLE "CarbonFootprint" DROP CONSTRAINT "CarbonFootprint_household_electricity_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "CarbonFootprint" DROP CONSTRAINT "CarbonFootprint_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "CarbonFootprint" DROP CONSTRAINT "CarbonFootprint_household_other_energy_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "CarbonFootprint" DROP CONSTRAINT "CarbonFootprint_household_water_supply_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "CarbonFootprint" DROP CONSTRAINT "CarbonFootprint_transportaion_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "ElectricityBill" DROP CONSTRAINT "ElectricityBill_emission_factor_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "ElectricityBill" DROP CONSTRAINT "ElectricityBill_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "Household" DROP CONSTRAINT "Household_address_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "HouseholdElectricity" DROP CONSTRAINT "HouseholdElectricity_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "HouseholdOtherEnergy" DROP CONSTRAINT "HouseholdOtherEnergy_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "HouseholdWaterSupply" DROP CONSTRAINT "HouseholdWaterSupply_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "OtherEnergyConsumption" DROP CONSTRAINT "OtherEnergyConsumption_emission_factor_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "OtherEnergyConsumption" DROP CONSTRAINT "OtherEnergyConsumption_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "PrivateVehicle" DROP CONSTRAINT "PrivateVehicle_emission_factor_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "PrivateVehicle" DROP CONSTRAINT "PrivateVehicle_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "PrivateVehicle" DROP CONSTRAINT "PrivateVehicle_vehicle_property_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "ProfilePermission" DROP CONSTRAINT "ProfilePermission_profile_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "ProfilePermission" DROP CONSTRAINT "ProfilePermission_team_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "Team" DROP CONSTRAINT "Team_address_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "Transportation" DROP CONSTRAINT "Transportation_household_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "WaterBill" DROP CONSTRAINT "WaterBill_emission_factor_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "WaterBill" DROP CONSTRAINT "WaterBill_household_id_fkey";
-
--- DropTable
-DROP TABLE "Address";
-
--- DropTable
-DROP TABLE "CarbonFootprint";
-
--- DropTable
-DROP TABLE "ElectricityBill";
-
--- DropTable
-DROP TABLE "EmissionFactor";
-
--- DropTable
-DROP TABLE "Household";
-
--- DropTable
-DROP TABLE "HouseholdElectricity";
-
--- DropTable
-DROP TABLE "HouseholdOtherEnergy";
-
--- DropTable
-DROP TABLE "HouseholdWaterSupply";
-
--- DropTable
-DROP TABLE "OtherEnergyConsumption";
-
--- DropTable
-DROP TABLE "PrivateVehicle";
-
--- DropTable
-DROP TABLE "Profile";
-
--- DropTable
-DROP TABLE "ProfilePermission";
-
--- DropTable
-DROP TABLE "Team";
-
--- DropTable
-DROP TABLE "Transportation";
-
--- DropTable
-DROP TABLE "VehicleProperty";
-
--- DropTable
-DROP TABLE "WaterBill";
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('STAFF', 'SUPER_ADMIN');
 
 -- CreateTable
 CREATE TABLE "address" (
@@ -335,31 +218,63 @@ CREATE TABLE "other_energy_consumption" (
 );
 
 -- CreateTable
-CREATE TABLE "profile" (
+CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "firstname" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
     "citizen_id" TEXT NOT NULL,
-    "officer_id" TEXT,
-    "officer_card_image" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phone_number" TEXT,
     "profile_img" TEXT,
-    "is_staff" BOOLEAN NOT NULL DEFAULT false,
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_by" TEXT NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_by" TEXT NOT NULL,
 
-    CONSTRAINT "profile_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "profile_permission" (
+CREATE TABLE "user_household" (
     "id" SERIAL NOT NULL,
-    "profile_id" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "household_id" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_by" TEXT NOT NULL,
+
+    CONSTRAINT "user_household_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "admin" (
+    "id" SERIAL NOT NULL,
+    "firstname" TEXT NOT NULL,
+    "lastname" TEXT NOT NULL,
+    "citizen_id" TEXT NOT NULL,
+    "officer_id" TEXT NOT NULL,
+    "officer_card_image" TEXT,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "phone_number" TEXT,
+    "profile_img" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'STAFF',
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_by" TEXT NOT NULL,
+
+    CONSTRAINT "admin_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "permission" (
+    "id" SERIAL NOT NULL,
+    "admin_id" INTEGER NOT NULL,
     "team_id" INTEGER NOT NULL,
     "can_edit_subdistrict" BOOLEAN NOT NULL DEFAULT false,
     "can_grant" BOOLEAN NOT NULL DEFAULT false,
@@ -368,7 +283,7 @@ CREATE TABLE "profile_permission" (
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_by" TEXT NOT NULL,
 
-    CONSTRAINT "profile_permission_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "permission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -387,6 +302,31 @@ CREATE TABLE "team" (
     "updated_by" TEXT NOT NULL,
 
     CONSTRAINT "team_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OldUser" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'STAFF',
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "OldUser_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OldClient" (
+    "user_id" TEXT NOT NULL DEFAULT '',
+    "first_name" TEXT NOT NULL,
+    "last_name" TEXT NOT NULL,
+    "phone_number" TEXT NOT NULL,
+    "profile_image" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "OldClient_pkey" PRIMARY KEY ("user_id")
 );
 
 -- CreateIndex
@@ -415,6 +355,9 @@ CREATE UNIQUE INDEX "household_water_supply_household_id_recorded_date_key" ON "
 
 -- CreateIndex
 CREATE UNIQUE INDEX "household_other_energy_household_id_recorded_date_key" ON "household_other_energy"("household_id", "recorded_date");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "OldUser_email_key" ON "OldUser"("email");
 
 -- AddForeignKey
 ALTER TABLE "household" ADD CONSTRAINT "household_address_id_fkey" FOREIGN KEY ("address_id") REFERENCES "address"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -474,10 +417,19 @@ ALTER TABLE "other_energy_consumption" ADD CONSTRAINT "other_energy_consumption_
 ALTER TABLE "other_energy_consumption" ADD CONSTRAINT "other_energy_consumption_emission_factor_id_fkey" FOREIGN KEY ("emission_factor_id") REFERENCES "emission_factor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "profile_permission" ADD CONSTRAINT "profile_permission_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user_household" ADD CONSTRAINT "user_household_household_id_fkey" FOREIGN KEY ("household_id") REFERENCES "household"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "profile_permission" ADD CONSTRAINT "profile_permission_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "user_household" ADD CONSTRAINT "user_household_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "permission" ADD CONSTRAINT "permission_admin_id_fkey" FOREIGN KEY ("admin_id") REFERENCES "admin"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "permission" ADD CONSTRAINT "permission_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "team" ADD CONSTRAINT "team_address_id_fkey" FOREIGN KEY ("address_id") REFERENCES "address"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OldClient" ADD CONSTRAINT "OldClient_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "OldUser"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

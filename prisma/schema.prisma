@@ -275,23 +275,23 @@ model UserHousehold {
 }
 
 model Admin {
-  id               Int          @id @default(autoincrement())
-  firstname        String       @map(name: "firstname")
-  lastname         String       @map(name: "lastname")
-  citizenId        String       @map(name: "citizen_id")
-  officerId        String       @map(name: "officer_id")
-  officerCardImage String?      @map(name: "officer_card_image")
-  email            String       @map(name: "email")
-  password         String       @map(name: "password")
-  phoneNumber      String?      @map(name: "phone_number")
-  profileImg       String?      @map(name: "profile_img")
-  role             Role         @default(STAFF) @map(name: "role")
-  isActive         Boolean      @default(true) @map(name: "is_active")
-  createdAt        DateTime     @default(now()) @map(name: "created_at")
-  createdBy        String       @map(name: "created_by")
-  updatedAt        DateTime     @default(now()) @map(name: "updated_at")
-  updatedBy        String       @map(name: "updated_by")
-  permissions      Permission[]
+  id             Int          @id @default(autoincrement())
+  firstname      String       @map(name: "firstname")
+  lastname       String       @map(name: "lastname")
+  citizenId      String       @map(name: "citizen_id")
+  officerId      String       @map(name: "officer_id")
+  officerCardImg String?      @map(name: "officer_card_img")
+  email          String       @map(name: "email")
+  password       String       @map(name: "password")
+  phoneNumber    String?      @map(name: "phone_number")
+  profileImg     String?      @map(name: "profile_img")
+  role           Role         @default(STAFF) @map(name: "role")
+  isActive       Boolean      @default(true) @map(name: "is_active")
+  createdAt      DateTime     @default(now()) @map(name: "created_at")
+  createdBy      String       @map(name: "created_by")
+  updatedAt      DateTime     @default(now()) @map(name: "updated_at")
+  updatedBy      String       @map(name: "updated_by")
+  permissions    Permission[]
 
   @@map("admin")
 }

@@ -79,15 +79,25 @@ export type HouseholdOtherEnergy = $Result.DefaultSelection<Prisma.$HouseholdOth
  */
 export type OtherEnergyConsumption = $Result.DefaultSelection<Prisma.$OtherEnergyConsumptionPayload>
 /**
- * Model Profile
+ * Model User
  * 
  */
-export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model ProfilePermission
+ * Model UserHousehold
  * 
  */
-export type ProfilePermission = $Result.DefaultSelection<Prisma.$ProfilePermissionPayload>
+export type UserHousehold = $Result.DefaultSelection<Prisma.$UserHouseholdPayload>
+/**
+ * Model Admin
+ * 
+ */
+export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
 /**
  * Model Team
  * 
@@ -154,6 +164,14 @@ export const EnergyUsageType: {
 export type EnergyUsageType = (typeof EnergyUsageType)[keyof typeof EnergyUsageType]
 
 
+export const Role: {
+  STAFF: 'STAFF',
+  SUPER_ADMIN: 'SUPER_ADMIN'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
 export const TeamStatus: {
   PENDING: 'PENDING',
   CREATED: 'CREATED',
@@ -170,15 +188,6 @@ export const MaximumLevel: {
 };
 
 export type MaximumLevel = (typeof MaximumLevel)[keyof typeof MaximumLevel]
-
-
-export const Role: {
-  CLIENT: 'CLIENT',
-  OFFICER: 'OFFICER',
-  ADMIN: 'ADMIN'
-};
-
-export type Role = (typeof Role)[keyof typeof Role]
 
 }
 
@@ -198,6 +207,10 @@ export type EnergyUsageType = $Enums.EnergyUsageType
 
 export const EnergyUsageType: typeof $Enums.EnergyUsageType
 
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
+
 export type TeamStatus = $Enums.TeamStatus
 
 export const TeamStatus: typeof $Enums.TeamStatus
@@ -205,10 +218,6 @@ export const TeamStatus: typeof $Enums.TeamStatus
 export type MaximumLevel = $Enums.MaximumLevel
 
 export const MaximumLevel: typeof $Enums.MaximumLevel
-
-export type Role = $Enums.Role
-
-export const Role: typeof $Enums.Role
 
 /**
  * ##  Prisma Client ʲˢ
@@ -463,24 +472,44 @@ export class PrismaClient<
   get otherEnergyConsumption(): Prisma.OtherEnergyConsumptionDelegate<ExtArgs>;
 
   /**
-   * `prisma.profile`: Exposes CRUD operations for the **Profile** model.
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Profiles
-    * const profiles = await prisma.profile.findMany()
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
     * ```
     */
-  get profile(): Prisma.ProfileDelegate<ExtArgs>;
+  get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
-   * `prisma.profilePermission`: Exposes CRUD operations for the **ProfilePermission** model.
+   * `prisma.userHousehold`: Exposes CRUD operations for the **UserHousehold** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ProfilePermissions
-    * const profilePermissions = await prisma.profilePermission.findMany()
+    * // Fetch zero or more UserHouseholds
+    * const userHouseholds = await prisma.userHousehold.findMany()
     * ```
     */
-  get profilePermission(): Prisma.ProfilePermissionDelegate<ExtArgs>;
+  get userHousehold(): Prisma.UserHouseholdDelegate<ExtArgs>;
+
+  /**
+   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admins
+    * const admins = await prisma.admin.findMany()
+    * ```
+    */
+  get admin(): Prisma.AdminDelegate<ExtArgs>;
+
+  /**
+   * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Permissions
+    * const permissions = await prisma.permission.findMany()
+    * ```
+    */
+  get permission(): Prisma.PermissionDelegate<ExtArgs>;
 
   /**
    * `prisma.team`: Exposes CRUD operations for the **Team** model.
@@ -994,8 +1023,10 @@ export namespace Prisma {
     WaterBill: 'WaterBill',
     HouseholdOtherEnergy: 'HouseholdOtherEnergy',
     OtherEnergyConsumption: 'OtherEnergyConsumption',
-    Profile: 'Profile',
-    ProfilePermission: 'ProfilePermission',
+    User: 'User',
+    UserHousehold: 'UserHousehold',
+    Admin: 'Admin',
+    Permission: 'Permission',
     Team: 'Team',
     OldUser: 'OldUser',
     OldClient: 'OldClient'
@@ -1015,7 +1046,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'address' | 'household' | 'carbonFootprint' | 'emissionFactor' | 'vehicleProperty' | 'privateVehicle' | 'transportation' | 'householdElectricity' | 'electricityBill' | 'householdWaterSupply' | 'waterBill' | 'householdOtherEnergy' | 'otherEnergyConsumption' | 'profile' | 'profilePermission' | 'team' | 'oldUser' | 'oldClient'
+      modelProps: 'address' | 'household' | 'carbonFootprint' | 'emissionFactor' | 'vehicleProperty' | 'privateVehicle' | 'transportation' | 'householdElectricity' | 'electricityBill' | 'householdWaterSupply' | 'waterBill' | 'householdOtherEnergy' | 'otherEnergyConsumption' | 'user' | 'userHousehold' | 'admin' | 'permission' | 'team' | 'oldUser' | 'oldClient'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1877,135 +1908,267 @@ export namespace Prisma {
           }
         }
       }
-      Profile: {
-        payload: Prisma.$ProfilePayload<ExtArgs>
-        fields: Prisma.ProfileFieldRefs
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ProfileFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload> | null
+            args: Prisma.UserFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ProfileFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           findFirst: {
-            args: Prisma.ProfileFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload> | null
+            args: Prisma.UserFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ProfileFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           findMany: {
-            args: Prisma.ProfileFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>[]
+            args: Prisma.UserFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           create: {
-            args: Prisma.ProfileCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           createMany: {
-            args: Prisma.ProfileCreateManyArgs<ExtArgs>,
+            args: Prisma.UserCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.ProfileDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           update: {
-            args: Prisma.ProfileUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           deleteMany: {
-            args: Prisma.ProfileDeleteManyArgs<ExtArgs>,
+            args: Prisma.UserDeleteManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.ProfileUpdateManyArgs<ExtArgs>,
+            args: Prisma.UserUpdateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.ProfileUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePayload>
+            args: Prisma.UserUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
           aggregate: {
-            args: Prisma.ProfileAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateProfile>
+            args: Prisma.UserAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateUser>
           }
           groupBy: {
-            args: Prisma.ProfileGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<ProfileGroupByOutputType>[]
+            args: Prisma.UserGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<UserGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ProfileCountArgs<ExtArgs>,
-            result: $Utils.Optional<ProfileCountAggregateOutputType> | number
+            args: Prisma.UserCountArgs<ExtArgs>,
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
           }
         }
       }
-      ProfilePermission: {
-        payload: Prisma.$ProfilePermissionPayload<ExtArgs>
-        fields: Prisma.ProfilePermissionFieldRefs
+      UserHousehold: {
+        payload: Prisma.$UserHouseholdPayload<ExtArgs>
+        fields: Prisma.UserHouseholdFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ProfilePermissionFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload> | null
+            args: Prisma.UserHouseholdFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ProfilePermissionFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           findFirst: {
-            args: Prisma.ProfilePermissionFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload> | null
+            args: Prisma.UserHouseholdFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ProfilePermissionFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           findMany: {
-            args: Prisma.ProfilePermissionFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>[]
+            args: Prisma.UserHouseholdFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>[]
           }
           create: {
-            args: Prisma.ProfilePermissionCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           createMany: {
-            args: Prisma.ProfilePermissionCreateManyArgs<ExtArgs>,
+            args: Prisma.UserHouseholdCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.ProfilePermissionDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           update: {
-            args: Prisma.ProfilePermissionUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           deleteMany: {
-            args: Prisma.ProfilePermissionDeleteManyArgs<ExtArgs>,
+            args: Prisma.UserHouseholdDeleteManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.ProfilePermissionUpdateManyArgs<ExtArgs>,
+            args: Prisma.UserHouseholdUpdateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.ProfilePermissionUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ProfilePermissionPayload>
+            args: Prisma.UserHouseholdUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserHouseholdPayload>
           }
           aggregate: {
-            args: Prisma.ProfilePermissionAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateProfilePermission>
+            args: Prisma.UserHouseholdAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateUserHousehold>
           }
           groupBy: {
-            args: Prisma.ProfilePermissionGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<ProfilePermissionGroupByOutputType>[]
+            args: Prisma.UserHouseholdGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<UserHouseholdGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ProfilePermissionCountArgs<ExtArgs>,
-            result: $Utils.Optional<ProfilePermissionCountAggregateOutputType> | number
+            args: Prisma.UserHouseholdCountArgs<ExtArgs>,
+            result: $Utils.Optional<UserHouseholdCountAggregateOutputType> | number
+          }
+        }
+      }
+      Admin: {
+        payload: Prisma.$AdminPayload<ExtArgs>
+        fields: Prisma.AdminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdminFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdminFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findFirst: {
+            args: Prisma.AdminFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdminFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findMany: {
+            args: Prisma.AdminFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          create: {
+            args: Prisma.AdminCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          createMany: {
+            args: Prisma.AdminCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AdminDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          update: {
+            args: Prisma.AdminUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdminDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdminUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AdminUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          aggregate: {
+            args: Prisma.AdminAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAdmin>
+          }
+          groupBy: {
+            args: Prisma.AdminGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AdminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdminCountArgs<ExtArgs>,
+            result: $Utils.Optional<AdminCountAggregateOutputType> | number
+          }
+        }
+      }
+      Permission: {
+        payload: Prisma.$PermissionPayload<ExtArgs>
+        fields: Prisma.PermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PermissionFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PermissionFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.PermissionFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PermissionFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findMany: {
+            args: Prisma.PermissionFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          create: {
+            args: Prisma.PermissionCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          createMany: {
+            args: Prisma.PermissionCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.PermissionDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          update: {
+            args: Prisma.PermissionUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PermissionDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PermissionUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.PermissionUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.PermissionAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregatePermission>
+          }
+          groupBy: {
+            args: Prisma.PermissionGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<PermissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PermissionCountArgs<ExtArgs>,
+            result: $Utils.Optional<PermissionCountAggregateOutputType> | number
           }
         }
       }
@@ -2409,6 +2572,7 @@ export namespace Prisma {
     electricityBills: number
     householdWaterSupplies: number
     otherEnergyConsumptions: number
+    userHouseholds: number
   }
 
   export type HouseholdCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2421,6 +2585,7 @@ export namespace Prisma {
     electricityBills?: boolean | HouseholdCountOutputTypeCountElectricityBillsArgs
     householdWaterSupplies?: boolean | HouseholdCountOutputTypeCountHouseholdWaterSuppliesArgs
     otherEnergyConsumptions?: boolean | HouseholdCountOutputTypeCountOtherEnergyConsumptionsArgs
+    userHouseholds?: boolean | HouseholdCountOutputTypeCountUserHouseholdsArgs
   }
 
   // Custom InputTypes
@@ -2505,6 +2670,14 @@ export namespace Prisma {
    */
   export type HouseholdCountOutputTypeCountOtherEnergyConsumptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OtherEnergyConsumptionWhereInput
+  }
+
+
+  /**
+   * HouseholdCountOutputType without action
+   */
+  export type HouseholdCountOutputTypeCountUserHouseholdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserHouseholdWhereInput
   }
 
 
@@ -2608,35 +2781,69 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ProfileCountOutputType
+   * Count Type UserCountOutputType
    */
 
-  export type ProfileCountOutputType = {
-    profilePermissions: number
+  export type UserCountOutputType = {
+    userHouseholds: number
   }
 
-  export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profilePermissions?: boolean | ProfileCountOutputTypeCountProfilePermissionsArgs
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userHouseholds?: boolean | UserCountOutputTypeCountUserHouseholdsArgs
   }
 
   // Custom InputTypes
 
   /**
-   * ProfileCountOutputType without action
+   * UserCountOutputType without action
    */
-  export type ProfileCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfileCountOutputType
+     * Select specific fields to fetch from the UserCountOutputType
      */
-    select?: ProfileCountOutputTypeSelect<ExtArgs> | null
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
   }
 
 
   /**
-   * ProfileCountOutputType without action
+   * UserCountOutputType without action
    */
-  export type ProfileCountOutputTypeCountProfilePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfilePermissionWhereInput
+  export type UserCountOutputTypeCountUserHouseholdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserHouseholdWhereInput
+  }
+
+
+
+  /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    permissions: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    permissions?: boolean | AdminCountOutputTypeCountPermissionsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
   }
 
 
@@ -2646,11 +2853,11 @@ export namespace Prisma {
    */
 
   export type TeamCountOutputType = {
-    profilePermissions: number
+    permissions: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profilePermissions?: boolean | TeamCountOutputTypeCountProfilePermissionsArgs
+    permissions?: boolean | TeamCountOutputTypeCountPermissionsArgs
   }
 
   // Custom InputTypes
@@ -2669,8 +2876,8 @@ export namespace Prisma {
   /**
    * TeamCountOutputType without action
    */
-  export type TeamCountOutputTypeCountProfilePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfilePermissionWhereInput
+  export type TeamCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
   }
 
 
@@ -3935,6 +4142,7 @@ export namespace Prisma {
     electricityBills?: boolean | Household$electricityBillsArgs<ExtArgs>
     householdWaterSupplies?: boolean | Household$householdWaterSuppliesArgs<ExtArgs>
     otherEnergyConsumptions?: boolean | Household$otherEnergyConsumptionsArgs<ExtArgs>
+    userHouseholds?: boolean | Household$userHouseholdsArgs<ExtArgs>
     _count?: boolean | HouseholdCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["household"]>
 
@@ -3961,6 +4169,7 @@ export namespace Prisma {
     electricityBills?: boolean | Household$electricityBillsArgs<ExtArgs>
     householdWaterSupplies?: boolean | Household$householdWaterSuppliesArgs<ExtArgs>
     otherEnergyConsumptions?: boolean | Household$otherEnergyConsumptionsArgs<ExtArgs>
+    userHouseholds?: boolean | Household$userHouseholdsArgs<ExtArgs>
     _count?: boolean | HouseholdCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3978,6 +4187,7 @@ export namespace Prisma {
       electricityBills: Prisma.$ElectricityBillPayload<ExtArgs>[]
       householdWaterSupplies: Prisma.$HouseholdWaterSupplyPayload<ExtArgs>[]
       otherEnergyConsumptions: Prisma.$OtherEnergyConsumptionPayload<ExtArgs>[]
+      userHouseholds: Prisma.$UserHouseholdPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4373,6 +4583,8 @@ export namespace Prisma {
     householdWaterSupplies<T extends Household$householdWaterSuppliesArgs<ExtArgs> = {}>(args?: Subset<T, Household$householdWaterSuppliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HouseholdWaterSupplyPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     otherEnergyConsumptions<T extends Household$otherEnergyConsumptionsArgs<ExtArgs> = {}>(args?: Subset<T, Household$otherEnergyConsumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OtherEnergyConsumptionPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    userHouseholds<T extends Household$userHouseholdsArgs<ExtArgs> = {}>(args?: Subset<T, Household$userHouseholdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4908,6 +5120,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OtherEnergyConsumptionScalarFieldEnum | OtherEnergyConsumptionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Household.userHouseholds
+   */
+  export type Household$userHouseholdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    where?: UserHouseholdWhereInput
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
+    cursor?: UserHouseholdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserHouseholdScalarFieldEnum | UserHouseholdScalarFieldEnum[]
   }
 
 
@@ -16403,37 +16636,34 @@ export namespace Prisma {
 
 
   /**
-   * Model Profile
+   * Model User
    */
 
-  export type AggregateProfile = {
-    _count: ProfileCountAggregateOutputType | null
-    _avg: ProfileAvgAggregateOutputType | null
-    _sum: ProfileSumAggregateOutputType | null
-    _min: ProfileMinAggregateOutputType | null
-    _max: ProfileMaxAggregateOutputType | null
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
   }
 
-  export type ProfileAvgAggregateOutputType = {
+  export type UserAvgAggregateOutputType = {
     id: number | null
   }
 
-  export type ProfileSumAggregateOutputType = {
+  export type UserSumAggregateOutputType = {
     id: number | null
   }
 
-  export type ProfileMinAggregateOutputType = {
+  export type UserMinAggregateOutputType = {
     id: number | null
     firstname: string | null
     lastname: string | null
     citizenId: string | null
-    officerId: string | null
-    officerCardImage: string | null
     email: string | null
     password: string | null
     phoneNumber: string | null
     profileImg: string | null
-    isStaff: boolean | null
     isActive: boolean | null
     createdAt: Date | null
     createdBy: string | null
@@ -16441,18 +16671,15 @@ export namespace Prisma {
     updatedBy: string | null
   }
 
-  export type ProfileMaxAggregateOutputType = {
+  export type UserMaxAggregateOutputType = {
     id: number | null
     firstname: string | null
     lastname: string | null
     citizenId: string | null
-    officerId: string | null
-    officerCardImage: string | null
     email: string | null
     password: string | null
     phoneNumber: string | null
     profileImg: string | null
-    isStaff: boolean | null
     isActive: boolean | null
     createdAt: Date | null
     createdBy: string | null
@@ -16460,18 +16687,15 @@ export namespace Prisma {
     updatedBy: string | null
   }
 
-  export type ProfileCountAggregateOutputType = {
+  export type UserCountAggregateOutputType = {
     id: number
     firstname: number
     lastname: number
     citizenId: number
-    officerId: number
-    officerCardImage: number
     email: number
     password: number
     phoneNumber: number
     profileImg: number
-    isStaff: number
     isActive: number
     createdAt: number
     createdBy: number
@@ -16481,26 +16705,23 @@ export namespace Prisma {
   }
 
 
-  export type ProfileAvgAggregateInputType = {
+  export type UserAvgAggregateInputType = {
     id?: true
   }
 
-  export type ProfileSumAggregateInputType = {
+  export type UserSumAggregateInputType = {
     id?: true
   }
 
-  export type ProfileMinAggregateInputType = {
+  export type UserMinAggregateInputType = {
     id?: true
     firstname?: true
     lastname?: true
     citizenId?: true
-    officerId?: true
-    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
     profileImg?: true
-    isStaff?: true
     isActive?: true
     createdAt?: true
     createdBy?: true
@@ -16508,18 +16729,15 @@ export namespace Prisma {
     updatedBy?: true
   }
 
-  export type ProfileMaxAggregateInputType = {
+  export type UserMaxAggregateInputType = {
     id?: true
     firstname?: true
     lastname?: true
     citizenId?: true
-    officerId?: true
-    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
     profileImg?: true
-    isStaff?: true
     isActive?: true
     createdAt?: true
     createdBy?: true
@@ -16527,18 +16745,15 @@ export namespace Prisma {
     updatedBy?: true
   }
 
-  export type ProfileCountAggregateInputType = {
+  export type UserCountAggregateInputType = {
     id?: true
     firstname?: true
     lastname?: true
     citizenId?: true
-    officerId?: true
-    officerCardImage?: true
     email?: true
     password?: true
     phoneNumber?: true
     profileImg?: true
-    isStaff?: true
     isActive?: true
     createdAt?: true
     createdBy?: true
@@ -16547,163 +16762,154 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Profile to aggregate.
+     * Filter which User to aggregate.
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Profiles to fetch.
+     * Determine the order of Users to fetch.
      */
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ProfileWhereUniqueInput
+    cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Profiles from the position of the cursor.
+     * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Profiles.
+     * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Profiles
+     * Count returned Users
     **/
-    _count?: true | ProfileCountAggregateInputType
+    _count?: true | UserCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ProfileAvgAggregateInputType
+    _avg?: UserAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ProfileSumAggregateInputType
+    _sum?: UserSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ProfileMinAggregateInputType
+    _min?: UserMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ProfileMaxAggregateInputType
+    _max?: UserMaxAggregateInputType
   }
 
-  export type GetProfileAggregateType<T extends ProfileAggregateArgs> = {
-        [P in keyof T & keyof AggregateProfile]: P extends '_count' | 'count'
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateProfile[P]>
-      : GetScalarType<T[P], AggregateProfile[P]>
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
   }
 
 
 
 
-  export type ProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfileWhereInput
-    orderBy?: ProfileOrderByWithAggregationInput | ProfileOrderByWithAggregationInput[]
-    by: ProfileScalarFieldEnum[] | ProfileScalarFieldEnum
-    having?: ProfileScalarWhereWithAggregatesInput
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ProfileCountAggregateInputType | true
-    _avg?: ProfileAvgAggregateInputType
-    _sum?: ProfileSumAggregateInputType
-    _min?: ProfileMinAggregateInputType
-    _max?: ProfileMaxAggregateInputType
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
   }
 
-  export type ProfileGroupByOutputType = {
+  export type UserGroupByOutputType = {
     id: number
     firstname: string
     lastname: string
     citizenId: string
-    officerId: string | null
-    officerCardImage: string | null
     email: string
     password: string
     phoneNumber: string | null
     profileImg: string | null
-    isStaff: boolean
     isActive: boolean
     createdAt: Date
     createdBy: string
     updatedAt: Date
     updatedBy: string
-    _count: ProfileCountAggregateOutputType | null
-    _avg: ProfileAvgAggregateOutputType | null
-    _sum: ProfileSumAggregateOutputType | null
-    _min: ProfileMinAggregateOutputType | null
-    _max: ProfileMaxAggregateOutputType | null
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
   }
 
-  type GetProfileGroupByPayload<T extends ProfileGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ProfileGroupByOutputType, T['by']> &
+      PickEnumerable<UserGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ProfileGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ProfileGroupByOutputType[P]>
-            : GetScalarType<T[P], ProfileGroupByOutputType[P]>
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     firstname?: boolean
     lastname?: boolean
     citizenId?: boolean
-    officerId?: boolean
-    officerCardImage?: boolean
     email?: boolean
     password?: boolean
     phoneNumber?: boolean
     profileImg?: boolean
-    isStaff?: boolean
     isActive?: boolean
     createdAt?: boolean
     createdBy?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
-    profilePermissions?: boolean | Profile$profilePermissionsArgs<ExtArgs>
-    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["profile"]>
+    userHouseholds?: boolean | User$userHouseholdsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
 
-  export type ProfileSelectScalar = {
+  export type UserSelectScalar = {
     id?: boolean
     firstname?: boolean
     lastname?: boolean
     citizenId?: boolean
-    officerId?: boolean
-    officerCardImage?: boolean
     email?: boolean
     password?: boolean
     phoneNumber?: boolean
     profileImg?: boolean
-    isStaff?: boolean
     isActive?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -16711,188 +16917,185 @@ export namespace Prisma {
     updatedBy?: boolean
   }
 
-  export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profilePermissions?: boolean | Profile$profilePermissionsArgs<ExtArgs>
-    _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userHouseholds?: boolean | User$userHouseholdsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
-  export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Profile"
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
     objects: {
-      profilePermissions: Prisma.$ProfilePermissionPayload<ExtArgs>[]
+      userHouseholds: Prisma.$UserHouseholdPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       firstname: string
       lastname: string
       citizenId: string
-      officerId: string | null
-      officerCardImage: string | null
       email: string
       password: string
       phoneNumber: string | null
       profileImg: string | null
-      isStaff: boolean
       isActive: boolean
       createdAt: Date
       createdBy: string
       updatedAt: Date
       updatedBy: string
-    }, ExtArgs["result"]["profile"]>
+    }, ExtArgs["result"]["user"]>
     composites: {}
   }
 
 
-  type ProfileGetPayload<S extends boolean | null | undefined | ProfileDefaultArgs> = $Result.GetResult<Prisma.$ProfilePayload, S>
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
-  type ProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProfileFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: ProfileCountAggregateInputType | true
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserCountAggregateInputType | true
     }
 
-  export interface ProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Profile'], meta: { name: 'Profile' } }
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
     /**
-     * Find zero or one Profile that matches the filter.
-     * @param {ProfileFindUniqueArgs} args - Arguments to find a Profile
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
      * @example
-     * // Get one Profile
-     * const profile = await prisma.profile.findUnique({
+     * // Get one User
+     * const user = await prisma.user.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ProfileFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileFindUniqueArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+    findUnique<T extends UserFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Profile that matches the filter or throw an error  with `error.code='P2025'` 
+     * Find one User that matches the filter or throw an error  with `error.code='P2025'` 
      *     if no matches were found.
-     * @param {ProfileFindUniqueOrThrowArgs} args - Arguments to find a Profile
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
      * @example
-     * // Get one Profile
-     * const profile = await prisma.profile.findUniqueOrThrow({
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends ProfileFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
-     * Find the first Profile that matches the filter.
+     * Find the first User that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileFindFirstArgs} args - Arguments to find a Profile
+     * @param {UserFindFirstArgs} args - Arguments to find a User
      * @example
-     * // Get one Profile
-     * const profile = await prisma.profile.findFirst({
+     * // Get one User
+     * const user = await prisma.user.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ProfileFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileFindFirstArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+    findFirst<T extends UserFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
-     * Find the first Profile that matches the filter or
+     * Find the first User that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileFindFirstOrThrowArgs} args - Arguments to find a Profile
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
      * @example
-     * // Get one Profile
-     * const profile = await prisma.profile.findFirstOrThrow({
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends ProfileFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
-     * Find zero or more Profiles that matches the filter.
+     * Find zero or more Users that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {UserFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Profiles
-     * const profiles = await prisma.profile.findMany()
+     * // Get all Users
+     * const users = await prisma.user.findMany()
      * 
-     * // Get first 10 Profiles
-     * const profiles = await prisma.profile.findMany({ take: 10 })
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const profileWithIdOnly = await prisma.profile.findMany({ select: { id: true } })
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ProfileFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findMany'>>
+    findMany<T extends UserFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'>>
 
     /**
-     * Create a Profile.
-     * @param {ProfileCreateArgs} args - Arguments to create a Profile.
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
      * @example
-     * // Create one Profile
-     * const Profile = await prisma.profile.create({
+     * // Create one User
+     * const User = await prisma.user.create({
      *   data: {
-     *     // ... data to create a Profile
+     *     // ... data to create a User
      *   }
      * })
      * 
     **/
-    create<T extends ProfileCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileCreateArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+    create<T extends UserCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserCreateArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
-     * Create many Profiles.
-     *     @param {ProfileCreateManyArgs} args - Arguments to create many Profiles.
+     * Create many Users.
+     *     @param {UserCreateManyArgs} args - Arguments to create many Users.
      *     @example
-     *     // Create many Profiles
-     *     const profile = await prisma.profile.createMany({
+     *     // Create many Users
+     *     const user = await prisma.user.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ProfileCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileCreateManyArgs<ExtArgs>>
+    createMany<T extends UserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Profile.
-     * @param {ProfileDeleteArgs} args - Arguments to delete one Profile.
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
-     * // Delete one Profile
-     * const Profile = await prisma.profile.delete({
+     * // Delete one User
+     * const User = await prisma.user.delete({
      *   where: {
-     *     // ... filter to delete one Profile
+     *     // ... filter to delete one User
      *   }
      * })
      * 
     **/
-    delete<T extends ProfileDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileDeleteArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+    delete<T extends UserDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, UserDeleteArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
-     * Update one Profile.
-     * @param {ProfileUpdateArgs} args - Arguments to update one Profile.
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
      * @example
-     * // Update one Profile
-     * const profile = await prisma.profile.update({
+     * // Update one User
+     * const user = await prisma.user.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -16902,34 +17105,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ProfileUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileUpdateArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+    update<T extends UserUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpdateArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
-     * Delete zero or more Profiles.
-     * @param {ProfileDeleteManyArgs} args - Arguments to filter Profiles to delete.
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
      * @example
-     * // Delete a few Profiles
-     * const { count } = await prisma.profile.deleteMany({
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ProfileDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfileDeleteManyArgs<ExtArgs>>
+    deleteMany<T extends UserDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Profiles.
+     * Update zero or more Users.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Profiles
-     * const profile = await prisma.profile.updateMany({
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -16939,59 +17142,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ProfileUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileUpdateManyArgs<ExtArgs>>
+    updateMany<T extends UserUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Profile.
-     * @param {ProfileUpsertArgs} args - Arguments to update or create a Profile.
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
      * @example
-     * // Update or create a Profile
-     * const profile = await prisma.profile.upsert({
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
      *   create: {
-     *     // ... data to create a Profile
+     *     // ... data to create a User
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Profile we want to update
+     *     // ... the filter for the User we want to update
      *   }
      * })
     **/
-    upsert<T extends ProfileUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfileUpsertArgs<ExtArgs>>
-    ): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+    upsert<T extends UserUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpsertArgs<ExtArgs>>
+    ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
-     * Count the number of Profiles.
+     * Count the number of Users.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileCountArgs} args - Arguments to filter Profiles to count.
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
      * @example
-     * // Count the number of Profiles
-     * const count = await prisma.profile.count({
+     * // Count the number of Users
+     * const count = await prisma.user.count({
      *   where: {
-     *     // ... the filter for the Profiles we want to count
+     *     // ... the filter for the Users we want to count
      *   }
      * })
     **/
-    count<T extends ProfileCountArgs>(
-      args?: Subset<T, ProfileCountArgs>,
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ProfileCountAggregateOutputType>
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Profile.
+     * Allows you to perform aggregations operations on a User.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -17011,13 +17214,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ProfileAggregateArgs>(args: Subset<T, ProfileAggregateArgs>): Prisma.PrismaPromise<GetProfileAggregateType<T>>
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
 
     /**
-     * Group by Profile.
+     * Group by User.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfileGroupByArgs} args - Group by arguments.
+     * @param {UserGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -17032,14 +17235,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ProfileGroupByArgs,
+      T extends UserGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProfileGroupByArgs['orderBy'] }
-        : { orderBy?: ProfileGroupByArgs['orderBy'] },
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -17088,23 +17291,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Profile model
+   * Fields of the User model
    */
-  readonly fields: ProfileFieldRefs;
+  readonly fields: UserFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Profile.
+   * The delegate class that acts as a "Promise-like" for User.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    profilePermissions<T extends Profile$profilePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$profilePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findMany'> | Null>;
+    userHouseholds<T extends User$userHouseholdsArgs<ExtArgs> = {}>(args?: Subset<T, User$userHouseholdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17131,427 +17334,418 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Profile model
+   * Fields of the User model
    */ 
-  interface ProfileFieldRefs {
-    readonly id: FieldRef<"Profile", 'Int'>
-    readonly firstname: FieldRef<"Profile", 'String'>
-    readonly lastname: FieldRef<"Profile", 'String'>
-    readonly citizenId: FieldRef<"Profile", 'String'>
-    readonly officerId: FieldRef<"Profile", 'String'>
-    readonly officerCardImage: FieldRef<"Profile", 'String'>
-    readonly email: FieldRef<"Profile", 'String'>
-    readonly password: FieldRef<"Profile", 'String'>
-    readonly phoneNumber: FieldRef<"Profile", 'String'>
-    readonly profileImg: FieldRef<"Profile", 'String'>
-    readonly isStaff: FieldRef<"Profile", 'Boolean'>
-    readonly isActive: FieldRef<"Profile", 'Boolean'>
-    readonly createdAt: FieldRef<"Profile", 'DateTime'>
-    readonly createdBy: FieldRef<"Profile", 'String'>
-    readonly updatedAt: FieldRef<"Profile", 'DateTime'>
-    readonly updatedBy: FieldRef<"Profile", 'String'>
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'Int'>
+    readonly firstname: FieldRef<"User", 'String'>
+    readonly lastname: FieldRef<"User", 'String'>
+    readonly citizenId: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
+    readonly profileImg: FieldRef<"User", 'String'>
+    readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly createdBy: FieldRef<"User", 'String'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly updatedBy: FieldRef<"User", 'String'>
   }
     
 
   // Custom InputTypes
 
   /**
-   * Profile findUnique
+   * User findUnique
    */
-  export type ProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter, which Profile to fetch.
+     * Filter, which User to fetch.
      */
-    where: ProfileWhereUniqueInput
+    where: UserWhereUniqueInput
   }
 
 
   /**
-   * Profile findUniqueOrThrow
+   * User findUniqueOrThrow
    */
-  export type ProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter, which Profile to fetch.
+     * Filter, which User to fetch.
      */
-    where: ProfileWhereUniqueInput
+    where: UserWhereUniqueInput
   }
 
 
   /**
-   * Profile findFirst
+   * User findFirst
    */
-  export type ProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter, which Profile to fetch.
+     * Filter, which User to fetch.
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Profiles to fetch.
+     * Determine the order of Users to fetch.
      */
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Profiles.
+     * Sets the position for searching for Users.
      */
-    cursor?: ProfileWhereUniqueInput
+    cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Profiles from the position of the cursor.
+     * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Profiles.
+     * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Profiles.
+     * Filter by unique combinations of Users.
      */
-    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
   /**
-   * Profile findFirstOrThrow
+   * User findFirstOrThrow
    */
-  export type ProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter, which Profile to fetch.
+     * Filter, which User to fetch.
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Profiles to fetch.
+     * Determine the order of Users to fetch.
      */
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Profiles.
+     * Sets the position for searching for Users.
      */
-    cursor?: ProfileWhereUniqueInput
+    cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Profiles from the position of the cursor.
+     * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Profiles.
+     * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Profiles.
+     * Filter by unique combinations of Users.
      */
-    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
   /**
-   * Profile findMany
+   * User findMany
    */
-  export type ProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter, which Profiles to fetch.
+     * Filter, which Users to fetch.
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Profiles to fetch.
+     * Determine the order of Users to fetch.
      */
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Profiles.
+     * Sets the position for listing Users.
      */
-    cursor?: ProfileWhereUniqueInput
+    cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Profiles from the position of the cursor.
+     * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Profiles.
+     * Skip the first `n` Users.
      */
     skip?: number
-    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
   /**
-   * Profile create
+   * User create
    */
-  export type ProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * The data needed to create a Profile.
+     * The data needed to create a User.
      */
-    data: XOR<ProfileCreateInput, ProfileUncheckedCreateInput>
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
   }
 
 
   /**
-   * Profile createMany
+   * User createMany
    */
-  export type ProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Profiles.
+     * The data used to create many Users.
      */
-    data: ProfileCreateManyInput | ProfileCreateManyInput[]
+    data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
   }
 
 
   /**
-   * Profile update
+   * User update
    */
-  export type ProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * The data needed to update a Profile.
+     * The data needed to update a User.
      */
-    data: XOR<ProfileUpdateInput, ProfileUncheckedUpdateInput>
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
     /**
-     * Choose, which Profile to update.
+     * Choose, which User to update.
      */
-    where: ProfileWhereUniqueInput
+    where: UserWhereUniqueInput
   }
 
 
   /**
-   * Profile updateMany
+   * User updateMany
    */
-  export type ProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Profiles.
+     * The data used to update Users.
      */
-    data: XOR<ProfileUpdateManyMutationInput, ProfileUncheckedUpdateManyInput>
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
     /**
-     * Filter which Profiles to update
+     * Filter which Users to update
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
   }
 
 
   /**
-   * Profile upsert
+   * User upsert
    */
-  export type ProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * The filter to search for the Profile to update in case it exists.
+     * The filter to search for the User to update in case it exists.
      */
-    where: ProfileWhereUniqueInput
+    where: UserWhereUniqueInput
     /**
-     * In case the Profile found by the `where` argument doesn't exist, create a new Profile with this data.
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
      */
-    create: XOR<ProfileCreateInput, ProfileUncheckedCreateInput>
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
     /**
-     * In case the Profile was found with the provided `where` argument, update it with this data.
+     * In case the User was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ProfileUpdateInput, ProfileUncheckedUpdateInput>
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
   }
 
 
   /**
-   * Profile delete
+   * User delete
    */
-  export type ProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
     /**
-     * Filter which Profile to delete.
+     * Filter which User to delete.
      */
-    where: ProfileWhereUniqueInput
+    where: UserWhereUniqueInput
   }
 
 
   /**
-   * Profile deleteMany
+   * User deleteMany
    */
-  export type ProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Profiles to delete
+     * Filter which Users to delete
      */
-    where?: ProfileWhereInput
+    where?: UserWhereInput
   }
 
 
   /**
-   * Profile.profilePermissions
+   * User.userHouseholds
    */
-  export type Profile$profilePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$userHouseholdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the UserHousehold
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: UserHouseholdSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
-    where?: ProfilePermissionWhereInput
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
-    cursor?: ProfilePermissionWhereUniqueInput
+    include?: UserHouseholdInclude<ExtArgs> | null
+    where?: UserHouseholdWhereInput
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
+    cursor?: UserHouseholdWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ProfilePermissionScalarFieldEnum | ProfilePermissionScalarFieldEnum[]
+    distinct?: UserHouseholdScalarFieldEnum | UserHouseholdScalarFieldEnum[]
   }
 
 
   /**
-   * Profile without action
+   * User without action
    */
-  export type ProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the User
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfileInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null
   }
 
 
 
   /**
-   * Model ProfilePermission
+   * Model UserHousehold
    */
 
-  export type AggregateProfilePermission = {
-    _count: ProfilePermissionCountAggregateOutputType | null
-    _avg: ProfilePermissionAvgAggregateOutputType | null
-    _sum: ProfilePermissionSumAggregateOutputType | null
-    _min: ProfilePermissionMinAggregateOutputType | null
-    _max: ProfilePermissionMaxAggregateOutputType | null
+  export type AggregateUserHousehold = {
+    _count: UserHouseholdCountAggregateOutputType | null
+    _avg: UserHouseholdAvgAggregateOutputType | null
+    _sum: UserHouseholdSumAggregateOutputType | null
+    _min: UserHouseholdMinAggregateOutputType | null
+    _max: UserHouseholdMaxAggregateOutputType | null
   }
 
-  export type ProfilePermissionAvgAggregateOutputType = {
+  export type UserHouseholdAvgAggregateOutputType = {
     id: number | null
-    profileId: number | null
-    teamId: number | null
+    userId: number | null
+    householdId: number | null
   }
 
-  export type ProfilePermissionSumAggregateOutputType = {
+  export type UserHouseholdSumAggregateOutputType = {
     id: number | null
-    profileId: number | null
-    teamId: number | null
+    userId: number | null
+    householdId: number | null
   }
 
-  export type ProfilePermissionMinAggregateOutputType = {
+  export type UserHouseholdMinAggregateOutputType = {
     id: number | null
-    profileId: number | null
-    teamId: number | null
-    canEditSubdistrict: boolean | null
-    canGrant: boolean | null
+    userId: number | null
+    householdId: number | null
     createdAt: Date | null
     createdBy: string | null
     updatedAt: Date | null
     updatedBy: string | null
   }
 
-  export type ProfilePermissionMaxAggregateOutputType = {
+  export type UserHouseholdMaxAggregateOutputType = {
     id: number | null
-    profileId: number | null
-    teamId: number | null
-    canEditSubdistrict: boolean | null
-    canGrant: boolean | null
+    userId: number | null
+    householdId: number | null
     createdAt: Date | null
     createdBy: string | null
     updatedAt: Date | null
     updatedBy: string | null
   }
 
-  export type ProfilePermissionCountAggregateOutputType = {
+  export type UserHouseholdCountAggregateOutputType = {
     id: number
-    profileId: number
-    teamId: number
-    canEditSubdistrict: number
-    canGrant: number
+    userId: number
+    householdId: number
     createdAt: number
     createdBy: number
     updatedAt: number
@@ -17560,48 +17754,42 @@ export namespace Prisma {
   }
 
 
-  export type ProfilePermissionAvgAggregateInputType = {
+  export type UserHouseholdAvgAggregateInputType = {
     id?: true
-    profileId?: true
-    teamId?: true
+    userId?: true
+    householdId?: true
   }
 
-  export type ProfilePermissionSumAggregateInputType = {
+  export type UserHouseholdSumAggregateInputType = {
     id?: true
-    profileId?: true
-    teamId?: true
+    userId?: true
+    householdId?: true
   }
 
-  export type ProfilePermissionMinAggregateInputType = {
+  export type UserHouseholdMinAggregateInputType = {
     id?: true
-    profileId?: true
-    teamId?: true
-    canEditSubdistrict?: true
-    canGrant?: true
+    userId?: true
+    householdId?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
     updatedBy?: true
   }
 
-  export type ProfilePermissionMaxAggregateInputType = {
+  export type UserHouseholdMaxAggregateInputType = {
     id?: true
-    profileId?: true
-    teamId?: true
-    canEditSubdistrict?: true
-    canGrant?: true
+    userId?: true
+    householdId?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
     updatedBy?: true
   }
 
-  export type ProfilePermissionCountAggregateInputType = {
+  export type UserHouseholdCountAggregateInputType = {
     id?: true
-    profileId?: true
-    teamId?: true
-    canEditSubdistrict?: true
-    canGrant?: true
+    userId?: true
+    householdId?: true
     createdAt?: true
     createdBy?: true
     updatedAt?: true
@@ -17609,325 +17797,317 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ProfilePermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHouseholdAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ProfilePermission to aggregate.
+     * Filter which UserHousehold to aggregate.
      */
-    where?: ProfilePermissionWhereInput
+    where?: UserHouseholdWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProfilePermissions to fetch.
+     * Determine the order of UserHouseholds to fetch.
      */
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ProfilePermissionWhereUniqueInput
+    cursor?: UserHouseholdWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProfilePermissions from the position of the cursor.
+     * Take `±n` UserHouseholds from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProfilePermissions.
+     * Skip the first `n` UserHouseholds.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ProfilePermissions
+     * Count returned UserHouseholds
     **/
-    _count?: true | ProfilePermissionCountAggregateInputType
+    _count?: true | UserHouseholdCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ProfilePermissionAvgAggregateInputType
+    _avg?: UserHouseholdAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ProfilePermissionSumAggregateInputType
+    _sum?: UserHouseholdSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ProfilePermissionMinAggregateInputType
+    _min?: UserHouseholdMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ProfilePermissionMaxAggregateInputType
+    _max?: UserHouseholdMaxAggregateInputType
   }
 
-  export type GetProfilePermissionAggregateType<T extends ProfilePermissionAggregateArgs> = {
-        [P in keyof T & keyof AggregateProfilePermission]: P extends '_count' | 'count'
+  export type GetUserHouseholdAggregateType<T extends UserHouseholdAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserHousehold]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateProfilePermission[P]>
-      : GetScalarType<T[P], AggregateProfilePermission[P]>
+        : GetScalarType<T[P], AggregateUserHousehold[P]>
+      : GetScalarType<T[P], AggregateUserHousehold[P]>
   }
 
 
 
 
-  export type ProfilePermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfilePermissionWhereInput
-    orderBy?: ProfilePermissionOrderByWithAggregationInput | ProfilePermissionOrderByWithAggregationInput[]
-    by: ProfilePermissionScalarFieldEnum[] | ProfilePermissionScalarFieldEnum
-    having?: ProfilePermissionScalarWhereWithAggregatesInput
+  export type UserHouseholdGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserHouseholdWhereInput
+    orderBy?: UserHouseholdOrderByWithAggregationInput | UserHouseholdOrderByWithAggregationInput[]
+    by: UserHouseholdScalarFieldEnum[] | UserHouseholdScalarFieldEnum
+    having?: UserHouseholdScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ProfilePermissionCountAggregateInputType | true
-    _avg?: ProfilePermissionAvgAggregateInputType
-    _sum?: ProfilePermissionSumAggregateInputType
-    _min?: ProfilePermissionMinAggregateInputType
-    _max?: ProfilePermissionMaxAggregateInputType
+    _count?: UserHouseholdCountAggregateInputType | true
+    _avg?: UserHouseholdAvgAggregateInputType
+    _sum?: UserHouseholdSumAggregateInputType
+    _min?: UserHouseholdMinAggregateInputType
+    _max?: UserHouseholdMaxAggregateInputType
   }
 
-  export type ProfilePermissionGroupByOutputType = {
+  export type UserHouseholdGroupByOutputType = {
     id: number
-    profileId: number
-    teamId: number
-    canEditSubdistrict: boolean
-    canGrant: boolean
+    userId: number
+    householdId: number
     createdAt: Date
     createdBy: string
     updatedAt: Date
     updatedBy: string
-    _count: ProfilePermissionCountAggregateOutputType | null
-    _avg: ProfilePermissionAvgAggregateOutputType | null
-    _sum: ProfilePermissionSumAggregateOutputType | null
-    _min: ProfilePermissionMinAggregateOutputType | null
-    _max: ProfilePermissionMaxAggregateOutputType | null
+    _count: UserHouseholdCountAggregateOutputType | null
+    _avg: UserHouseholdAvgAggregateOutputType | null
+    _sum: UserHouseholdSumAggregateOutputType | null
+    _min: UserHouseholdMinAggregateOutputType | null
+    _max: UserHouseholdMaxAggregateOutputType | null
   }
 
-  type GetProfilePermissionGroupByPayload<T extends ProfilePermissionGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserHouseholdGroupByPayload<T extends UserHouseholdGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ProfilePermissionGroupByOutputType, T['by']> &
+      PickEnumerable<UserHouseholdGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ProfilePermissionGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserHouseholdGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ProfilePermissionGroupByOutputType[P]>
-            : GetScalarType<T[P], ProfilePermissionGroupByOutputType[P]>
+              : GetScalarType<T[P], UserHouseholdGroupByOutputType[P]>
+            : GetScalarType<T[P], UserHouseholdGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ProfilePermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserHouseholdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    profileId?: boolean
-    teamId?: boolean
-    canEditSubdistrict?: boolean
-    canGrant?: boolean
+    userId?: boolean
+    householdId?: boolean
     createdAt?: boolean
     createdBy?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["profilePermission"]>
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userHousehold"]>
 
-  export type ProfilePermissionSelectScalar = {
+  export type UserHouseholdSelectScalar = {
     id?: boolean
-    profileId?: boolean
-    teamId?: boolean
-    canEditSubdistrict?: boolean
-    canGrant?: boolean
+    userId?: boolean
+    householdId?: boolean
     createdAt?: boolean
     createdBy?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
   }
 
-  export type ProfilePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
+  export type UserHouseholdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    household?: boolean | HouseholdDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
 
-  export type $ProfilePermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ProfilePermission"
+  export type $UserHouseholdPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserHousehold"
     objects: {
-      profile: Prisma.$ProfilePayload<ExtArgs>
-      team: Prisma.$TeamPayload<ExtArgs>
+      household: Prisma.$HouseholdPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      profileId: number
-      teamId: number
-      canEditSubdistrict: boolean
-      canGrant: boolean
+      userId: number
+      householdId: number
       createdAt: Date
       createdBy: string
       updatedAt: Date
       updatedBy: string
-    }, ExtArgs["result"]["profilePermission"]>
+    }, ExtArgs["result"]["userHousehold"]>
     composites: {}
   }
 
 
-  type ProfilePermissionGetPayload<S extends boolean | null | undefined | ProfilePermissionDefaultArgs> = $Result.GetResult<Prisma.$ProfilePermissionPayload, S>
+  type UserHouseholdGetPayload<S extends boolean | null | undefined | UserHouseholdDefaultArgs> = $Result.GetResult<Prisma.$UserHouseholdPayload, S>
 
-  type ProfilePermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProfilePermissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: ProfilePermissionCountAggregateInputType | true
+  type UserHouseholdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserHouseholdFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserHouseholdCountAggregateInputType | true
     }
 
-  export interface ProfilePermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProfilePermission'], meta: { name: 'ProfilePermission' } }
+  export interface UserHouseholdDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserHousehold'], meta: { name: 'UserHousehold' } }
     /**
-     * Find zero or one ProfilePermission that matches the filter.
-     * @param {ProfilePermissionFindUniqueArgs} args - Arguments to find a ProfilePermission
+     * Find zero or one UserHousehold that matches the filter.
+     * @param {UserHouseholdFindUniqueArgs} args - Arguments to find a UserHousehold
      * @example
-     * // Get one ProfilePermission
-     * const profilePermission = await prisma.profilePermission.findUnique({
+     * // Get one UserHousehold
+     * const userHousehold = await prisma.userHousehold.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ProfilePermissionFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionFindUniqueArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+    findUnique<T extends UserHouseholdFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdFindUniqueArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one ProfilePermission that matches the filter or throw an error  with `error.code='P2025'` 
+     * Find one UserHousehold that matches the filter or throw an error  with `error.code='P2025'` 
      *     if no matches were found.
-     * @param {ProfilePermissionFindUniqueOrThrowArgs} args - Arguments to find a ProfilePermission
+     * @param {UserHouseholdFindUniqueOrThrowArgs} args - Arguments to find a UserHousehold
      * @example
-     * // Get one ProfilePermission
-     * const profilePermission = await prisma.profilePermission.findUniqueOrThrow({
+     * // Get one UserHousehold
+     * const userHousehold = await prisma.userHousehold.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends ProfilePermissionFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+    findUniqueOrThrow<T extends UserHouseholdFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
-     * Find the first ProfilePermission that matches the filter.
+     * Find the first UserHousehold that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionFindFirstArgs} args - Arguments to find a ProfilePermission
+     * @param {UserHouseholdFindFirstArgs} args - Arguments to find a UserHousehold
      * @example
-     * // Get one ProfilePermission
-     * const profilePermission = await prisma.profilePermission.findFirst({
+     * // Get one UserHousehold
+     * const userHousehold = await prisma.userHousehold.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ProfilePermissionFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionFindFirstArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+    findFirst<T extends UserHouseholdFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdFindFirstArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
-     * Find the first ProfilePermission that matches the filter or
+     * Find the first UserHousehold that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionFindFirstOrThrowArgs} args - Arguments to find a ProfilePermission
+     * @param {UserHouseholdFindFirstOrThrowArgs} args - Arguments to find a UserHousehold
      * @example
-     * // Get one ProfilePermission
-     * const profilePermission = await prisma.profilePermission.findFirstOrThrow({
+     * // Get one UserHousehold
+     * const userHousehold = await prisma.userHousehold.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends ProfilePermissionFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+    findFirstOrThrow<T extends UserHouseholdFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
-     * Find zero or more ProfilePermissions that matches the filter.
+     * Find zero or more UserHouseholds that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {UserHouseholdFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ProfilePermissions
-     * const profilePermissions = await prisma.profilePermission.findMany()
+     * // Get all UserHouseholds
+     * const userHouseholds = await prisma.userHousehold.findMany()
      * 
-     * // Get first 10 ProfilePermissions
-     * const profilePermissions = await prisma.profilePermission.findMany({ take: 10 })
+     * // Get first 10 UserHouseholds
+     * const userHouseholds = await prisma.userHousehold.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const profilePermissionWithIdOnly = await prisma.profilePermission.findMany({ select: { id: true } })
+     * const userHouseholdWithIdOnly = await prisma.userHousehold.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ProfilePermissionFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findMany'>>
+    findMany<T extends UserHouseholdFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'findMany'>>
 
     /**
-     * Create a ProfilePermission.
-     * @param {ProfilePermissionCreateArgs} args - Arguments to create a ProfilePermission.
+     * Create a UserHousehold.
+     * @param {UserHouseholdCreateArgs} args - Arguments to create a UserHousehold.
      * @example
-     * // Create one ProfilePermission
-     * const ProfilePermission = await prisma.profilePermission.create({
+     * // Create one UserHousehold
+     * const UserHousehold = await prisma.userHousehold.create({
      *   data: {
-     *     // ... data to create a ProfilePermission
+     *     // ... data to create a UserHousehold
      *   }
      * })
      * 
     **/
-    create<T extends ProfilePermissionCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionCreateArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+    create<T extends UserHouseholdCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdCreateArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
-     * Create many ProfilePermissions.
-     *     @param {ProfilePermissionCreateManyArgs} args - Arguments to create many ProfilePermissions.
+     * Create many UserHouseholds.
+     *     @param {UserHouseholdCreateManyArgs} args - Arguments to create many UserHouseholds.
      *     @example
-     *     // Create many ProfilePermissions
-     *     const profilePermission = await prisma.profilePermission.createMany({
+     *     // Create many UserHouseholds
+     *     const userHousehold = await prisma.userHousehold.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ProfilePermissionCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionCreateManyArgs<ExtArgs>>
+    createMany<T extends UserHouseholdCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ProfilePermission.
-     * @param {ProfilePermissionDeleteArgs} args - Arguments to delete one ProfilePermission.
+     * Delete a UserHousehold.
+     * @param {UserHouseholdDeleteArgs} args - Arguments to delete one UserHousehold.
      * @example
-     * // Delete one ProfilePermission
-     * const ProfilePermission = await prisma.profilePermission.delete({
+     * // Delete one UserHousehold
+     * const UserHousehold = await prisma.userHousehold.delete({
      *   where: {
-     *     // ... filter to delete one ProfilePermission
+     *     // ... filter to delete one UserHousehold
      *   }
      * })
      * 
     **/
-    delete<T extends ProfilePermissionDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionDeleteArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+    delete<T extends UserHouseholdDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdDeleteArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
-     * Update one ProfilePermission.
-     * @param {ProfilePermissionUpdateArgs} args - Arguments to update one ProfilePermission.
+     * Update one UserHousehold.
+     * @param {UserHouseholdUpdateArgs} args - Arguments to update one UserHousehold.
      * @example
-     * // Update one ProfilePermission
-     * const profilePermission = await prisma.profilePermission.update({
+     * // Update one UserHousehold
+     * const userHousehold = await prisma.userHousehold.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17937,34 +18117,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ProfilePermissionUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionUpdateArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+    update<T extends UserHouseholdUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdUpdateArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
-     * Delete zero or more ProfilePermissions.
-     * @param {ProfilePermissionDeleteManyArgs} args - Arguments to filter ProfilePermissions to delete.
+     * Delete zero or more UserHouseholds.
+     * @param {UserHouseholdDeleteManyArgs} args - Arguments to filter UserHouseholds to delete.
      * @example
-     * // Delete a few ProfilePermissions
-     * const { count } = await prisma.profilePermission.deleteMany({
+     * // Delete a few UserHouseholds
+     * const { count } = await prisma.userHousehold.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ProfilePermissionDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ProfilePermissionDeleteManyArgs<ExtArgs>>
+    deleteMany<T extends UserHouseholdDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserHouseholdDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ProfilePermissions.
+     * Update zero or more UserHouseholds.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserHouseholdUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ProfilePermissions
-     * const profilePermission = await prisma.profilePermission.updateMany({
+     * // Update many UserHouseholds
+     * const userHousehold = await prisma.userHousehold.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17974,59 +18154,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ProfilePermissionUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionUpdateManyArgs<ExtArgs>>
+    updateMany<T extends UserHouseholdUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ProfilePermission.
-     * @param {ProfilePermissionUpsertArgs} args - Arguments to update or create a ProfilePermission.
+     * Create or update one UserHousehold.
+     * @param {UserHouseholdUpsertArgs} args - Arguments to update or create a UserHousehold.
      * @example
-     * // Update or create a ProfilePermission
-     * const profilePermission = await prisma.profilePermission.upsert({
+     * // Update or create a UserHousehold
+     * const userHousehold = await prisma.userHousehold.upsert({
      *   create: {
-     *     // ... data to create a ProfilePermission
+     *     // ... data to create a UserHousehold
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ProfilePermission we want to update
+     *     // ... the filter for the UserHousehold we want to update
      *   }
      * })
     **/
-    upsert<T extends ProfilePermissionUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, ProfilePermissionUpsertArgs<ExtArgs>>
-    ): Prisma__ProfilePermissionClient<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+    upsert<T extends UserHouseholdUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, UserHouseholdUpsertArgs<ExtArgs>>
+    ): Prisma__UserHouseholdClient<$Result.GetResult<Prisma.$UserHouseholdPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
-     * Count the number of ProfilePermissions.
+     * Count the number of UserHouseholds.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionCountArgs} args - Arguments to filter ProfilePermissions to count.
+     * @param {UserHouseholdCountArgs} args - Arguments to filter UserHouseholds to count.
      * @example
-     * // Count the number of ProfilePermissions
-     * const count = await prisma.profilePermission.count({
+     * // Count the number of UserHouseholds
+     * const count = await prisma.userHousehold.count({
      *   where: {
-     *     // ... the filter for the ProfilePermissions we want to count
+     *     // ... the filter for the UserHouseholds we want to count
      *   }
      * })
     **/
-    count<T extends ProfilePermissionCountArgs>(
-      args?: Subset<T, ProfilePermissionCountArgs>,
+    count<T extends UserHouseholdCountArgs>(
+      args?: Subset<T, UserHouseholdCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ProfilePermissionCountAggregateOutputType>
+          : GetScalarType<T['select'], UserHouseholdCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ProfilePermission.
+     * Allows you to perform aggregations operations on a UserHousehold.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserHouseholdAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -18046,13 +18226,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ProfilePermissionAggregateArgs>(args: Subset<T, ProfilePermissionAggregateArgs>): Prisma.PrismaPromise<GetProfilePermissionAggregateType<T>>
+    aggregate<T extends UserHouseholdAggregateArgs>(args: Subset<T, UserHouseholdAggregateArgs>): Prisma.PrismaPromise<GetUserHouseholdAggregateType<T>>
 
     /**
-     * Group by ProfilePermission.
+     * Group by UserHousehold.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfilePermissionGroupByArgs} args - Group by arguments.
+     * @param {UserHouseholdGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -18067,14 +18247,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ProfilePermissionGroupByArgs,
+      T extends UserHouseholdGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProfilePermissionGroupByArgs['orderBy'] }
-        : { orderBy?: ProfilePermissionGroupByArgs['orderBy'] },
+        ? { orderBy: UserHouseholdGroupByArgs['orderBy'] }
+        : { orderBy?: UserHouseholdGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -18123,23 +18303,2126 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ProfilePermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfilePermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserHouseholdGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserHouseholdGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the ProfilePermission model
+   * Fields of the UserHousehold model
    */
-  readonly fields: ProfilePermissionFieldRefs;
+  readonly fields: UserHouseholdFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ProfilePermission.
+   * The delegate class that acts as a "Promise-like" for UserHousehold.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ProfilePermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserHouseholdClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    household<T extends HouseholdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HouseholdDefaultArgs<ExtArgs>>): Prisma__HouseholdClient<$Result.GetResult<Prisma.$HouseholdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the UserHousehold model
+   */ 
+  interface UserHouseholdFieldRefs {
+    readonly id: FieldRef<"UserHousehold", 'Int'>
+    readonly userId: FieldRef<"UserHousehold", 'Int'>
+    readonly householdId: FieldRef<"UserHousehold", 'Int'>
+    readonly createdAt: FieldRef<"UserHousehold", 'DateTime'>
+    readonly createdBy: FieldRef<"UserHousehold", 'String'>
+    readonly updatedAt: FieldRef<"UserHousehold", 'DateTime'>
+    readonly updatedBy: FieldRef<"UserHousehold", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * UserHousehold findUnique
+   */
+  export type UserHouseholdFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter, which UserHousehold to fetch.
+     */
+    where: UserHouseholdWhereUniqueInput
+  }
+
+
+  /**
+   * UserHousehold findUniqueOrThrow
+   */
+  export type UserHouseholdFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter, which UserHousehold to fetch.
+     */
+    where: UserHouseholdWhereUniqueInput
+  }
+
+
+  /**
+   * UserHousehold findFirst
+   */
+  export type UserHouseholdFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter, which UserHousehold to fetch.
+     */
+    where?: UserHouseholdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserHouseholds to fetch.
+     */
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserHouseholds.
+     */
+    cursor?: UserHouseholdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserHouseholds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserHouseholds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserHouseholds.
+     */
+    distinct?: UserHouseholdScalarFieldEnum | UserHouseholdScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserHousehold findFirstOrThrow
+   */
+  export type UserHouseholdFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter, which UserHousehold to fetch.
+     */
+    where?: UserHouseholdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserHouseholds to fetch.
+     */
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserHouseholds.
+     */
+    cursor?: UserHouseholdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserHouseholds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserHouseholds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserHouseholds.
+     */
+    distinct?: UserHouseholdScalarFieldEnum | UserHouseholdScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserHousehold findMany
+   */
+  export type UserHouseholdFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter, which UserHouseholds to fetch.
+     */
+    where?: UserHouseholdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserHouseholds to fetch.
+     */
+    orderBy?: UserHouseholdOrderByWithRelationInput | UserHouseholdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserHouseholds.
+     */
+    cursor?: UserHouseholdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserHouseholds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserHouseholds.
+     */
+    skip?: number
+    distinct?: UserHouseholdScalarFieldEnum | UserHouseholdScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserHousehold create
+   */
+  export type UserHouseholdCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserHousehold.
+     */
+    data: XOR<UserHouseholdCreateInput, UserHouseholdUncheckedCreateInput>
+  }
+
+
+  /**
+   * UserHousehold createMany
+   */
+  export type UserHouseholdCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserHouseholds.
+     */
+    data: UserHouseholdCreateManyInput | UserHouseholdCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * UserHousehold update
+   */
+  export type UserHouseholdUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserHousehold.
+     */
+    data: XOR<UserHouseholdUpdateInput, UserHouseholdUncheckedUpdateInput>
+    /**
+     * Choose, which UserHousehold to update.
+     */
+    where: UserHouseholdWhereUniqueInput
+  }
+
+
+  /**
+   * UserHousehold updateMany
+   */
+  export type UserHouseholdUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserHouseholds.
+     */
+    data: XOR<UserHouseholdUpdateManyMutationInput, UserHouseholdUncheckedUpdateManyInput>
+    /**
+     * Filter which UserHouseholds to update
+     */
+    where?: UserHouseholdWhereInput
+  }
+
+
+  /**
+   * UserHousehold upsert
+   */
+  export type UserHouseholdUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserHousehold to update in case it exists.
+     */
+    where: UserHouseholdWhereUniqueInput
+    /**
+     * In case the UserHousehold found by the `where` argument doesn't exist, create a new UserHousehold with this data.
+     */
+    create: XOR<UserHouseholdCreateInput, UserHouseholdUncheckedCreateInput>
+    /**
+     * In case the UserHousehold was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserHouseholdUpdateInput, UserHouseholdUncheckedUpdateInput>
+  }
+
+
+  /**
+   * UserHousehold delete
+   */
+  export type UserHouseholdDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+    /**
+     * Filter which UserHousehold to delete.
+     */
+    where: UserHouseholdWhereUniqueInput
+  }
+
+
+  /**
+   * UserHousehold deleteMany
+   */
+  export type UserHouseholdDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserHouseholds to delete
+     */
+    where?: UserHouseholdWhereInput
+  }
+
+
+  /**
+   * UserHousehold without action
+   */
+  export type UserHouseholdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHousehold
+     */
+    select?: UserHouseholdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserHouseholdInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Admin
+   */
+
+  export type AggregateAdmin = {
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  export type AdminAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AdminSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AdminMinAggregateOutputType = {
+    id: number | null
+    firstname: string | null
+    lastname: string | null
+    citizenId: string | null
+    officerId: string | null
+    officerCardImg: string | null
+    email: string | null
+    password: string | null
+    phoneNumber: string | null
+    profileImg: string | null
+    role: $Enums.Role | null
+    isActive: boolean | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+  }
+
+  export type AdminMaxAggregateOutputType = {
+    id: number | null
+    firstname: string | null
+    lastname: string | null
+    citizenId: string | null
+    officerId: string | null
+    officerCardImg: string | null
+    email: string | null
+    password: string | null
+    phoneNumber: string | null
+    profileImg: string | null
+    role: $Enums.Role | null
+    isActive: boolean | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+  }
+
+  export type AdminCountAggregateOutputType = {
+    id: number
+    firstname: number
+    lastname: number
+    citizenId: number
+    officerId: number
+    officerCardImg: number
+    email: number
+    password: number
+    phoneNumber: number
+    profileImg: number
+    role: number
+    isActive: number
+    createdAt: number
+    createdBy: number
+    updatedAt: number
+    updatedBy: number
+    _all: number
+  }
+
+
+  export type AdminAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type AdminSumAggregateInputType = {
+    id?: true
+  }
+
+  export type AdminMinAggregateInputType = {
+    id?: true
+    firstname?: true
+    lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImg?: true
+    email?: true
+    password?: true
+    phoneNumber?: true
+    profileImg?: true
+    role?: true
+    isActive?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+  }
+
+  export type AdminMaxAggregateInputType = {
+    id?: true
+    firstname?: true
+    lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImg?: true
+    email?: true
+    password?: true
+    phoneNumber?: true
+    profileImg?: true
+    role?: true
+    isActive?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+  }
+
+  export type AdminCountAggregateInputType = {
+    id?: true
+    firstname?: true
+    lastname?: true
+    citizenId?: true
+    officerId?: true
+    officerCardImg?: true
+    email?: true
+    password?: true
+    phoneNumber?: true
+    profileImg?: true
+    role?: true
+    isActive?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    _all?: true
+  }
+
+  export type AdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin to aggregate.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admins
+    **/
+    _count?: true | AdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AdminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AdminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type GetAdminAggregateType<T extends AdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin[P]>
+      : GetScalarType<T[P], AggregateAdmin[P]>
+  }
+
+
+
+
+  export type AdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithAggregationInput | AdminOrderByWithAggregationInput[]
+    by: AdminScalarFieldEnum[] | AdminScalarFieldEnum
+    having?: AdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminCountAggregateInputType | true
+    _avg?: AdminAvgAggregateInputType
+    _sum?: AdminSumAggregateInputType
+    _min?: AdminMinAggregateInputType
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type AdminGroupByOutputType = {
+    id: number
+    firstname: string
+    lastname: string
+    citizenId: string
+    officerId: string
+    officerCardImg: string | null
+    email: string
+    password: string
+    phoneNumber: string | null
+    profileImg: string | null
+    role: $Enums.Role
+    isActive: boolean
+    createdAt: Date
+    createdBy: string
+    updatedAt: Date
+    updatedBy: string
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  type GetAdminGroupByPayload<T extends AdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    firstname?: boolean
+    lastname?: boolean
+    citizenId?: boolean
+    officerId?: boolean
+    officerCardImg?: boolean
+    email?: boolean
+    password?: boolean
+    phoneNumber?: boolean
+    profileImg?: boolean
+    role?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    permissions?: boolean | Admin$permissionsArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["admin"]>
+
+  export type AdminSelectScalar = {
+    id?: boolean
+    firstname?: boolean
+    lastname?: boolean
+    citizenId?: boolean
+    officerId?: boolean
+    officerCardImg?: boolean
+    email?: boolean
+    password?: boolean
+    phoneNumber?: boolean
+    profileImg?: boolean
+    role?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+  }
+
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    permissions?: boolean | Admin$permissionsArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Admin"
+    objects: {
+      permissions: Prisma.$PermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      firstname: string
+      lastname: string
+      citizenId: string
+      officerId: string
+      officerCardImg: string | null
+      email: string
+      password: string
+      phoneNumber: string | null
+      profileImg: string | null
+      role: $Enums.Role
+      isActive: boolean
+      createdAt: Date
+      createdBy: string
+      updatedAt: Date
+      updatedBy: string
+    }, ExtArgs["result"]["admin"]>
+    composites: {}
+  }
+
+
+  type AdminGetPayload<S extends boolean | null | undefined | AdminDefaultArgs> = $Result.GetResult<Prisma.$AdminPayload, S>
+
+  type AdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AdminFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AdminCountAggregateInputType | true
+    }
+
+  export interface AdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Admin'], meta: { name: 'Admin' } }
+    /**
+     * Find zero or one Admin that matches the filter.
+     * @param {AdminFindUniqueArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AdminFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminFindUniqueArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Admin that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AdminFindUniqueOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AdminFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Admin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AdminFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminFindFirstArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Admin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AdminFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admins
+     * const admins = await prisma.admin.findMany()
+     * 
+     * // Get first 10 Admins
+     * const admins = await prisma.admin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminWithIdOnly = await prisma.admin.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AdminFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Admin.
+     * @param {AdminCreateArgs} args - Arguments to create a Admin.
+     * @example
+     * // Create one Admin
+     * const Admin = await prisma.admin.create({
+     *   data: {
+     *     // ... data to create a Admin
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AdminCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminCreateArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Admins.
+     *     @param {AdminCreateManyArgs} args - Arguments to create many Admins.
+     *     @example
+     *     // Create many Admins
+     *     const admin = await prisma.admin.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AdminCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Admin.
+     * @param {AdminDeleteArgs} args - Arguments to delete one Admin.
+     * @example
+     * // Delete one Admin
+     * const Admin = await prisma.admin.delete({
+     *   where: {
+     *     // ... filter to delete one Admin
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AdminDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminDeleteArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Admin.
+     * @param {AdminUpdateArgs} args - Arguments to update one Admin.
+     * @example
+     * // Update one Admin
+     * const admin = await prisma.admin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AdminUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminUpdateArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Admins.
+     * @param {AdminDeleteManyArgs} args - Arguments to filter Admins to delete.
+     * @example
+     * // Delete a few Admins
+     * const { count } = await prisma.admin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AdminDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AdminDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AdminUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Admin.
+     * @param {AdminUpsertArgs} args - Arguments to update or create a Admin.
+     * @example
+     * // Update or create a Admin
+     * const admin = await prisma.admin.upsert({
+     *   create: {
+     *     // ... data to create a Admin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AdminUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AdminUpsertArgs<ExtArgs>>
+    ): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminCountArgs} args - Arguments to filter Admins to count.
+     * @example
+     * // Count the number of Admins
+     * const count = await prisma.admin.count({
+     *   where: {
+     *     // ... the filter for the Admins we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminCountArgs>(
+      args?: Subset<T, AdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminAggregateArgs>(args: Subset<T, AdminAggregateArgs>): Prisma.PrismaPromise<GetAdminAggregateType<T>>
+
+    /**
+     * Group by Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminGroupByArgs['orderBy'] }
+        : { orderBy?: AdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Admin model
+   */
+  readonly fields: AdminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    permissions<T extends Admin$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Admin$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Admin model
+   */ 
+  interface AdminFieldRefs {
+    readonly id: FieldRef<"Admin", 'Int'>
+    readonly firstname: FieldRef<"Admin", 'String'>
+    readonly lastname: FieldRef<"Admin", 'String'>
+    readonly citizenId: FieldRef<"Admin", 'String'>
+    readonly officerId: FieldRef<"Admin", 'String'>
+    readonly officerCardImg: FieldRef<"Admin", 'String'>
+    readonly email: FieldRef<"Admin", 'String'>
+    readonly password: FieldRef<"Admin", 'String'>
+    readonly phoneNumber: FieldRef<"Admin", 'String'>
+    readonly profileImg: FieldRef<"Admin", 'String'>
+    readonly role: FieldRef<"Admin", 'Role'>
+    readonly isActive: FieldRef<"Admin", 'Boolean'>
+    readonly createdAt: FieldRef<"Admin", 'DateTime'>
+    readonly createdBy: FieldRef<"Admin", 'String'>
+    readonly updatedAt: FieldRef<"Admin", 'DateTime'>
+    readonly updatedBy: FieldRef<"Admin", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Admin findUnique
+   */
+  export type AdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin findUniqueOrThrow
+   */
+  export type AdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin findFirst
+   */
+  export type AdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+
+  /**
+   * Admin findFirstOrThrow
+   */
+  export type AdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+
+  /**
+   * Admin findMany
+   */
+  export type AdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admins to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+
+  /**
+   * Admin create
+   */
+  export type AdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Admin.
+     */
+    data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+  }
+
+
+  /**
+   * Admin createMany
+   */
+  export type AdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Admins.
+     */
+    data: AdminCreateManyInput | AdminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Admin update
+   */
+  export type AdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Admin.
+     */
+    data: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+    /**
+     * Choose, which Admin to update.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin updateMany
+   */
+  export type AdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+  }
+
+
+  /**
+   * Admin upsert
+   */
+  export type AdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Admin to update in case it exists.
+     */
+    where: AdminWhereUniqueInput
+    /**
+     * In case the Admin found by the `where` argument doesn't exist, create a new Admin with this data.
+     */
+    create: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+    /**
+     * In case the Admin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Admin delete
+   */
+  export type AdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter which Admin to delete.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin deleteMany
+   */
+  export type AdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admins to delete
+     */
+    where?: AdminWhereInput
+  }
+
+
+  /**
+   * Admin.permissions
+   */
+  export type Admin$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    cursor?: PermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Admin without action
+   */
+  export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Permission
+   */
+
+  export type AggregatePermission = {
+    _count: PermissionCountAggregateOutputType | null
+    _avg: PermissionAvgAggregateOutputType | null
+    _sum: PermissionSumAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  export type PermissionAvgAggregateOutputType = {
+    id: number | null
+    adminId: number | null
+    teamId: number | null
+  }
+
+  export type PermissionSumAggregateOutputType = {
+    id: number | null
+    adminId: number | null
+    teamId: number | null
+  }
+
+  export type PermissionMinAggregateOutputType = {
+    id: number | null
+    adminId: number | null
+    teamId: number | null
+    canEditSubdistrict: boolean | null
+    canGrant: boolean | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+  }
+
+  export type PermissionMaxAggregateOutputType = {
+    id: number | null
+    adminId: number | null
+    teamId: number | null
+    canEditSubdistrict: boolean | null
+    canGrant: boolean | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+  }
+
+  export type PermissionCountAggregateOutputType = {
+    id: number
+    adminId: number
+    teamId: number
+    canEditSubdistrict: number
+    canGrant: number
+    createdAt: number
+    createdBy: number
+    updatedAt: number
+    updatedBy: number
+    _all: number
+  }
+
+
+  export type PermissionAvgAggregateInputType = {
+    id?: true
+    adminId?: true
+    teamId?: true
+  }
+
+  export type PermissionSumAggregateInputType = {
+    id?: true
+    adminId?: true
+    teamId?: true
+  }
+
+  export type PermissionMinAggregateInputType = {
+    id?: true
+    adminId?: true
+    teamId?: true
+    canEditSubdistrict?: true
+    canGrant?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+  }
+
+  export type PermissionMaxAggregateInputType = {
+    id?: true
+    adminId?: true
+    teamId?: true
+    canEditSubdistrict?: true
+    canGrant?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+  }
+
+  export type PermissionCountAggregateInputType = {
+    id?: true
+    adminId?: true
+    teamId?: true
+    canEditSubdistrict?: true
+    canGrant?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    _all?: true
+  }
+
+  export type PermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permission to aggregate.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Permissions
+    **/
+    _count?: true | PermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PermissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PermissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type GetPermissionAggregateType<T extends PermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePermission[P]>
+      : GetScalarType<T[P], AggregatePermission[P]>
+  }
+
+
+
+
+  export type PermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithAggregationInput | PermissionOrderByWithAggregationInput[]
+    by: PermissionScalarFieldEnum[] | PermissionScalarFieldEnum
+    having?: PermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PermissionCountAggregateInputType | true
+    _avg?: PermissionAvgAggregateInputType
+    _sum?: PermissionSumAggregateInputType
+    _min?: PermissionMinAggregateInputType
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type PermissionGroupByOutputType = {
+    id: number
+    adminId: number
+    teamId: number
+    canEditSubdistrict: boolean
+    canGrant: boolean
+    createdAt: Date
+    createdBy: string
+    updatedAt: Date
+    updatedBy: string
+    _count: PermissionCountAggregateOutputType | null
+    _avg: PermissionAvgAggregateOutputType | null
+    _sum: PermissionSumAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  type GetPermissionGroupByPayload<T extends PermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    adminId?: boolean
+    teamId?: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectScalar = {
+    id?: boolean
+    adminId?: boolean
+    teamId?: boolean
+    canEditSubdistrict?: boolean
+    canGrant?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+  }
+
+  export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+
+
+  export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Permission"
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs>
+      team: Prisma.$TeamPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      adminId: number
+      teamId: number
+      canEditSubdistrict: boolean
+      canGrant: boolean
+      createdAt: Date
+      createdBy: string
+      updatedAt: Date
+      updatedBy: string
+    }, ExtArgs["result"]["permission"]>
+    composites: {}
+  }
+
+
+  type PermissionGetPayload<S extends boolean | null | undefined | PermissionDefaultArgs> = $Result.GetResult<Prisma.$PermissionPayload, S>
+
+  type PermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PermissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PermissionCountAggregateInputType | true
+    }
+
+  export interface PermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Permission'], meta: { name: 'Permission' } }
+    /**
+     * Find zero or one Permission that matches the filter.
+     * @param {PermissionFindUniqueArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PermissionFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionFindUniqueArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Permission that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PermissionFindUniqueOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PermissionFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Permission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PermissionFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionFindFirstArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Permission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PermissionFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Permissions
+     * const permissions = await prisma.permission.findMany()
+     * 
+     * // Get first 10 Permissions
+     * const permissions = await prisma.permission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const permissionWithIdOnly = await prisma.permission.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PermissionFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Permission.
+     * @param {PermissionCreateArgs} args - Arguments to create a Permission.
+     * @example
+     * // Create one Permission
+     * const Permission = await prisma.permission.create({
+     *   data: {
+     *     // ... data to create a Permission
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PermissionCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionCreateArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Permissions.
+     *     @param {PermissionCreateManyArgs} args - Arguments to create many Permissions.
+     *     @example
+     *     // Create many Permissions
+     *     const permission = await prisma.permission.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PermissionCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Permission.
+     * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
+     * @example
+     * // Delete one Permission
+     * const Permission = await prisma.permission.delete({
+     *   where: {
+     *     // ... filter to delete one Permission
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PermissionDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionDeleteArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Permission.
+     * @param {PermissionUpdateArgs} args - Arguments to update one Permission.
+     * @example
+     * // Update one Permission
+     * const permission = await prisma.permission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PermissionUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionUpdateArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Permissions.
+     * @param {PermissionDeleteManyArgs} args - Arguments to filter Permissions to delete.
+     * @example
+     * // Delete a few Permissions
+     * const { count } = await prisma.permission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PermissionDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PermissionDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Permissions
+     * const permission = await prisma.permission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PermissionUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Permission.
+     * @param {PermissionUpsertArgs} args - Arguments to update or create a Permission.
+     * @example
+     * // Update or create a Permission
+     * const permission = await prisma.permission.upsert({
+     *   create: {
+     *     // ... data to create a Permission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Permission we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PermissionUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, PermissionUpsertArgs<ExtArgs>>
+    ): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionCountArgs} args - Arguments to filter Permissions to count.
+     * @example
+     * // Count the number of Permissions
+     * const count = await prisma.permission.count({
+     *   where: {
+     *     // ... the filter for the Permissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PermissionCountArgs>(
+      args?: Subset<T, PermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PermissionAggregateArgs>(args: Subset<T, PermissionAggregateArgs>): Prisma.PrismaPromise<GetPermissionAggregateType<T>>
+
+    /**
+     * Group by Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PermissionGroupByArgs['orderBy'] }
+        : { orderBy?: PermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Permission model
+   */
+  readonly fields: PermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Permission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -18168,341 +20451,341 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the ProfilePermission model
+   * Fields of the Permission model
    */ 
-  interface ProfilePermissionFieldRefs {
-    readonly id: FieldRef<"ProfilePermission", 'Int'>
-    readonly profileId: FieldRef<"ProfilePermission", 'Int'>
-    readonly teamId: FieldRef<"ProfilePermission", 'Int'>
-    readonly canEditSubdistrict: FieldRef<"ProfilePermission", 'Boolean'>
-    readonly canGrant: FieldRef<"ProfilePermission", 'Boolean'>
-    readonly createdAt: FieldRef<"ProfilePermission", 'DateTime'>
-    readonly createdBy: FieldRef<"ProfilePermission", 'String'>
-    readonly updatedAt: FieldRef<"ProfilePermission", 'DateTime'>
-    readonly updatedBy: FieldRef<"ProfilePermission", 'String'>
+  interface PermissionFieldRefs {
+    readonly id: FieldRef<"Permission", 'Int'>
+    readonly adminId: FieldRef<"Permission", 'Int'>
+    readonly teamId: FieldRef<"Permission", 'Int'>
+    readonly canEditSubdistrict: FieldRef<"Permission", 'Boolean'>
+    readonly canGrant: FieldRef<"Permission", 'Boolean'>
+    readonly createdAt: FieldRef<"Permission", 'DateTime'>
+    readonly createdBy: FieldRef<"Permission", 'String'>
+    readonly updatedAt: FieldRef<"Permission", 'DateTime'>
+    readonly updatedBy: FieldRef<"Permission", 'String'>
   }
     
 
   // Custom InputTypes
 
   /**
-   * ProfilePermission findUnique
+   * Permission findUnique
    */
-  export type ProfilePermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter, which ProfilePermission to fetch.
+     * Filter, which Permission to fetch.
      */
-    where: ProfilePermissionWhereUniqueInput
+    where: PermissionWhereUniqueInput
   }
 
 
   /**
-   * ProfilePermission findUniqueOrThrow
+   * Permission findUniqueOrThrow
    */
-  export type ProfilePermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter, which ProfilePermission to fetch.
+     * Filter, which Permission to fetch.
      */
-    where: ProfilePermissionWhereUniqueInput
+    where: PermissionWhereUniqueInput
   }
 
 
   /**
-   * ProfilePermission findFirst
+   * Permission findFirst
    */
-  export type ProfilePermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter, which ProfilePermission to fetch.
+     * Filter, which Permission to fetch.
      */
-    where?: ProfilePermissionWhereInput
+    where?: PermissionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProfilePermissions to fetch.
+     * Determine the order of Permissions to fetch.
      */
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ProfilePermissions.
+     * Sets the position for searching for Permissions.
      */
-    cursor?: ProfilePermissionWhereUniqueInput
+    cursor?: PermissionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProfilePermissions from the position of the cursor.
+     * Take `±n` Permissions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProfilePermissions.
+     * Skip the first `n` Permissions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ProfilePermissions.
+     * Filter by unique combinations of Permissions.
      */
-    distinct?: ProfilePermissionScalarFieldEnum | ProfilePermissionScalarFieldEnum[]
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
   }
 
 
   /**
-   * ProfilePermission findFirstOrThrow
+   * Permission findFirstOrThrow
    */
-  export type ProfilePermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter, which ProfilePermission to fetch.
+     * Filter, which Permission to fetch.
      */
-    where?: ProfilePermissionWhereInput
+    where?: PermissionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProfilePermissions to fetch.
+     * Determine the order of Permissions to fetch.
      */
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ProfilePermissions.
+     * Sets the position for searching for Permissions.
      */
-    cursor?: ProfilePermissionWhereUniqueInput
+    cursor?: PermissionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProfilePermissions from the position of the cursor.
+     * Take `±n` Permissions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProfilePermissions.
+     * Skip the first `n` Permissions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ProfilePermissions.
+     * Filter by unique combinations of Permissions.
      */
-    distinct?: ProfilePermissionScalarFieldEnum | ProfilePermissionScalarFieldEnum[]
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
   }
 
 
   /**
-   * ProfilePermission findMany
+   * Permission findMany
    */
-  export type ProfilePermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter, which ProfilePermissions to fetch.
+     * Filter, which Permissions to fetch.
      */
-    where?: ProfilePermissionWhereInput
+    where?: PermissionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProfilePermissions to fetch.
+     * Determine the order of Permissions to fetch.
      */
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ProfilePermissions.
+     * Sets the position for listing Permissions.
      */
-    cursor?: ProfilePermissionWhereUniqueInput
+    cursor?: PermissionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProfilePermissions from the position of the cursor.
+     * Take `±n` Permissions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProfilePermissions.
+     * Skip the first `n` Permissions.
      */
     skip?: number
-    distinct?: ProfilePermissionScalarFieldEnum | ProfilePermissionScalarFieldEnum[]
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
   }
 
 
   /**
-   * ProfilePermission create
+   * Permission create
    */
-  export type ProfilePermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * The data needed to create a ProfilePermission.
+     * The data needed to create a Permission.
      */
-    data: XOR<ProfilePermissionCreateInput, ProfilePermissionUncheckedCreateInput>
+    data: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
   }
 
 
   /**
-   * ProfilePermission createMany
+   * Permission createMany
    */
-  export type ProfilePermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many ProfilePermissions.
+     * The data used to create many Permissions.
      */
-    data: ProfilePermissionCreateManyInput | ProfilePermissionCreateManyInput[]
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ProfilePermission update
+   * Permission update
    */
-  export type ProfilePermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * The data needed to update a ProfilePermission.
+     * The data needed to update a Permission.
      */
-    data: XOR<ProfilePermissionUpdateInput, ProfilePermissionUncheckedUpdateInput>
+    data: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
     /**
-     * Choose, which ProfilePermission to update.
+     * Choose, which Permission to update.
      */
-    where: ProfilePermissionWhereUniqueInput
+    where: PermissionWhereUniqueInput
   }
 
 
   /**
-   * ProfilePermission updateMany
+   * Permission updateMany
    */
-  export type ProfilePermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update ProfilePermissions.
+     * The data used to update Permissions.
      */
-    data: XOR<ProfilePermissionUpdateManyMutationInput, ProfilePermissionUncheckedUpdateManyInput>
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
     /**
-     * Filter which ProfilePermissions to update
+     * Filter which Permissions to update
      */
-    where?: ProfilePermissionWhereInput
+    where?: PermissionWhereInput
   }
 
 
   /**
-   * ProfilePermission upsert
+   * Permission upsert
    */
-  export type ProfilePermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * The filter to search for the ProfilePermission to update in case it exists.
+     * The filter to search for the Permission to update in case it exists.
      */
-    where: ProfilePermissionWhereUniqueInput
+    where: PermissionWhereUniqueInput
     /**
-     * In case the ProfilePermission found by the `where` argument doesn't exist, create a new ProfilePermission with this data.
+     * In case the Permission found by the `where` argument doesn't exist, create a new Permission with this data.
      */
-    create: XOR<ProfilePermissionCreateInput, ProfilePermissionUncheckedCreateInput>
+    create: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
     /**
-     * In case the ProfilePermission was found with the provided `where` argument, update it with this data.
+     * In case the Permission was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ProfilePermissionUpdateInput, ProfilePermissionUncheckedUpdateInput>
+    update: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
   }
 
 
   /**
-   * ProfilePermission delete
+   * Permission delete
    */
-  export type ProfilePermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
     /**
-     * Filter which ProfilePermission to delete.
+     * Filter which Permission to delete.
      */
-    where: ProfilePermissionWhereUniqueInput
+    where: PermissionWhereUniqueInput
   }
 
 
   /**
-   * ProfilePermission deleteMany
+   * Permission deleteMany
    */
-  export type ProfilePermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ProfilePermissions to delete
+     * Filter which Permissions to delete
      */
-    where?: ProfilePermissionWhereInput
+    where?: PermissionWhereInput
   }
 
 
   /**
-   * ProfilePermission without action
+   * Permission without action
    */
-  export type ProfilePermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
+    include?: PermissionInclude<ExtArgs> | null
   }
 
 
@@ -18766,7 +21049,7 @@ export namespace Prisma {
     updatedAt?: boolean
     updatedBy?: boolean
     address?: boolean | AddressDefaultArgs<ExtArgs>
-    profilePermissions?: boolean | Team$profilePermissionsArgs<ExtArgs>
+    permissions?: boolean | Team$permissionsArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -18787,7 +21070,7 @@ export namespace Prisma {
 
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     address?: boolean | AddressDefaultArgs<ExtArgs>
-    profilePermissions?: boolean | Team$profilePermissionsArgs<ExtArgs>
+    permissions?: boolean | Team$permissionsArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -18796,7 +21079,7 @@ export namespace Prisma {
     name: "Team"
     objects: {
       address: Prisma.$AddressPayload<ExtArgs>
-      profilePermissions: Prisma.$ProfilePermissionPayload<ExtArgs>[]
+      permissions: Prisma.$PermissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -19178,7 +21461,7 @@ export namespace Prisma {
 
     address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    profilePermissions<T extends Team$profilePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Team$profilePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePermissionPayload<ExtArgs>, T, 'findMany'> | Null>;
+    permissions<T extends Team$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Team$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -19532,23 +21815,23 @@ export namespace Prisma {
 
 
   /**
-   * Team.profilePermissions
+   * Team.permissions
    */
-  export type Team$profilePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Team$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProfilePermission
+     * Select specific fields to fetch from the Permission
      */
-    select?: ProfilePermissionSelect<ExtArgs> | null
+    select?: PermissionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ProfilePermissionInclude<ExtArgs> | null
-    where?: ProfilePermissionWhereInput
-    orderBy?: ProfilePermissionOrderByWithRelationInput | ProfilePermissionOrderByWithRelationInput[]
-    cursor?: ProfilePermissionWhereUniqueInput
+    include?: PermissionInclude<ExtArgs> | null
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    cursor?: PermissionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ProfilePermissionScalarFieldEnum | ProfilePermissionScalarFieldEnum[]
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
   }
 
 
@@ -21665,18 +23948,15 @@ export namespace Prisma {
   export type OtherEnergyConsumptionScalarFieldEnum = (typeof OtherEnergyConsumptionScalarFieldEnum)[keyof typeof OtherEnergyConsumptionScalarFieldEnum]
 
 
-  export const ProfileScalarFieldEnum: {
+  export const UserScalarFieldEnum: {
     id: 'id',
     firstname: 'firstname',
     lastname: 'lastname',
     citizenId: 'citizenId',
-    officerId: 'officerId',
-    officerCardImage: 'officerCardImage',
     email: 'email',
     password: 'password',
     phoneNumber: 'phoneNumber',
     profileImg: 'profileImg',
-    isStaff: 'isStaff',
     isActive: 'isActive',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
@@ -21684,12 +23964,47 @@ export namespace Prisma {
     updatedBy: 'updatedBy'
   };
 
-  export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const ProfilePermissionScalarFieldEnum: {
+  export const UserHouseholdScalarFieldEnum: {
     id: 'id',
-    profileId: 'profileId',
+    userId: 'userId',
+    householdId: 'householdId',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy',
+    updatedAt: 'updatedAt',
+    updatedBy: 'updatedBy'
+  };
+
+  export type UserHouseholdScalarFieldEnum = (typeof UserHouseholdScalarFieldEnum)[keyof typeof UserHouseholdScalarFieldEnum]
+
+
+  export const AdminScalarFieldEnum: {
+    id: 'id',
+    firstname: 'firstname',
+    lastname: 'lastname',
+    citizenId: 'citizenId',
+    officerId: 'officerId',
+    officerCardImg: 'officerCardImg',
+    email: 'email',
+    password: 'password',
+    phoneNumber: 'phoneNumber',
+    profileImg: 'profileImg',
+    role: 'role',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy',
+    updatedAt: 'updatedAt',
+    updatedBy: 'updatedBy'
+  };
+
+  export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+  export const PermissionScalarFieldEnum: {
+    id: 'id',
+    adminId: 'adminId',
     teamId: 'teamId',
     canEditSubdistrict: 'canEditSubdistrict',
     canGrant: 'canGrant',
@@ -21699,7 +24014,7 @@ export namespace Prisma {
     updatedBy: 'updatedBy'
   };
 
-  export type ProfilePermissionScalarFieldEnum = (typeof ProfilePermissionScalarFieldEnum)[keyof typeof ProfilePermissionScalarFieldEnum]
+  export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
 
 
   export const TeamScalarFieldEnum: {
@@ -21894,6 +24209,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
    * Reference to a field of type 'TeamStatus'
    */
   export type EnumTeamStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamStatus'>
@@ -21918,20 +24247,6 @@ export namespace Prisma {
    * Reference to a field of type 'MaximumLevel[]'
    */
   export type ListEnumMaximumLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaximumLevel[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Role'
-   */
-  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-  /**
-   * Reference to a field of type 'Role[]'
-   */
-  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -22040,6 +24355,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillListRelationFilter
     householdWaterSupplies?: HouseholdWaterSupplyListRelationFilter
     otherEnergyConsumptions?: OtherEnergyConsumptionListRelationFilter
+    userHouseholds?: UserHouseholdListRelationFilter
   }
 
   export type HouseholdOrderByWithRelationInput = {
@@ -22062,6 +24378,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillOrderByRelationAggregateInput
     householdWaterSupplies?: HouseholdWaterSupplyOrderByRelationAggregateInput
     otherEnergyConsumptions?: OtherEnergyConsumptionOrderByRelationAggregateInput
+    userHouseholds?: UserHouseholdOrderByRelationAggregateInput
   }
 
   export type HouseholdWhereUniqueInput = Prisma.AtLeast<{
@@ -22087,6 +24404,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillListRelationFilter
     householdWaterSupplies?: HouseholdWaterSupplyListRelationFilter
     otherEnergyConsumptions?: OtherEnergyConsumptionListRelationFilter
+    userHouseholds?: UserHouseholdListRelationFilter
   }, "id">
 
   export type HouseholdOrderByWithAggregationInput = {
@@ -23051,138 +25369,305 @@ export namespace Prisma {
     updatedBy?: StringWithAggregatesFilter<"OtherEnergyConsumption"> | string
   }
 
-  export type ProfileWhereInput = {
-    AND?: ProfileWhereInput | ProfileWhereInput[]
-    OR?: ProfileWhereInput[]
-    NOT?: ProfileWhereInput | ProfileWhereInput[]
-    id?: IntFilter<"Profile"> | number
-    firstname?: StringFilter<"Profile"> | string
-    lastname?: StringFilter<"Profile"> | string
-    citizenId?: StringFilter<"Profile"> | string
-    officerId?: StringNullableFilter<"Profile"> | string | null
-    officerCardImage?: StringNullableFilter<"Profile"> | string | null
-    email?: StringFilter<"Profile"> | string
-    password?: StringFilter<"Profile"> | string
-    phoneNumber?: StringNullableFilter<"Profile"> | string | null
-    profileImg?: StringNullableFilter<"Profile"> | string | null
-    isStaff?: BoolFilter<"Profile"> | boolean
-    isActive?: BoolFilter<"Profile"> | boolean
-    createdAt?: DateTimeFilter<"Profile"> | Date | string
-    createdBy?: StringFilter<"Profile"> | string
-    updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedBy?: StringFilter<"Profile"> | string
-    profilePermissions?: ProfilePermissionListRelationFilter
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: IntFilter<"User"> | number
+    firstname?: StringFilter<"User"> | string
+    lastname?: StringFilter<"User"> | string
+    citizenId?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
+    profileImg?: StringNullableFilter<"User"> | string | null
+    isActive?: BoolFilter<"User"> | boolean
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    createdBy?: StringFilter<"User"> | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    updatedBy?: StringFilter<"User"> | string
+    userHouseholds?: UserHouseholdListRelationFilter
   }
 
-  export type ProfileOrderByWithRelationInput = {
+  export type UserOrderByWithRelationInput = {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
     citizenId?: SortOrder
-    officerId?: SortOrderInput | SortOrder
-    officerCardImage?: SortOrderInput | SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     profileImg?: SortOrderInput | SortOrder
-    isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
-    profilePermissions?: ProfilePermissionOrderByRelationAggregateInput
+    userHouseholds?: UserHouseholdOrderByRelationAggregateInput
   }
 
-  export type ProfileWhereUniqueInput = Prisma.AtLeast<{
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: ProfileWhereInput | ProfileWhereInput[]
-    OR?: ProfileWhereInput[]
-    NOT?: ProfileWhereInput | ProfileWhereInput[]
-    firstname?: StringFilter<"Profile"> | string
-    lastname?: StringFilter<"Profile"> | string
-    citizenId?: StringFilter<"Profile"> | string
-    officerId?: StringNullableFilter<"Profile"> | string | null
-    officerCardImage?: StringNullableFilter<"Profile"> | string | null
-    email?: StringFilter<"Profile"> | string
-    password?: StringFilter<"Profile"> | string
-    phoneNumber?: StringNullableFilter<"Profile"> | string | null
-    profileImg?: StringNullableFilter<"Profile"> | string | null
-    isStaff?: BoolFilter<"Profile"> | boolean
-    isActive?: BoolFilter<"Profile"> | boolean
-    createdAt?: DateTimeFilter<"Profile"> | Date | string
-    createdBy?: StringFilter<"Profile"> | string
-    updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedBy?: StringFilter<"Profile"> | string
-    profilePermissions?: ProfilePermissionListRelationFilter
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    firstname?: StringFilter<"User"> | string
+    lastname?: StringFilter<"User"> | string
+    citizenId?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
+    profileImg?: StringNullableFilter<"User"> | string | null
+    isActive?: BoolFilter<"User"> | boolean
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    createdBy?: StringFilter<"User"> | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    updatedBy?: StringFilter<"User"> | string
+    userHouseholds?: UserHouseholdListRelationFilter
   }, "id">
 
-  export type ProfileOrderByWithAggregationInput = {
+  export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
     citizenId?: SortOrder
-    officerId?: SortOrderInput | SortOrder
-    officerCardImage?: SortOrderInput | SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     profileImg?: SortOrderInput | SortOrder
-    isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
-    _count?: ProfileCountOrderByAggregateInput
-    _avg?: ProfileAvgOrderByAggregateInput
-    _max?: ProfileMaxOrderByAggregateInput
-    _min?: ProfileMinOrderByAggregateInput
-    _sum?: ProfileSumOrderByAggregateInput
+    _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
-  export type ProfileScalarWhereWithAggregatesInput = {
-    AND?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
-    OR?: ProfileScalarWhereWithAggregatesInput[]
-    NOT?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Profile"> | number
-    firstname?: StringWithAggregatesFilter<"Profile"> | string
-    lastname?: StringWithAggregatesFilter<"Profile"> | string
-    citizenId?: StringWithAggregatesFilter<"Profile"> | string
-    officerId?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    officerCardImage?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    email?: StringWithAggregatesFilter<"Profile"> | string
-    password?: StringWithAggregatesFilter<"Profile"> | string
-    phoneNumber?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    profileImg?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    isStaff?: BoolWithAggregatesFilter<"Profile"> | boolean
-    isActive?: BoolWithAggregatesFilter<"Profile"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-    createdBy?: StringWithAggregatesFilter<"Profile"> | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-    updatedBy?: StringWithAggregatesFilter<"Profile"> | string
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"User"> | number
+    firstname?: StringWithAggregatesFilter<"User"> | string
+    lastname?: StringWithAggregatesFilter<"User"> | string
+    citizenId?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
+    password?: StringWithAggregatesFilter<"User"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
+    profileImg?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"User"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"User"> | string
   }
 
-  export type ProfilePermissionWhereInput = {
-    AND?: ProfilePermissionWhereInput | ProfilePermissionWhereInput[]
-    OR?: ProfilePermissionWhereInput[]
-    NOT?: ProfilePermissionWhereInput | ProfilePermissionWhereInput[]
-    id?: IntFilter<"ProfilePermission"> | number
-    profileId?: IntFilter<"ProfilePermission"> | number
-    teamId?: IntFilter<"ProfilePermission"> | number
-    canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
-    canGrant?: BoolFilter<"ProfilePermission"> | boolean
-    createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: StringFilter<"ProfilePermission"> | string
-    updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: StringFilter<"ProfilePermission"> | string
-    profile?: XOR<ProfileRelationFilter, ProfileWhereInput>
+  export type UserHouseholdWhereInput = {
+    AND?: UserHouseholdWhereInput | UserHouseholdWhereInput[]
+    OR?: UserHouseholdWhereInput[]
+    NOT?: UserHouseholdWhereInput | UserHouseholdWhereInput[]
+    id?: IntFilter<"UserHousehold"> | number
+    userId?: IntFilter<"UserHousehold"> | number
+    householdId?: IntFilter<"UserHousehold"> | number
+    createdAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    createdBy?: StringFilter<"UserHousehold"> | string
+    updatedAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    updatedBy?: StringFilter<"UserHousehold"> | string
+    household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type UserHouseholdOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    household?: HouseholdOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserHouseholdWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: UserHouseholdWhereInput | UserHouseholdWhereInput[]
+    OR?: UserHouseholdWhereInput[]
+    NOT?: UserHouseholdWhereInput | UserHouseholdWhereInput[]
+    userId?: IntFilter<"UserHousehold"> | number
+    householdId?: IntFilter<"UserHousehold"> | number
+    createdAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    createdBy?: StringFilter<"UserHousehold"> | string
+    updatedAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    updatedBy?: StringFilter<"UserHousehold"> | string
+    household?: XOR<HouseholdRelationFilter, HouseholdWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserHouseholdOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    _count?: UserHouseholdCountOrderByAggregateInput
+    _avg?: UserHouseholdAvgOrderByAggregateInput
+    _max?: UserHouseholdMaxOrderByAggregateInput
+    _min?: UserHouseholdMinOrderByAggregateInput
+    _sum?: UserHouseholdSumOrderByAggregateInput
+  }
+
+  export type UserHouseholdScalarWhereWithAggregatesInput = {
+    AND?: UserHouseholdScalarWhereWithAggregatesInput | UserHouseholdScalarWhereWithAggregatesInput[]
+    OR?: UserHouseholdScalarWhereWithAggregatesInput[]
+    NOT?: UserHouseholdScalarWhereWithAggregatesInput | UserHouseholdScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserHousehold"> | number
+    userId?: IntWithAggregatesFilter<"UserHousehold"> | number
+    householdId?: IntWithAggregatesFilter<"UserHousehold"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserHousehold"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"UserHousehold"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserHousehold"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"UserHousehold"> | string
+  }
+
+  export type AdminWhereInput = {
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    id?: IntFilter<"Admin"> | number
+    firstname?: StringFilter<"Admin"> | string
+    lastname?: StringFilter<"Admin"> | string
+    citizenId?: StringFilter<"Admin"> | string
+    officerId?: StringFilter<"Admin"> | string
+    officerCardImg?: StringNullableFilter<"Admin"> | string | null
+    email?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    phoneNumber?: StringNullableFilter<"Admin"> | string | null
+    profileImg?: StringNullableFilter<"Admin"> | string | null
+    role?: EnumRoleFilter<"Admin"> | $Enums.Role
+    isActive?: BoolFilter<"Admin"> | boolean
+    createdAt?: DateTimeFilter<"Admin"> | Date | string
+    createdBy?: StringFilter<"Admin"> | string
+    updatedAt?: DateTimeFilter<"Admin"> | Date | string
+    updatedBy?: StringFilter<"Admin"> | string
+    permissions?: PermissionListRelationFilter
+  }
+
+  export type AdminOrderByWithRelationInput = {
+    id?: SortOrder
+    firstname?: SortOrder
+    lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImg?: SortOrderInput | SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    profileImg?: SortOrderInput | SortOrder
+    role?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    permissions?: PermissionOrderByRelationAggregateInput
+  }
+
+  export type AdminWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    firstname?: StringFilter<"Admin"> | string
+    lastname?: StringFilter<"Admin"> | string
+    citizenId?: StringFilter<"Admin"> | string
+    officerId?: StringFilter<"Admin"> | string
+    officerCardImg?: StringNullableFilter<"Admin"> | string | null
+    email?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    phoneNumber?: StringNullableFilter<"Admin"> | string | null
+    profileImg?: StringNullableFilter<"Admin"> | string | null
+    role?: EnumRoleFilter<"Admin"> | $Enums.Role
+    isActive?: BoolFilter<"Admin"> | boolean
+    createdAt?: DateTimeFilter<"Admin"> | Date | string
+    createdBy?: StringFilter<"Admin"> | string
+    updatedAt?: DateTimeFilter<"Admin"> | Date | string
+    updatedBy?: StringFilter<"Admin"> | string
+    permissions?: PermissionListRelationFilter
+  }, "id">
+
+  export type AdminOrderByWithAggregationInput = {
+    id?: SortOrder
+    firstname?: SortOrder
+    lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImg?: SortOrderInput | SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    profileImg?: SortOrderInput | SortOrder
+    role?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    _count?: AdminCountOrderByAggregateInput
+    _avg?: AdminAvgOrderByAggregateInput
+    _max?: AdminMaxOrderByAggregateInput
+    _min?: AdminMinOrderByAggregateInput
+    _sum?: AdminSumOrderByAggregateInput
+  }
+
+  export type AdminScalarWhereWithAggregatesInput = {
+    AND?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    OR?: AdminScalarWhereWithAggregatesInput[]
+    NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Admin"> | number
+    firstname?: StringWithAggregatesFilter<"Admin"> | string
+    lastname?: StringWithAggregatesFilter<"Admin"> | string
+    citizenId?: StringWithAggregatesFilter<"Admin"> | string
+    officerId?: StringWithAggregatesFilter<"Admin"> | string
+    officerCardImg?: StringNullableWithAggregatesFilter<"Admin"> | string | null
+    email?: StringWithAggregatesFilter<"Admin"> | string
+    password?: StringWithAggregatesFilter<"Admin"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"Admin"> | string | null
+    profileImg?: StringNullableWithAggregatesFilter<"Admin"> | string | null
+    role?: EnumRoleWithAggregatesFilter<"Admin"> | $Enums.Role
+    isActive?: BoolWithAggregatesFilter<"Admin"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Admin"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Admin"> | string
+  }
+
+  export type PermissionWhereInput = {
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    id?: IntFilter<"Permission"> | number
+    adminId?: IntFilter<"Permission"> | number
+    teamId?: IntFilter<"Permission"> | number
+    canEditSubdistrict?: BoolFilter<"Permission"> | boolean
+    canGrant?: BoolFilter<"Permission"> | boolean
+    createdAt?: DateTimeFilter<"Permission"> | Date | string
+    createdBy?: StringFilter<"Permission"> | string
+    updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    updatedBy?: StringFilter<"Permission"> | string
+    admin?: XOR<AdminRelationFilter, AdminWhereInput>
     team?: XOR<TeamRelationFilter, TeamWhereInput>
   }
 
-  export type ProfilePermissionOrderByWithRelationInput = {
+  export type PermissionOrderByWithRelationInput = {
     id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
     canEditSubdistrict?: SortOrder
     canGrant?: SortOrder
@@ -23190,30 +25675,30 @@ export namespace Prisma {
     createdBy?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
-    profile?: ProfileOrderByWithRelationInput
+    admin?: AdminOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
   }
 
-  export type ProfilePermissionWhereUniqueInput = Prisma.AtLeast<{
+  export type PermissionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: ProfilePermissionWhereInput | ProfilePermissionWhereInput[]
-    OR?: ProfilePermissionWhereInput[]
-    NOT?: ProfilePermissionWhereInput | ProfilePermissionWhereInput[]
-    profileId?: IntFilter<"ProfilePermission"> | number
-    teamId?: IntFilter<"ProfilePermission"> | number
-    canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
-    canGrant?: BoolFilter<"ProfilePermission"> | boolean
-    createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: StringFilter<"ProfilePermission"> | string
-    updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: StringFilter<"ProfilePermission"> | string
-    profile?: XOR<ProfileRelationFilter, ProfileWhereInput>
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    adminId?: IntFilter<"Permission"> | number
+    teamId?: IntFilter<"Permission"> | number
+    canEditSubdistrict?: BoolFilter<"Permission"> | boolean
+    canGrant?: BoolFilter<"Permission"> | boolean
+    createdAt?: DateTimeFilter<"Permission"> | Date | string
+    createdBy?: StringFilter<"Permission"> | string
+    updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    updatedBy?: StringFilter<"Permission"> | string
+    admin?: XOR<AdminRelationFilter, AdminWhereInput>
     team?: XOR<TeamRelationFilter, TeamWhereInput>
   }, "id">
 
-  export type ProfilePermissionOrderByWithAggregationInput = {
+  export type PermissionOrderByWithAggregationInput = {
     id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
     canEditSubdistrict?: SortOrder
     canGrant?: SortOrder
@@ -23221,26 +25706,26 @@ export namespace Prisma {
     createdBy?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
-    _count?: ProfilePermissionCountOrderByAggregateInput
-    _avg?: ProfilePermissionAvgOrderByAggregateInput
-    _max?: ProfilePermissionMaxOrderByAggregateInput
-    _min?: ProfilePermissionMinOrderByAggregateInput
-    _sum?: ProfilePermissionSumOrderByAggregateInput
+    _count?: PermissionCountOrderByAggregateInput
+    _avg?: PermissionAvgOrderByAggregateInput
+    _max?: PermissionMaxOrderByAggregateInput
+    _min?: PermissionMinOrderByAggregateInput
+    _sum?: PermissionSumOrderByAggregateInput
   }
 
-  export type ProfilePermissionScalarWhereWithAggregatesInput = {
-    AND?: ProfilePermissionScalarWhereWithAggregatesInput | ProfilePermissionScalarWhereWithAggregatesInput[]
-    OR?: ProfilePermissionScalarWhereWithAggregatesInput[]
-    NOT?: ProfilePermissionScalarWhereWithAggregatesInput | ProfilePermissionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ProfilePermission"> | number
-    profileId?: IntWithAggregatesFilter<"ProfilePermission"> | number
-    teamId?: IntWithAggregatesFilter<"ProfilePermission"> | number
-    canEditSubdistrict?: BoolWithAggregatesFilter<"ProfilePermission"> | boolean
-    canGrant?: BoolWithAggregatesFilter<"ProfilePermission"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
-    createdBy?: StringWithAggregatesFilter<"ProfilePermission"> | string
-    updatedAt?: DateTimeWithAggregatesFilter<"ProfilePermission"> | Date | string
-    updatedBy?: StringWithAggregatesFilter<"ProfilePermission"> | string
+  export type PermissionScalarWhereWithAggregatesInput = {
+    AND?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    OR?: PermissionScalarWhereWithAggregatesInput[]
+    NOT?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Permission"> | number
+    adminId?: IntWithAggregatesFilter<"Permission"> | number
+    teamId?: IntWithAggregatesFilter<"Permission"> | number
+    canEditSubdistrict?: BoolWithAggregatesFilter<"Permission"> | boolean
+    canGrant?: BoolWithAggregatesFilter<"Permission"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Permission"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    updatedBy?: StringWithAggregatesFilter<"Permission"> | string
   }
 
   export type TeamWhereInput = {
@@ -23260,7 +25745,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     updatedBy?: StringFilter<"Team"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
-    profilePermissions?: ProfilePermissionListRelationFilter
+    permissions?: PermissionListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -23277,7 +25762,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     updatedBy?: SortOrder
     address?: AddressOrderByWithRelationInput
-    profilePermissions?: ProfilePermissionOrderByRelationAggregateInput
+    permissions?: PermissionOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -23297,7 +25782,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     updatedBy?: StringFilter<"Team"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
-    profilePermissions?: ProfilePermissionListRelationFilter
+    permissions?: PermissionListRelationFilter
   }, "id">
 
   export type TeamOrderByWithAggregationInput = {
@@ -23549,6 +26034,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateInput = {
@@ -23570,6 +26056,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUpdateInput = {
@@ -23590,6 +26077,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateInput = {
@@ -23611,6 +26099,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdCreateManyInput = {
@@ -24601,96 +27090,81 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfileCreateInput = {
+  export type UserCreateInput = {
     firstname: string
     lastname: string
     citizenId: string
-    officerId?: string | null
-    officerCardImage?: string | null
     email: string
     password: string
     phoneNumber?: string | null
     profileImg?: string | null
-    isStaff?: boolean
     isActive?: boolean
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profilePermissions?: ProfilePermissionCreateNestedManyWithoutProfileInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutUserInput
   }
 
-  export type ProfileUncheckedCreateInput = {
+  export type UserUncheckedCreateInput = {
     id?: number
     firstname: string
     lastname: string
     citizenId: string
-    officerId?: string | null
-    officerCardImage?: string | null
     email: string
     password: string
     phoneNumber?: string | null
     profileImg?: string | null
-    isStaff?: boolean
     isActive?: boolean
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutProfileInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type ProfileUpdateInput = {
+  export type UserUpdateInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profilePermissions?: ProfilePermissionUpdateManyWithoutProfileNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutUserNestedInput
   }
 
-  export type ProfileUncheckedUpdateInput = {
+  export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutProfileNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ProfileCreateManyInput = {
+  export type UserCreateManyInput = {
     id?: number
     firstname: string
     lastname: string
     citizenId: string
-    officerId?: string | null
-    officerCardImage?: string | null
     email: string
     password: string
     phoneNumber?: string | null
     profileImg?: string | null
-    isStaff?: boolean
     isActive?: boolean
     createdAt?: Date | string
     createdBy: string
@@ -24698,17 +27172,14 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfileUpdateManyMutationInput = {
+  export type UserUpdateManyMutationInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -24716,18 +27187,15 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfileUncheckedUpdateManyInput = {
+  export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -24735,20 +27203,219 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionCreateInput = {
+  export type UserHouseholdCreateInput = {
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    household: HouseholdCreateNestedOneWithoutUserHouseholdsInput
+    user: UserCreateNestedOneWithoutUserHouseholdsInput
+  }
+
+  export type UserHouseholdUncheckedCreateInput = {
+    id?: number
+    userId: number
+    householdId: number
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    household?: HouseholdUpdateOneRequiredWithoutUserHouseholdsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserHouseholdsNestedInput
+  }
+
+  export type UserHouseholdUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    householdId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserHouseholdCreateManyInput = {
+    id?: number
+    userId: number
+    householdId: number
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserHouseholdUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    householdId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminCreateInput = {
+    firstname: string
+    lastname: string
+    citizenId: string
+    officerId: string
+    officerCardImg?: string | null
+    email: string
+    password: string
+    phoneNumber?: string | null
+    profileImg?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    permissions?: PermissionCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUncheckedCreateInput = {
+    id?: number
+    firstname: string
+    lastname: string
+    citizenId: string
+    officerId: string
+    officerCardImg?: string | null
+    email: string
+    password: string
+    phoneNumber?: string | null
+    profileImg?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    permissions?: PermissionUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUpdateInput = {
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    permissions?: PermissionUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    permissions?: PermissionUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminCreateManyInput = {
+    id?: number
+    firstname: string
+    lastname: string
+    citizenId: string
+    officerId: string
+    officerCardImg?: string | null
+    email: string
+    password: string
+    phoneNumber?: string | null
+    profileImg?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type AdminUpdateManyMutationInput = {
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PermissionCreateInput = {
     canEditSubdistrict?: boolean
     canGrant?: boolean
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profile: ProfileCreateNestedOneWithoutProfilePermissionsInput
-    team: TeamCreateNestedOneWithoutProfilePermissionsInput
+    admin: AdminCreateNestedOneWithoutPermissionsInput
+    team: TeamCreateNestedOneWithoutPermissionsInput
   }
 
-  export type ProfilePermissionUncheckedCreateInput = {
+  export type PermissionUncheckedCreateInput = {
     id?: number
-    profileId: number
+    adminId: number
     teamId: number
     canEditSubdistrict?: boolean
     canGrant?: boolean
@@ -24758,20 +27425,20 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionUpdateInput = {
+  export type PermissionUpdateInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profile?: ProfileUpdateOneRequiredWithoutProfilePermissionsNestedInput
-    team?: TeamUpdateOneRequiredWithoutProfilePermissionsNestedInput
+    admin?: AdminUpdateOneRequiredWithoutPermissionsNestedInput
+    team?: TeamUpdateOneRequiredWithoutPermissionsNestedInput
   }
 
-  export type ProfilePermissionUncheckedUpdateInput = {
+  export type PermissionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
+    adminId?: IntFieldUpdateOperationsInput | number
     teamId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
@@ -24781,9 +27448,9 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionCreateManyInput = {
+  export type PermissionCreateManyInput = {
     id?: number
-    profileId: number
+    adminId: number
     teamId: number
     canEditSubdistrict?: boolean
     canGrant?: boolean
@@ -24793,7 +27460,7 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionUpdateManyMutationInput = {
+  export type PermissionUpdateManyMutationInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24802,9 +27469,9 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionUncheckedUpdateManyInput = {
+  export type PermissionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
+    adminId?: IntFieldUpdateOperationsInput | number
     teamId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
@@ -24826,7 +27493,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     updatedBy: string
     address: AddressCreateNestedOneWithoutTeamsInput
-    profilePermissions?: ProfilePermissionCreateNestedManyWithoutTeamInput
+    permissions?: PermissionCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -24842,7 +27509,7 @@ export namespace Prisma {
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutTeamInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
@@ -24857,7 +27524,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
     address?: AddressUpdateOneRequiredWithoutTeamsNestedInput
-    profilePermissions?: ProfilePermissionUpdateManyWithoutTeamNestedInput
+    permissions?: PermissionUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -24873,7 +27540,7 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutTeamNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -25247,6 +27914,12 @@ export namespace Prisma {
     none?: OtherEnergyConsumptionWhereInput
   }
 
+  export type UserHouseholdListRelationFilter = {
+    every?: UserHouseholdWhereInput
+    some?: UserHouseholdWhereInput
+    none?: UserHouseholdWhereInput
+  }
+
   export type CarbonFootprintOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -25280,6 +27953,10 @@ export namespace Prisma {
   }
 
   export type OtherEnergyConsumptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserHouseholdOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26126,28 +28803,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type ProfilePermissionListRelationFilter = {
-    every?: ProfilePermissionWhereInput
-    some?: ProfilePermissionWhereInput
-    none?: ProfilePermissionWhereInput
-  }
-
-  export type ProfilePermissionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProfileCountOrderByAggregateInput = {
+  export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
     citizenId?: SortOrder
-    officerId?: SortOrder
-    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
     profileImg?: SortOrder
-    isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -26155,22 +28819,19 @@ export namespace Prisma {
     updatedBy?: SortOrder
   }
 
-  export type ProfileAvgOrderByAggregateInput = {
+  export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type ProfileMaxOrderByAggregateInput = {
+  export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
     citizenId?: SortOrder
-    officerId?: SortOrder
-    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
     profileImg?: SortOrder
-    isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -26178,18 +28839,15 @@ export namespace Prisma {
     updatedBy?: SortOrder
   }
 
-  export type ProfileMinOrderByAggregateInput = {
+  export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
     citizenId?: SortOrder
-    officerId?: SortOrder
-    officerCardImage?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrder
     profileImg?: SortOrder
-    isStaff?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -26197,7 +28855,7 @@ export namespace Prisma {
     updatedBy?: SortOrder
   }
 
-  export type ProfileSumOrderByAggregateInput = {
+  export type UserSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
@@ -26219,9 +28877,148 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type ProfileRelationFilter = {
-    is?: ProfileWhereInput
-    isNot?: ProfileWhereInput
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type UserHouseholdCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type UserHouseholdAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+  }
+
+  export type UserHouseholdMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type UserHouseholdMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type UserHouseholdSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    householdId?: SortOrder
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type PermissionListRelationFilter = {
+    every?: PermissionWhereInput
+    some?: PermissionWhereInput
+    none?: PermissionWhereInput
+  }
+
+  export type PermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdminCountOrderByAggregateInput = {
+    id?: SortOrder
+    firstname?: SortOrder
+    lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImg?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNumber?: SortOrder
+    profileImg?: SortOrder
+    role?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type AdminAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type AdminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    firstname?: SortOrder
+    lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImg?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNumber?: SortOrder
+    profileImg?: SortOrder
+    role?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type AdminMinOrderByAggregateInput = {
+    id?: SortOrder
+    firstname?: SortOrder
+    lastname?: SortOrder
+    citizenId?: SortOrder
+    officerId?: SortOrder
+    officerCardImg?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNumber?: SortOrder
+    profileImg?: SortOrder
+    role?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type AdminSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type AdminRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
   }
 
   export type TeamRelationFilter = {
@@ -26229,9 +29026,9 @@ export namespace Prisma {
     isNot?: TeamWhereInput
   }
 
-  export type ProfilePermissionCountOrderByAggregateInput = {
+  export type PermissionCountOrderByAggregateInput = {
     id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
     canEditSubdistrict?: SortOrder
     canGrant?: SortOrder
@@ -26241,27 +29038,15 @@ export namespace Prisma {
     updatedBy?: SortOrder
   }
 
-  export type ProfilePermissionAvgOrderByAggregateInput = {
+  export type PermissionAvgOrderByAggregateInput = {
     id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
   }
 
-  export type ProfilePermissionMaxOrderByAggregateInput = {
+  export type PermissionMaxOrderByAggregateInput = {
     id?: SortOrder
-    profileId?: SortOrder
-    teamId?: SortOrder
-    canEditSubdistrict?: SortOrder
-    canGrant?: SortOrder
-    createdAt?: SortOrder
-    createdBy?: SortOrder
-    updatedAt?: SortOrder
-    updatedBy?: SortOrder
-  }
-
-  export type ProfilePermissionMinOrderByAggregateInput = {
-    id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
     canEditSubdistrict?: SortOrder
     canGrant?: SortOrder
@@ -26271,9 +29056,21 @@ export namespace Prisma {
     updatedBy?: SortOrder
   }
 
-  export type ProfilePermissionSumOrderByAggregateInput = {
+  export type PermissionMinOrderByAggregateInput = {
     id?: SortOrder
-    profileId?: SortOrder
+    adminId?: SortOrder
+    teamId?: SortOrder
+    canEditSubdistrict?: SortOrder
+    canGrant?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+  }
+
+  export type PermissionSumOrderByAggregateInput = {
+    id?: SortOrder
+    adminId?: SortOrder
     teamId?: SortOrder
   }
 
@@ -26366,13 +29163,6 @@ export namespace Prisma {
     _max?: NestedEnumMaximumLevelFilter<$PrismaModel>
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type OldClientNullableRelationFilter = {
     is?: OldClientWhereInput | null
     isNot?: OldClientWhereInput | null
@@ -26403,16 +29193,6 @@ export namespace Prisma {
     role?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-  }
-
-  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type OldUserRelationFilter = {
@@ -26615,6 +29395,13 @@ export namespace Prisma {
     connect?: OtherEnergyConsumptionWhereUniqueInput | OtherEnergyConsumptionWhereUniqueInput[]
   }
 
+  export type UserHouseholdCreateNestedManyWithoutHouseholdInput = {
+    create?: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput> | UserHouseholdCreateWithoutHouseholdInput[] | UserHouseholdUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutHouseholdInput | UserHouseholdCreateOrConnectWithoutHouseholdInput[]
+    createMany?: UserHouseholdCreateManyHouseholdInputEnvelope
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+  }
+
   export type CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput = {
     create?: XOR<CarbonFootprintCreateWithoutHouseholdInput, CarbonFootprintUncheckedCreateWithoutHouseholdInput> | CarbonFootprintCreateWithoutHouseholdInput[] | CarbonFootprintUncheckedCreateWithoutHouseholdInput[]
     connectOrCreate?: CarbonFootprintCreateOrConnectWithoutHouseholdInput | CarbonFootprintCreateOrConnectWithoutHouseholdInput[]
@@ -26676,6 +29463,13 @@ export namespace Prisma {
     connectOrCreate?: OtherEnergyConsumptionCreateOrConnectWithoutHouseholdInput | OtherEnergyConsumptionCreateOrConnectWithoutHouseholdInput[]
     createMany?: OtherEnergyConsumptionCreateManyHouseholdInputEnvelope
     connect?: OtherEnergyConsumptionWhereUniqueInput | OtherEnergyConsumptionWhereUniqueInput[]
+  }
+
+  export type UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput = {
+    create?: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput> | UserHouseholdCreateWithoutHouseholdInput[] | UserHouseholdUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutHouseholdInput | UserHouseholdCreateOrConnectWithoutHouseholdInput[]
+    createMany?: UserHouseholdCreateManyHouseholdInputEnvelope
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
   }
 
   export type EnumHouseTypeFieldUpdateOperationsInput = {
@@ -26820,6 +29614,20 @@ export namespace Prisma {
     deleteMany?: OtherEnergyConsumptionScalarWhereInput | OtherEnergyConsumptionScalarWhereInput[]
   }
 
+  export type UserHouseholdUpdateManyWithoutHouseholdNestedInput = {
+    create?: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput> | UserHouseholdCreateWithoutHouseholdInput[] | UserHouseholdUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutHouseholdInput | UserHouseholdCreateOrConnectWithoutHouseholdInput[]
+    upsert?: UserHouseholdUpsertWithWhereUniqueWithoutHouseholdInput | UserHouseholdUpsertWithWhereUniqueWithoutHouseholdInput[]
+    createMany?: UserHouseholdCreateManyHouseholdInputEnvelope
+    set?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    disconnect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    delete?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    update?: UserHouseholdUpdateWithWhereUniqueWithoutHouseholdInput | UserHouseholdUpdateWithWhereUniqueWithoutHouseholdInput[]
+    updateMany?: UserHouseholdUpdateManyWithWhereWithoutHouseholdInput | UserHouseholdUpdateManyWithWhereWithoutHouseholdInput[]
+    deleteMany?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
+  }
+
   export type CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput = {
     create?: XOR<CarbonFootprintCreateWithoutHouseholdInput, CarbonFootprintUncheckedCreateWithoutHouseholdInput> | CarbonFootprintCreateWithoutHouseholdInput[] | CarbonFootprintUncheckedCreateWithoutHouseholdInput[]
     connectOrCreate?: CarbonFootprintCreateOrConnectWithoutHouseholdInput | CarbonFootprintCreateOrConnectWithoutHouseholdInput[]
@@ -26944,6 +29752,20 @@ export namespace Prisma {
     update?: OtherEnergyConsumptionUpdateWithWhereUniqueWithoutHouseholdInput | OtherEnergyConsumptionUpdateWithWhereUniqueWithoutHouseholdInput[]
     updateMany?: OtherEnergyConsumptionUpdateManyWithWhereWithoutHouseholdInput | OtherEnergyConsumptionUpdateManyWithWhereWithoutHouseholdInput[]
     deleteMany?: OtherEnergyConsumptionScalarWhereInput | OtherEnergyConsumptionScalarWhereInput[]
+  }
+
+  export type UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput = {
+    create?: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput> | UserHouseholdCreateWithoutHouseholdInput[] | UserHouseholdUncheckedCreateWithoutHouseholdInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutHouseholdInput | UserHouseholdCreateOrConnectWithoutHouseholdInput[]
+    upsert?: UserHouseholdUpsertWithWhereUniqueWithoutHouseholdInput | UserHouseholdUpsertWithWhereUniqueWithoutHouseholdInput[]
+    createMany?: UserHouseholdCreateManyHouseholdInputEnvelope
+    set?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    disconnect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    delete?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    update?: UserHouseholdUpdateWithWhereUniqueWithoutHouseholdInput | UserHouseholdUpdateWithWhereUniqueWithoutHouseholdInput[]
+    updateMany?: UserHouseholdUpdateManyWithWhereWithoutHouseholdInput | UserHouseholdUpdateManyWithWhereWithoutHouseholdInput[]
+    deleteMany?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
   }
 
   export type HouseholdCreateNestedOneWithoutCarbonFootprintsInput = {
@@ -27576,78 +30398,152 @@ export namespace Prisma {
     update?: XOR<XOR<EmissionFactorUpdateToOneWithWhereWithoutOtherEnergyConsumptionsInput, EmissionFactorUpdateWithoutOtherEnergyConsumptionsInput>, EmissionFactorUncheckedUpdateWithoutOtherEnergyConsumptionsInput>
   }
 
-  export type ProfilePermissionCreateNestedManyWithoutProfileInput = {
-    create?: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput> | ProfilePermissionCreateWithoutProfileInput[] | ProfilePermissionUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutProfileInput | ProfilePermissionCreateOrConnectWithoutProfileInput[]
-    createMany?: ProfilePermissionCreateManyProfileInputEnvelope
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
+  export type UserHouseholdCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput> | UserHouseholdCreateWithoutUserInput[] | UserHouseholdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutUserInput | UserHouseholdCreateOrConnectWithoutUserInput[]
+    createMany?: UserHouseholdCreateManyUserInputEnvelope
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
   }
 
-  export type ProfilePermissionUncheckedCreateNestedManyWithoutProfileInput = {
-    create?: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput> | ProfilePermissionCreateWithoutProfileInput[] | ProfilePermissionUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutProfileInput | ProfilePermissionCreateOrConnectWithoutProfileInput[]
-    createMany?: ProfilePermissionCreateManyProfileInputEnvelope
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
+  export type UserHouseholdUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput> | UserHouseholdCreateWithoutUserInput[] | UserHouseholdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutUserInput | UserHouseholdCreateOrConnectWithoutUserInput[]
+    createMany?: UserHouseholdCreateManyUserInputEnvelope
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type ProfilePermissionUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput> | ProfilePermissionCreateWithoutProfileInput[] | ProfilePermissionUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutProfileInput | ProfilePermissionCreateOrConnectWithoutProfileInput[]
-    upsert?: ProfilePermissionUpsertWithWhereUniqueWithoutProfileInput | ProfilePermissionUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: ProfilePermissionCreateManyProfileInputEnvelope
-    set?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    disconnect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    delete?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    update?: ProfilePermissionUpdateWithWhereUniqueWithoutProfileInput | ProfilePermissionUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: ProfilePermissionUpdateManyWithWhereWithoutProfileInput | ProfilePermissionUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
+  export type UserHouseholdUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput> | UserHouseholdCreateWithoutUserInput[] | UserHouseholdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutUserInput | UserHouseholdCreateOrConnectWithoutUserInput[]
+    upsert?: UserHouseholdUpsertWithWhereUniqueWithoutUserInput | UserHouseholdUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserHouseholdCreateManyUserInputEnvelope
+    set?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    disconnect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    delete?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    update?: UserHouseholdUpdateWithWhereUniqueWithoutUserInput | UserHouseholdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserHouseholdUpdateManyWithWhereWithoutUserInput | UserHouseholdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
   }
 
-  export type ProfilePermissionUncheckedUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput> | ProfilePermissionCreateWithoutProfileInput[] | ProfilePermissionUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutProfileInput | ProfilePermissionCreateOrConnectWithoutProfileInput[]
-    upsert?: ProfilePermissionUpsertWithWhereUniqueWithoutProfileInput | ProfilePermissionUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: ProfilePermissionCreateManyProfileInputEnvelope
-    set?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    disconnect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    delete?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    update?: ProfilePermissionUpdateWithWhereUniqueWithoutProfileInput | ProfilePermissionUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: ProfilePermissionUpdateManyWithWhereWithoutProfileInput | ProfilePermissionUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
+  export type UserHouseholdUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput> | UserHouseholdCreateWithoutUserInput[] | UserHouseholdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserHouseholdCreateOrConnectWithoutUserInput | UserHouseholdCreateOrConnectWithoutUserInput[]
+    upsert?: UserHouseholdUpsertWithWhereUniqueWithoutUserInput | UserHouseholdUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserHouseholdCreateManyUserInputEnvelope
+    set?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    disconnect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    delete?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    connect?: UserHouseholdWhereUniqueInput | UserHouseholdWhereUniqueInput[]
+    update?: UserHouseholdUpdateWithWhereUniqueWithoutUserInput | UserHouseholdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserHouseholdUpdateManyWithWhereWithoutUserInput | UserHouseholdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
   }
 
-  export type ProfileCreateNestedOneWithoutProfilePermissionsInput = {
-    create?: XOR<ProfileCreateWithoutProfilePermissionsInput, ProfileUncheckedCreateWithoutProfilePermissionsInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutProfilePermissionsInput
-    connect?: ProfileWhereUniqueInput
+  export type HouseholdCreateNestedOneWithoutUserHouseholdsInput = {
+    create?: XOR<HouseholdCreateWithoutUserHouseholdsInput, HouseholdUncheckedCreateWithoutUserHouseholdsInput>
+    connectOrCreate?: HouseholdCreateOrConnectWithoutUserHouseholdsInput
+    connect?: HouseholdWhereUniqueInput
   }
 
-  export type TeamCreateNestedOneWithoutProfilePermissionsInput = {
-    create?: XOR<TeamCreateWithoutProfilePermissionsInput, TeamUncheckedCreateWithoutProfilePermissionsInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutProfilePermissionsInput
+  export type UserCreateNestedOneWithoutUserHouseholdsInput = {
+    create?: XOR<UserCreateWithoutUserHouseholdsInput, UserUncheckedCreateWithoutUserHouseholdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserHouseholdsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HouseholdUpdateOneRequiredWithoutUserHouseholdsNestedInput = {
+    create?: XOR<HouseholdCreateWithoutUserHouseholdsInput, HouseholdUncheckedCreateWithoutUserHouseholdsInput>
+    connectOrCreate?: HouseholdCreateOrConnectWithoutUserHouseholdsInput
+    upsert?: HouseholdUpsertWithoutUserHouseholdsInput
+    connect?: HouseholdWhereUniqueInput
+    update?: XOR<XOR<HouseholdUpdateToOneWithWhereWithoutUserHouseholdsInput, HouseholdUpdateWithoutUserHouseholdsInput>, HouseholdUncheckedUpdateWithoutUserHouseholdsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutUserHouseholdsNestedInput = {
+    create?: XOR<UserCreateWithoutUserHouseholdsInput, UserUncheckedCreateWithoutUserHouseholdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserHouseholdsInput
+    upsert?: UserUpsertWithoutUserHouseholdsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserHouseholdsInput, UserUpdateWithoutUserHouseholdsInput>, UserUncheckedUpdateWithoutUserHouseholdsInput>
+  }
+
+  export type PermissionCreateNestedManyWithoutAdminInput = {
+    create?: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput> | PermissionCreateWithoutAdminInput[] | PermissionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutAdminInput | PermissionCreateOrConnectWithoutAdminInput[]
+    createMany?: PermissionCreateManyAdminInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type PermissionUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput> | PermissionCreateWithoutAdminInput[] | PermissionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutAdminInput | PermissionCreateOrConnectWithoutAdminInput[]
+    createMany?: PermissionCreateManyAdminInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
+  export type PermissionUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput> | PermissionCreateWithoutAdminInput[] | PermissionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutAdminInput | PermissionCreateOrConnectWithoutAdminInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutAdminInput | PermissionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: PermissionCreateManyAdminInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutAdminInput | PermissionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutAdminInput | PermissionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type PermissionUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput> | PermissionCreateWithoutAdminInput[] | PermissionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutAdminInput | PermissionCreateOrConnectWithoutAdminInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutAdminInput | PermissionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: PermissionCreateManyAdminInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutAdminInput | PermissionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutAdminInput | PermissionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type AdminCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<AdminCreateWithoutPermissionsInput, AdminUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPermissionsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type TeamCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<TeamCreateWithoutPermissionsInput, TeamUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutPermissionsInput
     connect?: TeamWhereUniqueInput
   }
 
-  export type ProfileUpdateOneRequiredWithoutProfilePermissionsNestedInput = {
-    create?: XOR<ProfileCreateWithoutProfilePermissionsInput, ProfileUncheckedCreateWithoutProfilePermissionsInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutProfilePermissionsInput
-    upsert?: ProfileUpsertWithoutProfilePermissionsInput
-    connect?: ProfileWhereUniqueInput
-    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutProfilePermissionsInput, ProfileUpdateWithoutProfilePermissionsInput>, ProfileUncheckedUpdateWithoutProfilePermissionsInput>
+  export type AdminUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<AdminCreateWithoutPermissionsInput, AdminUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPermissionsInput
+    upsert?: AdminUpsertWithoutPermissionsInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutPermissionsInput, AdminUpdateWithoutPermissionsInput>, AdminUncheckedUpdateWithoutPermissionsInput>
   }
 
-  export type TeamUpdateOneRequiredWithoutProfilePermissionsNestedInput = {
-    create?: XOR<TeamCreateWithoutProfilePermissionsInput, TeamUncheckedCreateWithoutProfilePermissionsInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutProfilePermissionsInput
-    upsert?: TeamUpsertWithoutProfilePermissionsInput
+  export type TeamUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<TeamCreateWithoutPermissionsInput, TeamUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutPermissionsInput
+    upsert?: TeamUpsertWithoutPermissionsInput
     connect?: TeamWhereUniqueInput
-    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutProfilePermissionsInput, TeamUpdateWithoutProfilePermissionsInput>, TeamUncheckedUpdateWithoutProfilePermissionsInput>
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutPermissionsInput, TeamUpdateWithoutPermissionsInput>, TeamUncheckedUpdateWithoutPermissionsInput>
   }
 
   export type AddressCreateNestedOneWithoutTeamsInput = {
@@ -27656,18 +30552,18 @@ export namespace Prisma {
     connect?: AddressWhereUniqueInput
   }
 
-  export type ProfilePermissionCreateNestedManyWithoutTeamInput = {
-    create?: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput> | ProfilePermissionCreateWithoutTeamInput[] | ProfilePermissionUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutTeamInput | ProfilePermissionCreateOrConnectWithoutTeamInput[]
-    createMany?: ProfilePermissionCreateManyTeamInputEnvelope
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
+  export type PermissionCreateNestedManyWithoutTeamInput = {
+    create?: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput> | PermissionCreateWithoutTeamInput[] | PermissionUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutTeamInput | PermissionCreateOrConnectWithoutTeamInput[]
+    createMany?: PermissionCreateManyTeamInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
-  export type ProfilePermissionUncheckedCreateNestedManyWithoutTeamInput = {
-    create?: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput> | ProfilePermissionCreateWithoutTeamInput[] | ProfilePermissionUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutTeamInput | ProfilePermissionCreateOrConnectWithoutTeamInput[]
-    createMany?: ProfilePermissionCreateManyTeamInputEnvelope
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
+  export type PermissionUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput> | PermissionCreateWithoutTeamInput[] | PermissionUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutTeamInput | PermissionCreateOrConnectWithoutTeamInput[]
+    createMany?: PermissionCreateManyTeamInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
   export type EnumTeamStatusFieldUpdateOperationsInput = {
@@ -27686,32 +30582,32 @@ export namespace Prisma {
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutTeamsInput, AddressUpdateWithoutTeamsInput>, AddressUncheckedUpdateWithoutTeamsInput>
   }
 
-  export type ProfilePermissionUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput> | ProfilePermissionCreateWithoutTeamInput[] | ProfilePermissionUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutTeamInput | ProfilePermissionCreateOrConnectWithoutTeamInput[]
-    upsert?: ProfilePermissionUpsertWithWhereUniqueWithoutTeamInput | ProfilePermissionUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: ProfilePermissionCreateManyTeamInputEnvelope
-    set?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    disconnect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    delete?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    update?: ProfilePermissionUpdateWithWhereUniqueWithoutTeamInput | ProfilePermissionUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: ProfilePermissionUpdateManyWithWhereWithoutTeamInput | ProfilePermissionUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
+  export type PermissionUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput> | PermissionCreateWithoutTeamInput[] | PermissionUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutTeamInput | PermissionCreateOrConnectWithoutTeamInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutTeamInput | PermissionUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: PermissionCreateManyTeamInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutTeamInput | PermissionUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutTeamInput | PermissionUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
-  export type ProfilePermissionUncheckedUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput> | ProfilePermissionCreateWithoutTeamInput[] | ProfilePermissionUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: ProfilePermissionCreateOrConnectWithoutTeamInput | ProfilePermissionCreateOrConnectWithoutTeamInput[]
-    upsert?: ProfilePermissionUpsertWithWhereUniqueWithoutTeamInput | ProfilePermissionUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: ProfilePermissionCreateManyTeamInputEnvelope
-    set?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    disconnect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    delete?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    connect?: ProfilePermissionWhereUniqueInput | ProfilePermissionWhereUniqueInput[]
-    update?: ProfilePermissionUpdateWithWhereUniqueWithoutTeamInput | ProfilePermissionUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: ProfilePermissionUpdateManyWithWhereWithoutTeamInput | ProfilePermissionUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
+  export type PermissionUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput> | PermissionCreateWithoutTeamInput[] | PermissionUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutTeamInput | PermissionCreateOrConnectWithoutTeamInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutTeamInput | PermissionUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: PermissionCreateManyTeamInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutTeamInput | PermissionUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutTeamInput | PermissionUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
   export type OldClientCreateNestedOneWithoutUserInput = {
@@ -27724,10 +30620,6 @@ export namespace Prisma {
     create?: XOR<OldClientCreateWithoutUserInput, OldClientUncheckedCreateWithoutUserInput>
     connectOrCreate?: OldClientCreateOrConnectWithoutUserInput
     connect?: OldClientWhereUniqueInput
-  }
-
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
   }
 
   export type OldClientUpdateOneWithoutUserNestedInput = {
@@ -28035,6 +30927,23 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
   export type NestedEnumTeamStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.TeamStatus | EnumTeamStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TeamStatus[] | ListEnumTeamStatusFieldRefInput<$PrismaModel>
@@ -28069,23 +30978,6 @@ export namespace Prisma {
     _max?: NestedEnumMaximumLevelFilter<$PrismaModel>
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
   export type HouseholdCreateWithoutAddressInput = {
     addressDetail: string
     houseType: $Enums.HouseType
@@ -28103,6 +30995,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutAddressInput = {
@@ -28123,6 +31016,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutAddressInput = {
@@ -28146,7 +31040,7 @@ export namespace Prisma {
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profilePermissions?: ProfilePermissionCreateNestedManyWithoutTeamInput
+    permissions?: PermissionCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutAddressInput = {
@@ -28161,7 +31055,7 @@ export namespace Prisma {
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profilePermissions?: ProfilePermissionUncheckedCreateNestedManyWithoutTeamInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutAddressInput = {
@@ -28564,6 +31458,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserHouseholdCreateWithoutHouseholdInput = {
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    user: UserCreateNestedOneWithoutUserHouseholdsInput
+  }
+
+  export type UserHouseholdUncheckedCreateWithoutHouseholdInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdCreateOrConnectWithoutHouseholdInput = {
+    where: UserHouseholdWhereUniqueInput
+    create: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput>
+  }
+
+  export type UserHouseholdCreateManyHouseholdInputEnvelope = {
+    data: UserHouseholdCreateManyHouseholdInput | UserHouseholdCreateManyHouseholdInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AddressUpsertWithoutHouseholdsInput = {
     update: XOR<AddressUpdateWithoutHouseholdsInput, AddressUncheckedUpdateWithoutHouseholdsInput>
     create: XOR<AddressCreateWithoutHouseholdsInput, AddressUncheckedCreateWithoutHouseholdsInput>
@@ -28880,6 +31801,35 @@ export namespace Prisma {
     updatedBy?: StringFilter<"OtherEnergyConsumption"> | string
   }
 
+  export type UserHouseholdUpsertWithWhereUniqueWithoutHouseholdInput = {
+    where: UserHouseholdWhereUniqueInput
+    update: XOR<UserHouseholdUpdateWithoutHouseholdInput, UserHouseholdUncheckedUpdateWithoutHouseholdInput>
+    create: XOR<UserHouseholdCreateWithoutHouseholdInput, UserHouseholdUncheckedCreateWithoutHouseholdInput>
+  }
+
+  export type UserHouseholdUpdateWithWhereUniqueWithoutHouseholdInput = {
+    where: UserHouseholdWhereUniqueInput
+    data: XOR<UserHouseholdUpdateWithoutHouseholdInput, UserHouseholdUncheckedUpdateWithoutHouseholdInput>
+  }
+
+  export type UserHouseholdUpdateManyWithWhereWithoutHouseholdInput = {
+    where: UserHouseholdScalarWhereInput
+    data: XOR<UserHouseholdUpdateManyMutationInput, UserHouseholdUncheckedUpdateManyWithoutHouseholdInput>
+  }
+
+  export type UserHouseholdScalarWhereInput = {
+    AND?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
+    OR?: UserHouseholdScalarWhereInput[]
+    NOT?: UserHouseholdScalarWhereInput | UserHouseholdScalarWhereInput[]
+    id?: IntFilter<"UserHousehold"> | number
+    userId?: IntFilter<"UserHousehold"> | number
+    householdId?: IntFilter<"UserHousehold"> | number
+    createdAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    createdBy?: StringFilter<"UserHousehold"> | string
+    updatedAt?: DateTimeFilter<"UserHousehold"> | Date | string
+    updatedBy?: StringFilter<"UserHousehold"> | string
+  }
+
   export type HouseholdCreateWithoutCarbonFootprintsInput = {
     addressDetail: string
     houseType: $Enums.HouseType
@@ -28897,6 +31847,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutCarbonFootprintsInput = {
@@ -28917,6 +31868,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutCarbonFootprintsInput = {
@@ -29056,6 +32008,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutCarbonFootprintsInput = {
@@ -29076,6 +32029,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdElectricityUpsertWithoutCarbonFootprintInput = {
@@ -29484,6 +32438,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutPrivateVehiclesInput = {
@@ -29504,6 +32459,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutPrivateVehiclesInput = {
@@ -29600,6 +32556,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutPrivateVehiclesInput = {
@@ -29620,6 +32577,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type EmissionFactorUpsertWithoutPrivateVehiclesInput = {
@@ -29712,6 +32670,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutTransportationsInput = {
@@ -29732,6 +32691,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutTransportationsInput = {
@@ -29799,6 +32759,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutTransportationsInput = {
@@ -29819,6 +32780,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type CarbonFootprintUpsertWithoutTransportationInput = {
@@ -29876,6 +32838,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutHouseholdElectricitiesInput = {
@@ -29896,6 +32859,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutHouseholdElectricitiesInput = {
@@ -29963,6 +32927,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutHouseholdElectricitiesInput = {
@@ -29983,6 +32948,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type CarbonFootprintUpsertWithoutHouseholdElectricityInput = {
@@ -30040,6 +33006,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutElectricityBillsInput = {
@@ -30060,6 +33027,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutElectricityBillsInput = {
@@ -30132,6 +33100,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutElectricityBillsInput = {
@@ -30152,6 +33121,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type EmissionFactorUpsertWithoutElectricityBillsInput = {
@@ -30214,6 +33184,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyCreateNestedManyWithoutHouseholdInput
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutHouseholdWaterSuppliesInput = {
@@ -30234,6 +33205,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedCreateNestedManyWithoutHouseholdInput
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutHouseholdWaterSuppliesInput = {
@@ -30301,6 +33273,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUpdateManyWithoutHouseholdNestedInput
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutHouseholdWaterSuppliesInput = {
@@ -30321,6 +33294,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedUpdateManyWithoutHouseholdNestedInput
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type CarbonFootprintUpsertWithoutHouseholdWaterSupplyInput = {
@@ -30378,6 +33352,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutWaterBillsInput = {
@@ -30398,6 +33373,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutWaterBillsInput = {
@@ -30470,6 +33446,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutWaterBillsInput = {
@@ -30490,6 +33467,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type EmissionFactorUpsertWithoutWaterBillsInput = {
@@ -30552,6 +33530,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutHouseholdOtherEnergiesInput = {
@@ -30572,6 +33551,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutHouseholdOtherEnergiesInput = {
@@ -30639,6 +33619,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutHouseholdOtherEnergiesInput = {
@@ -30659,6 +33640,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type CarbonFootprintUpsertWithoutHouseholdOtherEnergyInput = {
@@ -30716,6 +33698,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyCreateNestedManyWithoutHouseholdInput
     electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdUncheckedCreateWithoutOtherEnergyConsumptionsInput = {
@@ -30736,6 +33719,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedCreateNestedManyWithoutHouseholdInput
     electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
+    userHouseholds?: UserHouseholdUncheckedCreateNestedManyWithoutHouseholdInput
   }
 
   export type HouseholdCreateOrConnectWithoutOtherEnergyConsumptionsInput = {
@@ -30808,6 +33792,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUpdateManyWithoutHouseholdNestedInput
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutOtherEnergyConsumptionsInput = {
@@ -30828,6 +33813,7 @@ export namespace Prisma {
     householdOtherEnergies?: HouseholdOtherEnergyUncheckedUpdateManyWithoutHouseholdNestedInput
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type EmissionFactorUpsertWithoutOtherEnergyConsumptionsInput = {
@@ -30873,17 +33859,236 @@ export namespace Prisma {
     waterBills?: WaterBillUncheckedUpdateManyWithoutEmissionFactorNestedInput
   }
 
-  export type ProfilePermissionCreateWithoutProfileInput = {
+  export type UserHouseholdCreateWithoutUserInput = {
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    household: HouseholdCreateNestedOneWithoutUserHouseholdsInput
+  }
+
+  export type UserHouseholdUncheckedCreateWithoutUserInput = {
+    id?: number
+    householdId: number
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdCreateOrConnectWithoutUserInput = {
+    where: UserHouseholdWhereUniqueInput
+    create: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserHouseholdCreateManyUserInputEnvelope = {
+    data: UserHouseholdCreateManyUserInput | UserHouseholdCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserHouseholdUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserHouseholdWhereUniqueInput
+    update: XOR<UserHouseholdUpdateWithoutUserInput, UserHouseholdUncheckedUpdateWithoutUserInput>
+    create: XOR<UserHouseholdCreateWithoutUserInput, UserHouseholdUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserHouseholdUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserHouseholdWhereUniqueInput
+    data: XOR<UserHouseholdUpdateWithoutUserInput, UserHouseholdUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserHouseholdUpdateManyWithWhereWithoutUserInput = {
+    where: UserHouseholdScalarWhereInput
+    data: XOR<UserHouseholdUpdateManyMutationInput, UserHouseholdUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HouseholdCreateWithoutUserHouseholdsInput = {
+    addressDetail: string
+    houseType: $Enums.HouseType
+    recordedDate: Date | string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    address: AddressCreateNestedOneWithoutHouseholdsInput
+    carbonFootprints?: CarbonFootprintCreateNestedManyWithoutHouseholdInput
+    privateVehicles?: PrivateVehicleCreateNestedManyWithoutHouseholdInput
+    transportations?: TransportationCreateNestedManyWithoutHouseholdInput
+    householdElectricities?: HouseholdElectricityCreateNestedManyWithoutHouseholdInput
+    waterBills?: WaterBillCreateNestedManyWithoutHouseholdInput
+    householdOtherEnergies?: HouseholdOtherEnergyCreateNestedManyWithoutHouseholdInput
+    electricityBills?: ElectricityBillCreateNestedManyWithoutHouseholdInput
+    householdWaterSupplies?: HouseholdWaterSupplyCreateNestedManyWithoutHouseholdInput
+    otherEnergyConsumptions?: OtherEnergyConsumptionCreateNestedManyWithoutHouseholdInput
+  }
+
+  export type HouseholdUncheckedCreateWithoutUserHouseholdsInput = {
+    id?: number
+    addressId: number
+    addressDetail: string
+    houseType: $Enums.HouseType
+    recordedDate: Date | string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+    carbonFootprints?: CarbonFootprintUncheckedCreateNestedManyWithoutHouseholdInput
+    privateVehicles?: PrivateVehicleUncheckedCreateNestedManyWithoutHouseholdInput
+    transportations?: TransportationUncheckedCreateNestedManyWithoutHouseholdInput
+    householdElectricities?: HouseholdElectricityUncheckedCreateNestedManyWithoutHouseholdInput
+    waterBills?: WaterBillUncheckedCreateNestedManyWithoutHouseholdInput
+    householdOtherEnergies?: HouseholdOtherEnergyUncheckedCreateNestedManyWithoutHouseholdInput
+    electricityBills?: ElectricityBillUncheckedCreateNestedManyWithoutHouseholdInput
+    householdWaterSupplies?: HouseholdWaterSupplyUncheckedCreateNestedManyWithoutHouseholdInput
+    otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedCreateNestedManyWithoutHouseholdInput
+  }
+
+  export type HouseholdCreateOrConnectWithoutUserHouseholdsInput = {
+    where: HouseholdWhereUniqueInput
+    create: XOR<HouseholdCreateWithoutUserHouseholdsInput, HouseholdUncheckedCreateWithoutUserHouseholdsInput>
+  }
+
+  export type UserCreateWithoutUserHouseholdsInput = {
+    firstname: string
+    lastname: string
+    citizenId: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserUncheckedCreateWithoutUserHouseholdsInput = {
+    id?: number
+    firstname: string
+    lastname: string
+    citizenId: string
+    email: string
+    password: string
+    phoneNumber?: string | null
+    profileImg?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserCreateOrConnectWithoutUserHouseholdsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserHouseholdsInput, UserUncheckedCreateWithoutUserHouseholdsInput>
+  }
+
+  export type HouseholdUpsertWithoutUserHouseholdsInput = {
+    update: XOR<HouseholdUpdateWithoutUserHouseholdsInput, HouseholdUncheckedUpdateWithoutUserHouseholdsInput>
+    create: XOR<HouseholdCreateWithoutUserHouseholdsInput, HouseholdUncheckedCreateWithoutUserHouseholdsInput>
+    where?: HouseholdWhereInput
+  }
+
+  export type HouseholdUpdateToOneWithWhereWithoutUserHouseholdsInput = {
+    where?: HouseholdWhereInput
+    data: XOR<HouseholdUpdateWithoutUserHouseholdsInput, HouseholdUncheckedUpdateWithoutUserHouseholdsInput>
+  }
+
+  export type HouseholdUpdateWithoutUserHouseholdsInput = {
+    addressDetail?: StringFieldUpdateOperationsInput | string
+    houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
+    recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    address?: AddressUpdateOneRequiredWithoutHouseholdsNestedInput
+    carbonFootprints?: CarbonFootprintUpdateManyWithoutHouseholdNestedInput
+    privateVehicles?: PrivateVehicleUpdateManyWithoutHouseholdNestedInput
+    transportations?: TransportationUpdateManyWithoutHouseholdNestedInput
+    householdElectricities?: HouseholdElectricityUpdateManyWithoutHouseholdNestedInput
+    waterBills?: WaterBillUpdateManyWithoutHouseholdNestedInput
+    householdOtherEnergies?: HouseholdOtherEnergyUpdateManyWithoutHouseholdNestedInput
+    electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
+    householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
+    otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+  }
+
+  export type HouseholdUncheckedUpdateWithoutUserHouseholdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    addressId?: IntFieldUpdateOperationsInput | number
+    addressDetail?: StringFieldUpdateOperationsInput | string
+    houseType?: EnumHouseTypeFieldUpdateOperationsInput | $Enums.HouseType
+    recordedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    carbonFootprints?: CarbonFootprintUncheckedUpdateManyWithoutHouseholdNestedInput
+    privateVehicles?: PrivateVehicleUncheckedUpdateManyWithoutHouseholdNestedInput
+    transportations?: TransportationUncheckedUpdateManyWithoutHouseholdNestedInput
+    householdElectricities?: HouseholdElectricityUncheckedUpdateManyWithoutHouseholdNestedInput
+    waterBills?: WaterBillUncheckedUpdateManyWithoutHouseholdNestedInput
+    householdOtherEnergies?: HouseholdOtherEnergyUncheckedUpdateManyWithoutHouseholdNestedInput
+    electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
+    householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
+    otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+  }
+
+  export type UserUpsertWithoutUserHouseholdsInput = {
+    update: XOR<UserUpdateWithoutUserHouseholdsInput, UserUncheckedUpdateWithoutUserHouseholdsInput>
+    create: XOR<UserCreateWithoutUserHouseholdsInput, UserUncheckedCreateWithoutUserHouseholdsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserHouseholdsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserHouseholdsInput, UserUncheckedUpdateWithoutUserHouseholdsInput>
+  }
+
+  export type UserUpdateWithoutUserHouseholdsInput = {
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUncheckedUpdateWithoutUserHouseholdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firstname?: StringFieldUpdateOperationsInput | string
+    lastname?: StringFieldUpdateOperationsInput | string
+    citizenId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PermissionCreateWithoutAdminInput = {
     canEditSubdistrict?: boolean
     canGrant?: boolean
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    team: TeamCreateNestedOneWithoutProfilePermissionsInput
+    team: TeamCreateNestedOneWithoutPermissionsInput
   }
 
-  export type ProfilePermissionUncheckedCreateWithoutProfileInput = {
+  export type PermissionUncheckedCreateWithoutAdminInput = {
     id?: number
     teamId: number
     canEditSubdistrict?: boolean
@@ -30894,58 +34099,58 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionCreateOrConnectWithoutProfileInput = {
-    where: ProfilePermissionWhereUniqueInput
-    create: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput>
+  export type PermissionCreateOrConnectWithoutAdminInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput>
   }
 
-  export type ProfilePermissionCreateManyProfileInputEnvelope = {
-    data: ProfilePermissionCreateManyProfileInput | ProfilePermissionCreateManyProfileInput[]
+  export type PermissionCreateManyAdminInputEnvelope = {
+    data: PermissionCreateManyAdminInput | PermissionCreateManyAdminInput[]
     skipDuplicates?: boolean
   }
 
-  export type ProfilePermissionUpsertWithWhereUniqueWithoutProfileInput = {
-    where: ProfilePermissionWhereUniqueInput
-    update: XOR<ProfilePermissionUpdateWithoutProfileInput, ProfilePermissionUncheckedUpdateWithoutProfileInput>
-    create: XOR<ProfilePermissionCreateWithoutProfileInput, ProfilePermissionUncheckedCreateWithoutProfileInput>
+  export type PermissionUpsertWithWhereUniqueWithoutAdminInput = {
+    where: PermissionWhereUniqueInput
+    update: XOR<PermissionUpdateWithoutAdminInput, PermissionUncheckedUpdateWithoutAdminInput>
+    create: XOR<PermissionCreateWithoutAdminInput, PermissionUncheckedCreateWithoutAdminInput>
   }
 
-  export type ProfilePermissionUpdateWithWhereUniqueWithoutProfileInput = {
-    where: ProfilePermissionWhereUniqueInput
-    data: XOR<ProfilePermissionUpdateWithoutProfileInput, ProfilePermissionUncheckedUpdateWithoutProfileInput>
+  export type PermissionUpdateWithWhereUniqueWithoutAdminInput = {
+    where: PermissionWhereUniqueInput
+    data: XOR<PermissionUpdateWithoutAdminInput, PermissionUncheckedUpdateWithoutAdminInput>
   }
 
-  export type ProfilePermissionUpdateManyWithWhereWithoutProfileInput = {
-    where: ProfilePermissionScalarWhereInput
-    data: XOR<ProfilePermissionUpdateManyMutationInput, ProfilePermissionUncheckedUpdateManyWithoutProfileInput>
+  export type PermissionUpdateManyWithWhereWithoutAdminInput = {
+    where: PermissionScalarWhereInput
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutAdminInput>
   }
 
-  export type ProfilePermissionScalarWhereInput = {
-    AND?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
-    OR?: ProfilePermissionScalarWhereInput[]
-    NOT?: ProfilePermissionScalarWhereInput | ProfilePermissionScalarWhereInput[]
-    id?: IntFilter<"ProfilePermission"> | number
-    profileId?: IntFilter<"ProfilePermission"> | number
-    teamId?: IntFilter<"ProfilePermission"> | number
-    canEditSubdistrict?: BoolFilter<"ProfilePermission"> | boolean
-    canGrant?: BoolFilter<"ProfilePermission"> | boolean
-    createdAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    createdBy?: StringFilter<"ProfilePermission"> | string
-    updatedAt?: DateTimeFilter<"ProfilePermission"> | Date | string
-    updatedBy?: StringFilter<"ProfilePermission"> | string
+  export type PermissionScalarWhereInput = {
+    AND?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+    OR?: PermissionScalarWhereInput[]
+    NOT?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+    id?: IntFilter<"Permission"> | number
+    adminId?: IntFilter<"Permission"> | number
+    teamId?: IntFilter<"Permission"> | number
+    canEditSubdistrict?: BoolFilter<"Permission"> | boolean
+    canGrant?: BoolFilter<"Permission"> | boolean
+    createdAt?: DateTimeFilter<"Permission"> | Date | string
+    createdBy?: StringFilter<"Permission"> | string
+    updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    updatedBy?: StringFilter<"Permission"> | string
   }
 
-  export type ProfileCreateWithoutProfilePermissionsInput = {
+  export type AdminCreateWithoutPermissionsInput = {
     firstname: string
     lastname: string
     citizenId: string
-    officerId?: string | null
-    officerCardImage?: string | null
+    officerId: string
+    officerCardImg?: string | null
     email: string
     password: string
     phoneNumber?: string | null
     profileImg?: string | null
-    isStaff?: boolean
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     createdBy: string
@@ -30953,18 +34158,18 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfileUncheckedCreateWithoutProfilePermissionsInput = {
+  export type AdminUncheckedCreateWithoutPermissionsInput = {
     id?: number
     firstname: string
     lastname: string
     citizenId: string
-    officerId?: string | null
-    officerCardImage?: string | null
+    officerId: string
+    officerCardImg?: string | null
     email: string
     password: string
     phoneNumber?: string | null
     profileImg?: string | null
-    isStaff?: boolean
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     createdBy: string
@@ -30972,12 +34177,12 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfileCreateOrConnectWithoutProfilePermissionsInput = {
-    where: ProfileWhereUniqueInput
-    create: XOR<ProfileCreateWithoutProfilePermissionsInput, ProfileUncheckedCreateWithoutProfilePermissionsInput>
+  export type AdminCreateOrConnectWithoutPermissionsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutPermissionsInput, AdminUncheckedCreateWithoutPermissionsInput>
   }
 
-  export type TeamCreateWithoutProfilePermissionsInput = {
+  export type TeamCreateWithoutPermissionsInput = {
     title: string
     LogoImg?: string | null
     OrganizationEmail?: string | null
@@ -30991,7 +34196,7 @@ export namespace Prisma {
     address: AddressCreateNestedOneWithoutTeamsInput
   }
 
-  export type TeamUncheckedCreateWithoutProfilePermissionsInput = {
+  export type TeamUncheckedCreateWithoutPermissionsInput = {
     id?: number
     addressId: number
     title: string
@@ -31006,33 +34211,33 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type TeamCreateOrConnectWithoutProfilePermissionsInput = {
+  export type TeamCreateOrConnectWithoutPermissionsInput = {
     where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutProfilePermissionsInput, TeamUncheckedCreateWithoutProfilePermissionsInput>
+    create: XOR<TeamCreateWithoutPermissionsInput, TeamUncheckedCreateWithoutPermissionsInput>
   }
 
-  export type ProfileUpsertWithoutProfilePermissionsInput = {
-    update: XOR<ProfileUpdateWithoutProfilePermissionsInput, ProfileUncheckedUpdateWithoutProfilePermissionsInput>
-    create: XOR<ProfileCreateWithoutProfilePermissionsInput, ProfileUncheckedCreateWithoutProfilePermissionsInput>
-    where?: ProfileWhereInput
+  export type AdminUpsertWithoutPermissionsInput = {
+    update: XOR<AdminUpdateWithoutPermissionsInput, AdminUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<AdminCreateWithoutPermissionsInput, AdminUncheckedCreateWithoutPermissionsInput>
+    where?: AdminWhereInput
   }
 
-  export type ProfileUpdateToOneWithWhereWithoutProfilePermissionsInput = {
-    where?: ProfileWhereInput
-    data: XOR<ProfileUpdateWithoutProfilePermissionsInput, ProfileUncheckedUpdateWithoutProfilePermissionsInput>
+  export type AdminUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutPermissionsInput, AdminUncheckedUpdateWithoutPermissionsInput>
   }
 
-  export type ProfileUpdateWithoutProfilePermissionsInput = {
+  export type AdminUpdateWithoutPermissionsInput = {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -31040,18 +34245,18 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfileUncheckedUpdateWithoutProfilePermissionsInput = {
+  export type AdminUncheckedUpdateWithoutPermissionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
-    officerId?: NullableStringFieldUpdateOperationsInput | string | null
-    officerCardImage?: NullableStringFieldUpdateOperationsInput | string | null
+    officerId?: StringFieldUpdateOperationsInput | string
+    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    isStaff?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -31059,18 +34264,18 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TeamUpsertWithoutProfilePermissionsInput = {
-    update: XOR<TeamUpdateWithoutProfilePermissionsInput, TeamUncheckedUpdateWithoutProfilePermissionsInput>
-    create: XOR<TeamCreateWithoutProfilePermissionsInput, TeamUncheckedCreateWithoutProfilePermissionsInput>
+  export type TeamUpsertWithoutPermissionsInput = {
+    update: XOR<TeamUpdateWithoutPermissionsInput, TeamUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<TeamCreateWithoutPermissionsInput, TeamUncheckedCreateWithoutPermissionsInput>
     where?: TeamWhereInput
   }
 
-  export type TeamUpdateToOneWithWhereWithoutProfilePermissionsInput = {
+  export type TeamUpdateToOneWithWhereWithoutPermissionsInput = {
     where?: TeamWhereInput
-    data: XOR<TeamUpdateWithoutProfilePermissionsInput, TeamUncheckedUpdateWithoutProfilePermissionsInput>
+    data: XOR<TeamUpdateWithoutPermissionsInput, TeamUncheckedUpdateWithoutPermissionsInput>
   }
 
-  export type TeamUpdateWithoutProfilePermissionsInput = {
+  export type TeamUpdateWithoutPermissionsInput = {
     title?: StringFieldUpdateOperationsInput | string
     LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
     OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31084,7 +34289,7 @@ export namespace Prisma {
     address?: AddressUpdateOneRequiredWithoutTeamsNestedInput
   }
 
-  export type TeamUncheckedUpdateWithoutProfilePermissionsInput = {
+  export type TeamUncheckedUpdateWithoutPermissionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
@@ -31123,19 +34328,19 @@ export namespace Prisma {
     create: XOR<AddressCreateWithoutTeamsInput, AddressUncheckedCreateWithoutTeamsInput>
   }
 
-  export type ProfilePermissionCreateWithoutTeamInput = {
+  export type PermissionCreateWithoutTeamInput = {
     canEditSubdistrict?: boolean
     canGrant?: boolean
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
     updatedBy: string
-    profile: ProfileCreateNestedOneWithoutProfilePermissionsInput
+    admin: AdminCreateNestedOneWithoutPermissionsInput
   }
 
-  export type ProfilePermissionUncheckedCreateWithoutTeamInput = {
+  export type PermissionUncheckedCreateWithoutTeamInput = {
     id?: number
-    profileId: number
+    adminId: number
     canEditSubdistrict?: boolean
     canGrant?: boolean
     createdAt?: Date | string
@@ -31144,13 +34349,13 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionCreateOrConnectWithoutTeamInput = {
-    where: ProfilePermissionWhereUniqueInput
-    create: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput>
+  export type PermissionCreateOrConnectWithoutTeamInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput>
   }
 
-  export type ProfilePermissionCreateManyTeamInputEnvelope = {
-    data: ProfilePermissionCreateManyTeamInput | ProfilePermissionCreateManyTeamInput[]
+  export type PermissionCreateManyTeamInputEnvelope = {
+    data: PermissionCreateManyTeamInput | PermissionCreateManyTeamInput[]
     skipDuplicates?: boolean
   }
 
@@ -31184,20 +34389,20 @@ export namespace Prisma {
     households?: HouseholdUncheckedUpdateManyWithoutAddressNestedInput
   }
 
-  export type ProfilePermissionUpsertWithWhereUniqueWithoutTeamInput = {
-    where: ProfilePermissionWhereUniqueInput
-    update: XOR<ProfilePermissionUpdateWithoutTeamInput, ProfilePermissionUncheckedUpdateWithoutTeamInput>
-    create: XOR<ProfilePermissionCreateWithoutTeamInput, ProfilePermissionUncheckedCreateWithoutTeamInput>
+  export type PermissionUpsertWithWhereUniqueWithoutTeamInput = {
+    where: PermissionWhereUniqueInput
+    update: XOR<PermissionUpdateWithoutTeamInput, PermissionUncheckedUpdateWithoutTeamInput>
+    create: XOR<PermissionCreateWithoutTeamInput, PermissionUncheckedCreateWithoutTeamInput>
   }
 
-  export type ProfilePermissionUpdateWithWhereUniqueWithoutTeamInput = {
-    where: ProfilePermissionWhereUniqueInput
-    data: XOR<ProfilePermissionUpdateWithoutTeamInput, ProfilePermissionUncheckedUpdateWithoutTeamInput>
+  export type PermissionUpdateWithWhereUniqueWithoutTeamInput = {
+    where: PermissionWhereUniqueInput
+    data: XOR<PermissionUpdateWithoutTeamInput, PermissionUncheckedUpdateWithoutTeamInput>
   }
 
-  export type ProfilePermissionUpdateManyWithWhereWithoutTeamInput = {
-    where: ProfilePermissionScalarWhereInput
-    data: XOR<ProfilePermissionUpdateManyMutationInput, ProfilePermissionUncheckedUpdateManyWithoutTeamInput>
+  export type PermissionUpdateManyWithWhereWithoutTeamInput = {
+    where: PermissionScalarWhereInput
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutTeamInput>
   }
 
   export type OldClientCreateWithoutUserInput = {
@@ -31346,6 +34551,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateWithoutAddressInput = {
@@ -31366,6 +34572,7 @@ export namespace Prisma {
     electricityBills?: ElectricityBillUncheckedUpdateManyWithoutHouseholdNestedInput
     householdWaterSupplies?: HouseholdWaterSupplyUncheckedUpdateManyWithoutHouseholdNestedInput
     otherEnergyConsumptions?: OtherEnergyConsumptionUncheckedUpdateManyWithoutHouseholdNestedInput
+    userHouseholds?: UserHouseholdUncheckedUpdateManyWithoutHouseholdNestedInput
   }
 
   export type HouseholdUncheckedUpdateManyWithoutAddressInput = {
@@ -31390,7 +34597,7 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profilePermissions?: ProfilePermissionUpdateManyWithoutTeamNestedInput
+    permissions?: PermissionUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutAddressInput = {
@@ -31405,7 +34612,7 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profilePermissions?: ProfilePermissionUncheckedUpdateManyWithoutTeamNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateManyWithoutAddressInput = {
@@ -31522,6 +34729,15 @@ export namespace Prisma {
     energyUsageType: $Enums.EnergyUsageType
     amountConsumption: Decimal | DecimalJsLike | number | string
     recordedDate: Date | string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdCreateManyHouseholdInput = {
+    id?: number
+    userId: number
     createdAt?: Date | string
     createdBy: string
     updatedAt?: Date | string
@@ -31845,6 +35061,32 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserHouseholdUpdateWithoutHouseholdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutUserHouseholdsNestedInput
+  }
+
+  export type UserHouseholdUncheckedUpdateWithoutHouseholdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserHouseholdUncheckedUpdateManyWithoutHouseholdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PrivateVehicleCreateManyEmissionFactorInput = {
     id?: number
     householdId: number
@@ -32112,7 +35354,42 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionCreateManyProfileInput = {
+  export type UserHouseholdCreateManyUserInput = {
+    id?: number
+    householdId: number
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy: string
+  }
+
+  export type UserHouseholdUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+    household?: HouseholdUpdateOneRequiredWithoutUserHouseholdsNestedInput
+  }
+
+  export type UserHouseholdUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    householdId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserHouseholdUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    householdId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PermissionCreateManyAdminInput = {
     id?: number
     teamId: number
     canEditSubdistrict?: boolean
@@ -32123,17 +35400,17 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionUpdateWithoutProfileInput = {
+  export type PermissionUpdateWithoutAdminInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    team?: TeamUpdateOneRequiredWithoutProfilePermissionsNestedInput
+    team?: TeamUpdateOneRequiredWithoutPermissionsNestedInput
   }
 
-  export type ProfilePermissionUncheckedUpdateWithoutProfileInput = {
+  export type PermissionUncheckedUpdateWithoutAdminInput = {
     id?: IntFieldUpdateOperationsInput | number
     teamId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
@@ -32144,7 +35421,7 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionUncheckedUpdateManyWithoutProfileInput = {
+  export type PermissionUncheckedUpdateManyWithoutAdminInput = {
     id?: IntFieldUpdateOperationsInput | number
     teamId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
@@ -32155,9 +35432,9 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionCreateManyTeamInput = {
+  export type PermissionCreateManyTeamInput = {
     id?: number
-    profileId: number
+    adminId: number
     canEditSubdistrict?: boolean
     canGrant?: boolean
     createdAt?: Date | string
@@ -32166,19 +35443,19 @@ export namespace Prisma {
     updatedBy: string
   }
 
-  export type ProfilePermissionUpdateWithoutTeamInput = {
+  export type PermissionUpdateWithoutTeamInput = {
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: StringFieldUpdateOperationsInput | string
-    profile?: ProfileUpdateOneRequiredWithoutProfilePermissionsNestedInput
+    admin?: AdminUpdateOneRequiredWithoutPermissionsNestedInput
   }
 
-  export type ProfilePermissionUncheckedUpdateWithoutTeamInput = {
+  export type PermissionUncheckedUpdateWithoutTeamInput = {
     id?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
+    adminId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32187,9 +35464,9 @@ export namespace Prisma {
     updatedBy?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProfilePermissionUncheckedUpdateManyWithoutTeamInput = {
+  export type PermissionUncheckedUpdateManyWithoutTeamInput = {
     id?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
+    adminId?: IntFieldUpdateOperationsInput | number
     canEditSubdistrict?: BoolFieldUpdateOperationsInput | boolean
     canGrant?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32220,9 +35497,13 @@ export namespace Prisma {
      */
     export type VehiclePropertyCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehiclePropertyCountOutputTypeDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use ProfileCountOutputTypeDefaultArgs instead
+     * @deprecated Use UserCountOutputTypeDefaultArgs instead
      */
-    export type ProfileCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProfileCountOutputTypeDefaultArgs<ExtArgs>
+    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdminCountOutputTypeDefaultArgs instead
+     */
+    export type AdminCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TeamCountOutputTypeDefaultArgs instead
      */
@@ -32280,13 +35561,21 @@ export namespace Prisma {
      */
     export type OtherEnergyConsumptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OtherEnergyConsumptionDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use ProfileDefaultArgs instead
+     * @deprecated Use UserDefaultArgs instead
      */
-    export type ProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProfileDefaultArgs<ExtArgs>
+    export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use ProfilePermissionDefaultArgs instead
+     * @deprecated Use UserHouseholdDefaultArgs instead
      */
-    export type ProfilePermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProfilePermissionDefaultArgs<ExtArgs>
+    export type UserHouseholdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserHouseholdDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdminDefaultArgs instead
+     */
+    export type AdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PermissionDefaultArgs instead
+     */
+    export type PermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PermissionDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TeamDefaultArgs instead
      */
