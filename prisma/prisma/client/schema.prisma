@@ -17,7 +17,7 @@ model Address {
   provinceName    String      @map(name: "province_name")
   districtName    String      @map(name: "district_name")
   subdistrictName String      @map(name: "subdistrict_name")
-  zipcode         String      @map(name: "zipcode")
+  zipCode         String      @map(name: "zip_code")
   households      Household[]
   teams           Team[]
 

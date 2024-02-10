@@ -26,7 +26,7 @@ CREATE TABLE "address" (
     "province_name" TEXT NOT NULL,
     "district_name" TEXT NOT NULL,
     "subdistrict_name" TEXT NOT NULL,
-    "zipcode" TEXT NOT NULL,
+    "zip_code" TEXT NOT NULL,
 
     CONSTRAINT "address_pkey" PRIMARY KEY ("id")
 );
@@ -256,7 +256,7 @@ CREATE TABLE "admin" (
     "lastname" TEXT NOT NULL,
     "citizen_id" TEXT NOT NULL,
     "officer_id" TEXT NOT NULL,
-    "officer_card_image" TEXT,
+    "officer_card_img" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phone_number" TEXT,

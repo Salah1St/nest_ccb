@@ -113,7 +113,7 @@ exports.Prisma.AddressScalarFieldEnum = {
   provinceName: 'provinceName',
   districtName: 'districtName',
   subdistrictName: 'subdistrictName',
-  zipcode: 'zipcode'
+  zipCode: 'zipCode'
 };
 
 exports.Prisma.HouseholdScalarFieldEnum = {

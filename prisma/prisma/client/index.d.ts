@@ -2912,7 +2912,7 @@ export namespace Prisma {
     provinceName: string | null
     districtName: string | null
     subdistrictName: string | null
-    zipcode: string | null
+    zipCode: string | null
   }
 
   export type AddressMaxAggregateOutputType = {
@@ -2921,7 +2921,7 @@ export namespace Prisma {
     provinceName: string | null
     districtName: string | null
     subdistrictName: string | null
-    zipcode: string | null
+    zipCode: string | null
   }
 
   export type AddressCountAggregateOutputType = {
@@ -2930,7 +2930,7 @@ export namespace Prisma {
     provinceName: number
     districtName: number
     subdistrictName: number
-    zipcode: number
+    zipCode: number
     _all: number
   }
 
@@ -2949,7 +2949,7 @@ export namespace Prisma {
     provinceName?: true
     districtName?: true
     subdistrictName?: true
-    zipcode?: true
+    zipCode?: true
   }
 
   export type AddressMaxAggregateInputType = {
@@ -2958,7 +2958,7 @@ export namespace Prisma {
     provinceName?: true
     districtName?: true
     subdistrictName?: true
-    zipcode?: true
+    zipCode?: true
   }
 
   export type AddressCountAggregateInputType = {
@@ -2967,7 +2967,7 @@ export namespace Prisma {
     provinceName?: true
     districtName?: true
     subdistrictName?: true
-    zipcode?: true
+    zipCode?: true
     _all?: true
   }
 
@@ -3063,7 +3063,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     _count: AddressCountAggregateOutputType | null
     _avg: AddressAvgAggregateOutputType | null
     _sum: AddressSumAggregateOutputType | null
@@ -3091,7 +3091,7 @@ export namespace Prisma {
     provinceName?: boolean
     districtName?: boolean
     subdistrictName?: boolean
-    zipcode?: boolean
+    zipCode?: boolean
     households?: boolean | Address$householdsArgs<ExtArgs>
     teams?: boolean | Address$teamsArgs<ExtArgs>
     _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
@@ -3103,7 +3103,7 @@ export namespace Prisma {
     provinceName?: boolean
     districtName?: boolean
     subdistrictName?: boolean
-    zipcode?: boolean
+    zipCode?: boolean
   }
 
   export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3125,7 +3125,7 @@ export namespace Prisma {
       provinceName: string
       districtName: string
       subdistrictName: string
-      zipcode: string
+      zipCode: string
     }, ExtArgs["result"]["address"]>
     composites: {}
   }
@@ -3528,7 +3528,7 @@ export namespace Prisma {
     readonly provinceName: FieldRef<"Address", 'String'>
     readonly districtName: FieldRef<"Address", 'String'>
     readonly subdistrictName: FieldRef<"Address", 'String'>
-    readonly zipcode: FieldRef<"Address", 'String'>
+    readonly zipCode: FieldRef<"Address", 'String'>
   }
     
 
@@ -23756,7 +23756,7 @@ export namespace Prisma {
     provinceName: 'provinceName',
     districtName: 'districtName',
     subdistrictName: 'subdistrictName',
-    zipcode: 'zipcode'
+    zipCode: 'zipCode'
   };
 
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
@@ -24276,7 +24276,7 @@ export namespace Prisma {
     provinceName?: StringFilter<"Address"> | string
     districtName?: StringFilter<"Address"> | string
     subdistrictName?: StringFilter<"Address"> | string
-    zipcode?: StringFilter<"Address"> | string
+    zipCode?: StringFilter<"Address"> | string
     households?: HouseholdListRelationFilter
     teams?: TeamListRelationFilter
   }
@@ -24287,7 +24287,7 @@ export namespace Prisma {
     provinceName?: SortOrder
     districtName?: SortOrder
     subdistrictName?: SortOrder
-    zipcode?: SortOrder
+    zipCode?: SortOrder
     households?: HouseholdOrderByRelationAggregateInput
     teams?: TeamOrderByRelationAggregateInput
   }
@@ -24301,7 +24301,7 @@ export namespace Prisma {
     provinceName?: StringFilter<"Address"> | string
     districtName?: StringFilter<"Address"> | string
     subdistrictName?: StringFilter<"Address"> | string
-    zipcode?: StringFilter<"Address"> | string
+    zipCode?: StringFilter<"Address"> | string
     households?: HouseholdListRelationFilter
     teams?: TeamListRelationFilter
   }, "id">
@@ -24312,7 +24312,7 @@ export namespace Prisma {
     provinceName?: SortOrder
     districtName?: SortOrder
     subdistrictName?: SortOrder
-    zipcode?: SortOrder
+    zipCode?: SortOrder
     _count?: AddressCountOrderByAggregateInput
     _avg?: AddressAvgOrderByAggregateInput
     _max?: AddressMaxOrderByAggregateInput
@@ -24329,7 +24329,7 @@ export namespace Prisma {
     provinceName?: StringWithAggregatesFilter<"Address"> | string
     districtName?: StringWithAggregatesFilter<"Address"> | string
     subdistrictName?: StringWithAggregatesFilter<"Address"> | string
-    zipcode?: StringWithAggregatesFilter<"Address"> | string
+    zipCode?: StringWithAggregatesFilter<"Address"> | string
   }
 
   export type HouseholdWhereInput = {
@@ -25953,7 +25953,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     households?: HouseholdCreateNestedManyWithoutAddressInput
     teams?: TeamCreateNestedManyWithoutAddressInput
   }
@@ -25964,7 +25964,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     households?: HouseholdUncheckedCreateNestedManyWithoutAddressInput
     teams?: TeamUncheckedCreateNestedManyWithoutAddressInput
   }
@@ -25974,7 +25974,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     households?: HouseholdUpdateManyWithoutAddressNestedInput
     teams?: TeamUpdateManyWithoutAddressNestedInput
   }
@@ -25985,7 +25985,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     households?: HouseholdUncheckedUpdateManyWithoutAddressNestedInput
     teams?: TeamUncheckedUpdateManyWithoutAddressNestedInput
   }
@@ -25996,7 +25996,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
   }
 
   export type AddressUpdateManyMutationInput = {
@@ -26004,7 +26004,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddressUncheckedUpdateManyInput = {
@@ -26013,7 +26013,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type HouseholdCreateInput = {
@@ -27774,7 +27774,7 @@ export namespace Prisma {
     provinceName?: SortOrder
     districtName?: SortOrder
     subdistrictName?: SortOrder
-    zipcode?: SortOrder
+    zipCode?: SortOrder
   }
 
   export type AddressAvgOrderByAggregateInput = {
@@ -27787,7 +27787,7 @@ export namespace Prisma {
     provinceName?: SortOrder
     districtName?: SortOrder
     subdistrictName?: SortOrder
-    zipcode?: SortOrder
+    zipCode?: SortOrder
   }
 
   export type AddressMinOrderByAggregateInput = {
@@ -27796,7 +27796,7 @@ export namespace Prisma {
     provinceName?: SortOrder
     districtName?: SortOrder
     subdistrictName?: SortOrder
-    zipcode?: SortOrder
+    zipCode?: SortOrder
   }
 
   export type AddressSumOrderByAggregateInput = {
@@ -31138,7 +31138,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     teams?: TeamCreateNestedManyWithoutAddressInput
   }
 
@@ -31148,7 +31148,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     teams?: TeamUncheckedCreateNestedManyWithoutAddressInput
   }
 
@@ -31501,7 +31501,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     teams?: TeamUpdateManyWithoutAddressNestedInput
   }
 
@@ -31511,7 +31511,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     teams?: TeamUncheckedUpdateManyWithoutAddressNestedInput
   }
 
@@ -34309,7 +34309,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     households?: HouseholdCreateNestedManyWithoutAddressInput
   }
 
@@ -34319,7 +34319,7 @@ export namespace Prisma {
     provinceName: string
     districtName: string
     subdistrictName: string
-    zipcode: string
+    zipCode: string
     households?: HouseholdUncheckedCreateNestedManyWithoutAddressInput
   }
 
@@ -34375,7 +34375,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     households?: HouseholdUpdateManyWithoutAddressNestedInput
   }
 
@@ -34385,7 +34385,7 @@ export namespace Prisma {
     provinceName?: StringFieldUpdateOperationsInput | string
     districtName?: StringFieldUpdateOperationsInput | string
     subdistrictName?: StringFieldUpdateOperationsInput | string
-    zipcode?: StringFieldUpdateOperationsInput | string
+    zipCode?: StringFieldUpdateOperationsInput | string
     households?: HouseholdUncheckedUpdateManyWithoutAddressNestedInput
   }
 
