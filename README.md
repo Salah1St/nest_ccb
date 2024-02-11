@@ -63,7 +63,7 @@ Nest is [MIT licensed](LICENSE).
 # Generate prisma
 $ pnpx prisma generate
 
-# Migrate table and create new migration version
+# Migrate table and create new migration version + seed
 $ pnpx prisma migrate dev
 
 # To sync database depend on schema.prisma file without creating migration version
