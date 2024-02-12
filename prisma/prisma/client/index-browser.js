@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.5.2
- * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
+ * Prisma Client JS version: 5.8.1
+ * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
  */
 Prisma.prismaVersion = {
-  client: "5.5.2",
-  engine: "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
+  client: "5.8.1",
+  engine: "23fdc5965b1e05fc54e5f26ed3de66776b93de64"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -107,7 +107,238 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  regionName: 'regionName',
+  provinceName: 'provinceName',
+  districtName: 'districtName',
+  subdistrictName: 'subdistrictName',
+  zipCode: 'zipCode'
+};
+
+exports.Prisma.HouseholdScalarFieldEnum = {
+  id: 'id',
+  addressId: 'addressId',
+  addressDetail: 'addressDetail',
+  houseType: 'houseType',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.CarbonFootprintScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  householdElectricityId: 'householdElectricityId',
+  householdWaterSupplyId: 'householdWaterSupplyId',
+  householdOtherEnergyId: 'householdOtherEnergyId',
+  transportaionId: 'transportaionId',
+  totalCarbonFootprint: 'totalCarbonFootprint',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.EmissionFactorScalarFieldEnum = {
+  id: 'id',
+  sourceType: 'sourceType',
+  name: 'name',
+  carbonCoefficient: 'carbonCoefficient',
+  unit: 'unit',
+  recorded_date: 'recorded_date',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.VehiclePropertyScalarFieldEnum = {
+  id: 'id',
+  modelType: 'modelType',
+  consumptionRate: 'consumptionRate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.PrivateVehicleScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  emissionFactorId: 'emissionFactorId',
+  vehiclePropertyId: 'vehiclePropertyId',
+  startMonthDistance: 'startMonthDistance',
+  endMonthDistance: 'endMonthDistance',
+  fuelComsumptionPerMonth: 'fuelComsumptionPerMonth',
+  isRegularMaintain: 'isRegularMaintain',
+  carbonEmissionEq: 'carbonEmissionEq',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.TransportationScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  totalCarbonFootprint: 'totalCarbonFootprint',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.HouseholdElectricityScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  totalCarbonFootprint: 'totalCarbonFootprint',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.ElectricityBillScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  emissionFactorId: 'emissionFactorId',
+  amountConsumption: 'amountConsumption',
+  electricityMeter: 'electricityMeter',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.HouseholdWaterSupplyScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  totalCarbonFootprint: 'totalCarbonFootprint',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.WaterBillScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  emissionFactorId: 'emissionFactorId',
+  amountConsumption: 'amountConsumption',
+  waterMeter: 'waterMeter',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.HouseholdOtherEnergyScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  totalCarbonFootprint: 'totalCarbonFootprint',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.OtherEnergyConsumptionScalarFieldEnum = {
+  id: 'id',
+  householdId: 'householdId',
+  emissionFactorId: 'emissionFactorId',
+  energyUsageType: 'energyUsageType',
+  amountConsumption: 'amountConsumption',
+  recordedDate: 'recordedDate',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  firstname: 'firstname',
+  lastname: 'lastname',
+  citizenId: 'citizenId',
+  email: 'email',
+  password: 'password',
+  phoneNumber: 'phoneNumber',
+  profileImg: 'profileImg',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.UserHouseholdScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  householdId: 'householdId',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  firstname: 'firstname',
+  lastname: 'lastname',
+  citizenId: 'citizenId',
+  officerId: 'officerId',
+  officerCardImg: 'officerCardImg',
+  email: 'email',
+  password: 'password',
+  phoneNumber: 'phoneNumber',
+  profileImg: 'profileImg',
+  role: 'role',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
+  teamId: 'teamId',
+  canEditSubdistrict: 'canEditSubdistrict',
+  canGrant: 'canGrant',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  addressId: 'addressId',
+  title: 'title',
+  LogoImg: 'LogoImg',
+  OrganizationEmail: 'OrganizationEmail',
+  Status: 'Status',
+  RequestDocument: 'RequestDocument',
+  maximumLevel: 'maximumLevel',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.OldUserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
@@ -116,7 +347,7 @@ exports.Prisma.UserScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.ClientScalarFieldEnum = {
+exports.Prisma.OldClientScalarFieldEnum = {
   user_id: 'user_id',
   firstName: 'firstName',
   lastName: 'lastName',
@@ -135,15 +366,83 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.HouseType = exports.$Enums.HouseType = {
+  SINGLE_HOUSE: 'SINGLE_HOUSE',
+  TOWNHOUSE: 'TOWNHOUSE',
+  CONDO: 'CONDO',
+  APARTMENT: 'APARTMENT'
+};
+
+exports.SourceType = exports.$Enums.SourceType = {
+  PRIVATE_VEHICLE: 'PRIVATE_VEHICLE',
+  PUBLIC_VEHICLE: 'PUBLIC_VEHICLE',
+  ELECTRICITY: 'ELECTRICITY',
+  WATER_SUPPLY: 'WATER_SUPPLY',
+  COOKING: 'COOKING',
+  HEATING: 'HEATING',
+  COOLING: 'COOLING',
+  COMBUSTION: 'COMBUSTION'
+};
+
+exports.ModelType = exports.$Enums.ModelType = {
+  MODEL_1500_CC: 'MODEL_1500_CC',
+  MODEL_1600_CC: 'MODEL_1600_CC',
+  MODEL_1800_CC: 'MODEL_1800_CC',
+  MODEL_2000_CC: 'MODEL_2000_CC',
+  NGV: 'NGV',
+  LPG: 'LPG'
+};
+
+exports.EnergyUsageType = exports.$Enums.EnergyUsageType = {
+  HEATING: 'HEATING',
+  COOKING: 'COOKING',
+  COOLING: 'COOLING',
+  COMBUSTION: 'COMBUSTION'
+};
+
 exports.Role = exports.$Enums.Role = {
-  CLIENT: 'CLIENT',
-  OFFICER: 'OFFICER',
-  ADMIN: 'ADMIN'
+  STAFF: 'STAFF',
+  SUPER_ADMIN: 'SUPER_ADMIN'
+};
+
+exports.TeamStatus = exports.$Enums.TeamStatus = {
+  PENDING: 'PENDING',
+  CREATED: 'CREATED',
+  REJECTED: 'REJECTED'
+};
+
+exports.MaximumLevel = exports.$Enums.MaximumLevel = {
+  PROVINCE: 'PROVINCE',
+  DISTRICT: 'DISTRICT',
+  SUBDISTRICT: 'SUBDISTRICT'
 };
 
 exports.Prisma.ModelName = {
+  Address: 'Address',
+  Household: 'Household',
+  CarbonFootprint: 'CarbonFootprint',
+  EmissionFactor: 'EmissionFactor',
+  VehicleProperty: 'VehicleProperty',
+  PrivateVehicle: 'PrivateVehicle',
+  Transportation: 'Transportation',
+  HouseholdElectricity: 'HouseholdElectricity',
+  ElectricityBill: 'ElectricityBill',
+  HouseholdWaterSupply: 'HouseholdWaterSupply',
+  WaterBill: 'WaterBill',
+  HouseholdOtherEnergy: 'HouseholdOtherEnergy',
+  OtherEnergyConsumption: 'OtherEnergyConsumption',
   User: 'User',
-  Client: 'Client'
+  UserHousehold: 'UserHousehold',
+  Admin: 'Admin',
+  Permission: 'Permission',
+  Team: 'Team',
+  OldUser: 'OldUser',
+  OldClient: 'OldClient'
 };
 
 /**

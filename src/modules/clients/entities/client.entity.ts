@@ -1,23 +1,31 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { User } from 'src/modules/users/entities/user.entity';
+import { ApiProperty } from "@nestjs/swagger";
+import { Expose, Type } from "class-transformer";
+import { OldUser } from "src/modules/users/entities/user.entity";
 
 export class Client {
-  @ApiProperty({ type: () => User })
-  @Type(() => User)
-  user: User;
+  @Expose({ name: "user" })
+  @ApiProperty({ type: () => OldUser })
+  @Type(() => OldUser)
+  user: OldUser;
+  @Expose({ name: "user_id" })
   @ApiProperty()
-  user_id: string;
+  userId: string;
+  @Expose({ name: "firstname" })
   @ApiProperty()
-  firstName: string;
+  firstname: string;
+  @Expose({ name: "lastname" })
   @ApiProperty()
-  lastName: string;
+  lastname: string;
+  @Expose({ name: "phone_number" })
   @ApiProperty()
   phoneNumber: string;
+  @Expose({ name: "profile_image" })
   @ApiProperty()
   profileImage: string;
+  @Expose({ name: "created_at" })
   @ApiProperty()
-  created_at: Date;
+  createdAt: Date;
+  @Expose({ name: "updated_at" })
   @ApiProperty()
-  updated_at: Date;
+  updatedAt: Date;
 }

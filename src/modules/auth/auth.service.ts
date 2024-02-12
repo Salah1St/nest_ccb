@@ -20,9 +20,9 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly httpService: HttpService,
   ) {}
-  async validateUser(email: string, password: string, role: Role) {
+  async validateOldUser(email: string, password: string, role: Role) {
     try {
-      const user = await this.prismaService.user.findUnique({
+      const user = await this.prismaService.oldUser.findUnique({
         where: { email: email },
       });
       if (!user)

@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { HttpException, HttpStatus } from "@nestjs/common";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class ErrorException extends HttpException {
   constructor(props: string) {
