@@ -5,7 +5,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { ErrorException } from "src/error/error.exception";
 import { plainToInstance } from "class-transformer";
 import { OldUser } from "./entities/user.entity";
-import { Prisma } from "prisma/client";
+import { Prisma } from "@prisma/client";
 
 @Injectable()
 export class OldUsersService {
