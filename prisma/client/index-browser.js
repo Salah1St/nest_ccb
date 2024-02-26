@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
+ * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "23fdc5965b1e05fc54e5f26ed3de66776b93de64"
+  engine: "5a9203d0590c951969e85a7d07215503f4672eb9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -327,10 +327,10 @@ exports.Prisma.TeamScalarFieldEnum = {
   id: 'id',
   addressId: 'addressId',
   title: 'title',
-  LogoImg: 'LogoImg',
-  OrganizationEmail: 'OrganizationEmail',
-  Status: 'Status',
-  RequestDocument: 'RequestDocument',
+  logoImg: 'logoImg',
+  organizationEmail: 'organizationEmail',
+  status: 'status',
+  requestDocument: 'requestDocument',
   maximumLevel: 'maximumLevel',
   createdAt: 'createdAt',
   createdBy: 'createdBy',

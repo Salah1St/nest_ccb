@@ -598,7 +598,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 23fdc5965b1e05fc54e5f26ed3de66776b93de64
+   * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
    */
   export type PrismaVersion = {
     client: string
@@ -18922,7 +18922,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber: string | null
@@ -19011,7 +19011,7 @@ export namespace Prisma {
       lastname: string
       citizenId: string
       officerId: string
-      officerCardImg: string | null
+      officerCardImg: string
       email: string
       password: string
       phoneNumber: string | null
@@ -20816,10 +20816,10 @@ export namespace Prisma {
     id: number | null
     addressId: number | null
     title: string | null
-    LogoImg: string | null
-    OrganizationEmail: string | null
-    Status: $Enums.TeamStatus | null
-    RequestDocument: string | null
+    logoImg: string | null
+    organizationEmail: string | null
+    status: $Enums.TeamStatus | null
+    requestDocument: string | null
     maximumLevel: $Enums.MaximumLevel | null
     createdAt: Date | null
     createdBy: string | null
@@ -20831,10 +20831,10 @@ export namespace Prisma {
     id: number | null
     addressId: number | null
     title: string | null
-    LogoImg: string | null
-    OrganizationEmail: string | null
-    Status: $Enums.TeamStatus | null
-    RequestDocument: string | null
+    logoImg: string | null
+    organizationEmail: string | null
+    status: $Enums.TeamStatus | null
+    requestDocument: string | null
     maximumLevel: $Enums.MaximumLevel | null
     createdAt: Date | null
     createdBy: string | null
@@ -20846,10 +20846,10 @@ export namespace Prisma {
     id: number
     addressId: number
     title: number
-    LogoImg: number
-    OrganizationEmail: number
-    Status: number
-    RequestDocument: number
+    logoImg: number
+    organizationEmail: number
+    status: number
+    requestDocument: number
     maximumLevel: number
     createdAt: number
     createdBy: number
@@ -20873,10 +20873,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
-    LogoImg?: true
-    OrganizationEmail?: true
-    Status?: true
-    RequestDocument?: true
+    logoImg?: true
+    organizationEmail?: true
+    status?: true
+    requestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -20888,10 +20888,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
-    LogoImg?: true
-    OrganizationEmail?: true
-    Status?: true
-    RequestDocument?: true
+    logoImg?: true
+    organizationEmail?: true
+    status?: true
+    requestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -20903,10 +20903,10 @@ export namespace Prisma {
     id?: true
     addressId?: true
     title?: true
-    LogoImg?: true
-    OrganizationEmail?: true
-    Status?: true
-    RequestDocument?: true
+    logoImg?: true
+    organizationEmail?: true
+    status?: true
+    requestDocument?: true
     maximumLevel?: true
     createdAt?: true
     createdBy?: true
@@ -21005,10 +21005,10 @@ export namespace Prisma {
     id: number
     addressId: number
     title: string
-    LogoImg: string | null
-    OrganizationEmail: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg: string | null
+    organizationEmail: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt: Date
     createdBy: string
@@ -21039,10 +21039,10 @@ export namespace Prisma {
     id?: boolean
     addressId?: boolean
     title?: boolean
-    LogoImg?: boolean
-    OrganizationEmail?: boolean
-    Status?: boolean
-    RequestDocument?: boolean
+    logoImg?: boolean
+    organizationEmail?: boolean
+    status?: boolean
+    requestDocument?: boolean
     maximumLevel?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -21057,10 +21057,10 @@ export namespace Prisma {
     id?: boolean
     addressId?: boolean
     title?: boolean
-    LogoImg?: boolean
-    OrganizationEmail?: boolean
-    Status?: boolean
-    RequestDocument?: boolean
+    logoImg?: boolean
+    organizationEmail?: boolean
+    status?: boolean
+    requestDocument?: boolean
     maximumLevel?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -21085,10 +21085,10 @@ export namespace Prisma {
       id: number
       addressId: number
       title: string
-      LogoImg: string | null
-      OrganizationEmail: string | null
-      Status: $Enums.TeamStatus
-      RequestDocument: string
+      logoImg: string | null
+      organizationEmail: string | null
+      status: $Enums.TeamStatus
+      requestDocument: string
       maximumLevel: $Enums.MaximumLevel
       createdAt: Date
       createdBy: string
@@ -21494,10 +21494,10 @@ export namespace Prisma {
     readonly id: FieldRef<"Team", 'Int'>
     readonly addressId: FieldRef<"Team", 'Int'>
     readonly title: FieldRef<"Team", 'String'>
-    readonly LogoImg: FieldRef<"Team", 'String'>
-    readonly OrganizationEmail: FieldRef<"Team", 'String'>
-    readonly Status: FieldRef<"Team", 'TeamStatus'>
-    readonly RequestDocument: FieldRef<"Team", 'String'>
+    readonly logoImg: FieldRef<"Team", 'String'>
+    readonly organizationEmail: FieldRef<"Team", 'String'>
+    readonly status: FieldRef<"Team", 'TeamStatus'>
+    readonly requestDocument: FieldRef<"Team", 'String'>
     readonly maximumLevel: FieldRef<"Team", 'MaximumLevel'>
     readonly createdAt: FieldRef<"Team", 'DateTime'>
     readonly createdBy: FieldRef<"Team", 'String'>
@@ -24021,10 +24021,10 @@ export namespace Prisma {
     id: 'id',
     addressId: 'addressId',
     title: 'title',
-    LogoImg: 'LogoImg',
-    OrganizationEmail: 'OrganizationEmail',
-    Status: 'Status',
-    RequestDocument: 'RequestDocument',
+    logoImg: 'logoImg',
+    organizationEmail: 'organizationEmail',
+    status: 'status',
+    requestDocument: 'requestDocument',
     maximumLevel: 'maximumLevel',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
@@ -25545,7 +25545,7 @@ export namespace Prisma {
     lastname?: StringFilter<"Admin"> | string
     citizenId?: StringFilter<"Admin"> | string
     officerId?: StringFilter<"Admin"> | string
-    officerCardImg?: StringNullableFilter<"Admin"> | string | null
+    officerCardImg?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
     phoneNumber?: StringNullableFilter<"Admin"> | string | null
@@ -25565,7 +25565,7 @@ export namespace Prisma {
     lastname?: SortOrder
     citizenId?: SortOrder
     officerId?: SortOrder
-    officerCardImg?: SortOrderInput | SortOrder
+    officerCardImg?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
@@ -25581,14 +25581,14 @@ export namespace Prisma {
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    officerId?: string
     AND?: AdminWhereInput | AdminWhereInput[]
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
     firstname?: StringFilter<"Admin"> | string
     lastname?: StringFilter<"Admin"> | string
     citizenId?: StringFilter<"Admin"> | string
-    officerId?: StringFilter<"Admin"> | string
-    officerCardImg?: StringNullableFilter<"Admin"> | string | null
+    officerCardImg?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
     password?: StringFilter<"Admin"> | string
     phoneNumber?: StringNullableFilter<"Admin"> | string | null
@@ -25600,7 +25600,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Admin"> | Date | string
     updatedBy?: StringFilter<"Admin"> | string
     permissions?: PermissionListRelationFilter
-  }, "id">
+  }, "id" | "officerId">
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
@@ -25608,7 +25608,7 @@ export namespace Prisma {
     lastname?: SortOrder
     citizenId?: SortOrder
     officerId?: SortOrder
-    officerCardImg?: SortOrderInput | SortOrder
+    officerCardImg?: SortOrder
     email?: SortOrder
     password?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
@@ -25635,7 +25635,7 @@ export namespace Prisma {
     lastname?: StringWithAggregatesFilter<"Admin"> | string
     citizenId?: StringWithAggregatesFilter<"Admin"> | string
     officerId?: StringWithAggregatesFilter<"Admin"> | string
-    officerCardImg?: StringNullableWithAggregatesFilter<"Admin"> | string | null
+    officerCardImg?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
     password?: StringWithAggregatesFilter<"Admin"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"Admin"> | string | null
@@ -25735,10 +25735,10 @@ export namespace Prisma {
     id?: IntFilter<"Team"> | number
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
-    LogoImg?: StringNullableFilter<"Team"> | string | null
-    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
-    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
-    RequestDocument?: StringFilter<"Team"> | string
+    logoImg?: StringNullableFilter<"Team"> | string | null
+    organizationEmail?: StringNullableFilter<"Team"> | string | null
+    status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    requestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
     createdBy?: StringFilter<"Team"> | string
@@ -25752,10 +25752,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
-    LogoImg?: SortOrderInput | SortOrder
-    OrganizationEmail?: SortOrderInput | SortOrder
-    Status?: SortOrder
-    RequestDocument?: SortOrder
+    logoImg?: SortOrderInput | SortOrder
+    organizationEmail?: SortOrderInput | SortOrder
+    status?: SortOrder
+    requestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -25772,10 +25772,10 @@ export namespace Prisma {
     NOT?: TeamWhereInput | TeamWhereInput[]
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
-    LogoImg?: StringNullableFilter<"Team"> | string | null
-    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
-    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
-    RequestDocument?: StringFilter<"Team"> | string
+    logoImg?: StringNullableFilter<"Team"> | string | null
+    organizationEmail?: StringNullableFilter<"Team"> | string | null
+    status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    requestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
     createdBy?: StringFilter<"Team"> | string
@@ -25789,10 +25789,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
-    LogoImg?: SortOrderInput | SortOrder
-    OrganizationEmail?: SortOrderInput | SortOrder
-    Status?: SortOrder
-    RequestDocument?: SortOrder
+    logoImg?: SortOrderInput | SortOrder
+    organizationEmail?: SortOrderInput | SortOrder
+    status?: SortOrder
+    requestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -25812,10 +25812,10 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Team"> | number
     addressId?: IntWithAggregatesFilter<"Team"> | number
     title?: StringWithAggregatesFilter<"Team"> | string
-    LogoImg?: StringNullableWithAggregatesFilter<"Team"> | string | null
-    OrganizationEmail?: StringNullableWithAggregatesFilter<"Team"> | string | null
-    Status?: EnumTeamStatusWithAggregatesFilter<"Team"> | $Enums.TeamStatus
-    RequestDocument?: StringWithAggregatesFilter<"Team"> | string
+    logoImg?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    organizationEmail?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    status?: EnumTeamStatusWithAggregatesFilter<"Team"> | $Enums.TeamStatus
+    requestDocument?: StringWithAggregatesFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelWithAggregatesFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
     createdBy?: StringWithAggregatesFilter<"Team"> | string
@@ -27273,7 +27273,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg?: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber?: string | null
@@ -27293,7 +27293,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg?: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber?: string | null
@@ -27312,7 +27312,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27332,7 +27332,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27352,7 +27352,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg?: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber?: string | null
@@ -27370,7 +27370,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27389,7 +27389,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27483,10 +27483,10 @@ export namespace Prisma {
 
   export type TeamCreateInput = {
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -27500,10 +27500,10 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -27514,10 +27514,10 @@ export namespace Prisma {
 
   export type TeamUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -27531,10 +27531,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -27547,10 +27547,10 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -27560,10 +27560,10 @@ export namespace Prisma {
 
   export type TeamUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -27575,10 +27575,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -29092,10 +29092,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
-    LogoImg?: SortOrder
-    OrganizationEmail?: SortOrder
-    Status?: SortOrder
-    RequestDocument?: SortOrder
+    logoImg?: SortOrder
+    organizationEmail?: SortOrder
+    status?: SortOrder
+    requestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -29112,10 +29112,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
-    LogoImg?: SortOrder
-    OrganizationEmail?: SortOrder
-    Status?: SortOrder
-    RequestDocument?: SortOrder
+    logoImg?: SortOrder
+    organizationEmail?: SortOrder
+    status?: SortOrder
+    requestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -29127,10 +29127,10 @@ export namespace Prisma {
     id?: SortOrder
     addressId?: SortOrder
     title?: SortOrder
-    LogoImg?: SortOrder
-    OrganizationEmail?: SortOrder
-    Status?: SortOrder
-    RequestDocument?: SortOrder
+    logoImg?: SortOrder
+    organizationEmail?: SortOrder
+    status?: SortOrder
+    requestDocument?: SortOrder
     maximumLevel?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -31031,10 +31031,10 @@ export namespace Prisma {
 
   export type TeamCreateWithoutAddressInput = {
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -31046,10 +31046,10 @@ export namespace Prisma {
   export type TeamUncheckedCreateWithoutAddressInput = {
     id?: number
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -31122,10 +31122,10 @@ export namespace Prisma {
     id?: IntFilter<"Team"> | number
     addressId?: IntFilter<"Team"> | number
     title?: StringFilter<"Team"> | string
-    LogoImg?: StringNullableFilter<"Team"> | string | null
-    OrganizationEmail?: StringNullableFilter<"Team"> | string | null
-    Status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
-    RequestDocument?: StringFilter<"Team"> | string
+    logoImg?: StringNullableFilter<"Team"> | string | null
+    organizationEmail?: StringNullableFilter<"Team"> | string | null
+    status?: EnumTeamStatusFilter<"Team"> | $Enums.TeamStatus
+    requestDocument?: StringFilter<"Team"> | string
     maximumLevel?: EnumMaximumLevelFilter<"Team"> | $Enums.MaximumLevel
     createdAt?: DateTimeFilter<"Team"> | Date | string
     createdBy?: StringFilter<"Team"> | string
@@ -34145,7 +34145,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg?: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber?: string | null
@@ -34164,7 +34164,7 @@ export namespace Prisma {
     lastname: string
     citizenId: string
     officerId: string
-    officerCardImg?: string | null
+    officerCardImg: string
     email: string
     password: string
     phoneNumber?: string | null
@@ -34184,10 +34184,10 @@ export namespace Prisma {
 
   export type TeamCreateWithoutPermissionsInput = {
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -34200,10 +34200,10 @@ export namespace Prisma {
     id?: number
     addressId: number
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -34232,7 +34232,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34251,7 +34251,7 @@ export namespace Prisma {
     lastname?: StringFieldUpdateOperationsInput | string
     citizenId?: StringFieldUpdateOperationsInput | string
     officerId?: StringFieldUpdateOperationsInput | string
-    officerCardImg?: NullableStringFieldUpdateOperationsInput | string | null
+    officerCardImg?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34277,10 +34277,10 @@ export namespace Prisma {
 
   export type TeamUpdateWithoutPermissionsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -34293,10 +34293,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     addressId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -34523,10 +34523,10 @@ export namespace Prisma {
   export type TeamCreateManyAddressInput = {
     id?: number
     title: string
-    LogoImg?: string | null
-    OrganizationEmail?: string | null
-    Status: $Enums.TeamStatus
-    RequestDocument: string
+    logoImg?: string | null
+    organizationEmail?: string | null
+    status: $Enums.TeamStatus
+    requestDocument: string
     maximumLevel: $Enums.MaximumLevel
     createdAt?: Date | string
     createdBy: string
@@ -34588,10 +34588,10 @@ export namespace Prisma {
 
   export type TeamUpdateWithoutAddressInput = {
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -34603,10 +34603,10 @@ export namespace Prisma {
   export type TeamUncheckedUpdateWithoutAddressInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
@@ -34618,10 +34618,10 @@ export namespace Prisma {
   export type TeamUncheckedUpdateManyWithoutAddressInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    LogoImg?: NullableStringFieldUpdateOperationsInput | string | null
-    OrganizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    Status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
-    RequestDocument?: StringFieldUpdateOperationsInput | string
+    logoImg?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTeamStatusFieldUpdateOperationsInput | $Enums.TeamStatus
+    requestDocument?: StringFieldUpdateOperationsInput | string
     maximumLevel?: EnumMaximumLevelFieldUpdateOperationsInput | $Enums.MaximumLevel
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: StringFieldUpdateOperationsInput | string
