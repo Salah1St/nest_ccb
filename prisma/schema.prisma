@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./client"
 }
 
 datasource db {
@@ -12,14 +11,20 @@ datasource db {
 }
 
 model Address {
-  id              Int         @id @default(autoincrement())
-  regionName      String      @map(name: "region_name")
-  provinceName    String      @map(name: "province_name")
-  districtName    String      @map(name: "district_name")
-  subdistrictName String      @map(name: "subdistrict_name")
-  zipCode         String      @map(name: "zip_code")
-  households      Household[]
-  teams           Team[]
+  id                Int         @id @default(autoincrement())
+  provinceCode      Int         @map(name: "province_code")
+  provinceNameEn    String      @map(name: "province_name_en")
+  provinceNameTh    String      @map(name: "province_name_th")
+  regionName        String      @map(name: "region_name")
+  districtCode      Int         @map(name: "district_code")
+  districtNameEn    String      @map(name: "district_name_en")
+  districtNameTh    String      @map(name: "district_name_th")
+  subdistrictCode   Int         @map(name: "subdistrict_code")
+  subdistrictNameEn String      @map(name: "subdistrict_name_en")
+  subdistrictNameTh String      @map(name: "subdistrict_name_th")
+  postalCode        Int         @map(name: "postal_code")
+  households        Household[]
+  teams             Team[]
 
   @@map("address")
 }
