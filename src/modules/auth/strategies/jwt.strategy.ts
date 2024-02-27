@@ -3,14 +3,14 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ExpiredException } from "../exceptions/expired-jwt.exception";
 import { PrismaService } from "src/prisma/prisma.service";
-import { OldUser } from "@prisma/client";
+import { Admin } from "@prisma/client";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private prismaService: PrismaService) {
+  constructor(private prisma: PrismaService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
+      ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });
   }
@@ -22,8 +22,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (today - iat > expiration_time) throw new ExpiredException();
 
-    const user: Omit<OldUser, "password"> = await this.prismaService.oldUser.findUnique({
-      where: { id: payload.sub },
+    const user: Omit<Admin, "password"> = await this.prisma.admin.findUnique({
+      where: { id: payload.id },
     });
 
     if (!user) throw new UnauthorizedException();

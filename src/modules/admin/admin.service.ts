@@ -6,6 +6,7 @@ import { Prisma } from "@prisma/client";
 import { UtilsService } from "src/utils/utils.service";
 import { code } from "src/error/error.model";
 import { adminErrorAlreadyExists, adminErrorDatabase } from "src/error/error.response";
+import { Admin } from "./entities/admin.entity";
 
 @Injectable()
 export class AdminService {
@@ -20,10 +21,11 @@ export class AdminService {
       const hashedPassword = await this.utils.bcrypt.hashed(admin.password);
       const data = { ...admin, password: hashedPassword };
       // CREATE user to database
-      const user = await this.prisma.admin.create({ data, select: { id: true } });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...user } = await this.prisma.admin.create({ data });
       // SIGN token from user data
       const token = this.utils.jwt.sign(user);
-      return { token };
+      return { token, user };
     } catch (error) {
       // VALIDATION unique
       if (error.code === code.PRISMA_ALREADY_EXISTS) {
@@ -33,31 +35,14 @@ export class AdminService {
     }
   }
 
-  // async findAll(params?: {
-  //   skip?: number;
-  //   take?: number;
-  //   cursor?: Prisma.OldUserWhereUniqueInput;
-  //   where?: Prisma.OldUserWhereInput;
-  //   orderBy?: Prisma.OldUserOrderByWithRelationInput;
-  // }) {
-  //   return await this.prisma.oldUser.findMany({
-  //     ...params,
-  //   });
-  // }
-
   async findOneById(where: Prisma.AdminWhereUniqueInput) {
     try {
-      const admin = await this.prisma.admin.findUniqueOrThrow({
-        where,
-        include: {
-          permissions: {
-            include: {
-              team: true,
-            },
-          },
-        },
-      });
-      return this.exclude(admin, ["password"]);
+      const select = {
+        ...this.createDefaultObject(),
+        password: false,
+      };
+      const admin = await this.prisma.admin.findUniqueOrThrow({ where, select });
+      return admin;
     } catch (error) {
       throw new ErrorException("not found");
     }
@@ -70,20 +55,23 @@ export class AdminService {
     return admin;
   }
 
-  // async update(
-  //   where: Prisma.OldUserWhereUniqueInput,
-  //   data: Prisma.OldUserUpdateInput,
-  // ) {
-  //   if (data.password) {
-  //     const hashedPassword = await bcrypt.hash(data.password.toString(), 10);
-  //     data.password = hashedPassword;
-  //   }
-  //   return await this.prisma.oldUser.update({
-  //     where,
-  //     data,
-  //   });
-  // }
-  // async remove(where: Prisma.OldUserWhereUniqueInput) {
-  //   return await this.prisma.oldUser.delete({ where });
-  // }
+  // Function to create a default object with boolean values using mapped type
+  createDefaultObject(): DefaultA {
+    const defaultObject: DefaultA = {} as DefaultA;
+    for (const key in new adminSelect()) {
+      defaultObject[key] = true;
+    }
+    return defaultObject;
+  }
 }
+class adminSelect {
+  constructor() {
+    for (const key in new Admin()) {
+      this[key] = true;
+    }
+  }
+}
+
+type DefaultA = {
+  [K in keyof Admin]: boolean;
+};

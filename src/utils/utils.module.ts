@@ -8,8 +8,8 @@ import { TimeService } from "./time.service";
 @Module({
   imports: [
     JwtModule.register({
-      secret: "process.env.JWT_SECRET",
-      signOptions: { expiresIn: "5s" },
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: "1d" },
     }),
   ],
   providers: [UtilsService, BcryptService, JwtService, TimeService],
