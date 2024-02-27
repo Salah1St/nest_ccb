@@ -6,6 +6,7 @@ import { AuthService } from "./auth.service";
 import { ExpiredJWTDto } from "./dto/token.dto";
 import { Jwt } from "./entities/jwt.entity";
 import { LocalAuthGuard } from "./guards/local.guard";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags("Auth")
 @ApiCreatedResponse({
@@ -16,7 +17,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @Post("login")
   @UseGuards(LocalAuthGuard)
-  async login(@Request() req /* @Body() login: LoginBodyDto */) {
+  async login(@Request() req) {
+    return await this.authService.login(req.user).then((token) => plainToClass(Jwt, { token }));
+  }
+
+  @Post("fetch")
+  @UseGuards(AuthGuard("jwt"))
+  async fetch(@Request() req) {
     return await this.authService.login(req.user).then((token) => plainToClass(Jwt, { token }));
   }
 

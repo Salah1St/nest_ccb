@@ -1,37 +1,33 @@
 import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from "bcrypt";
-import { PrismaService } from "src/prisma/prisma.service";
-import ms = require("ms");
-import { ExpiredTooLongException } from "./exceptions/expired-too-long.exception";
-import { invalidLoginException, invalidUserTypeException } from "src/error/error.exception";
-import { Role } from "./enums/role.enum";
+
+import { invalidLoginException } from "src/error/error.exception";
 import { HttpService } from "@nestjs/axios";
-import { OldUser } from "@prisma/client";
+import { UtilsService } from "src/utils/utils.service";
+import { PrismaService } from "src/prisma/prisma.service";
+import { Admin } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
   constructor(
-    private prismaService: PrismaService,
-    private jwtService: JwtService,
+    private readonly prisma: PrismaService,
+    private readonly utils: UtilsService,
     private readonly httpService: HttpService,
   ) {}
-  async validateOldUser(email: string, password: string, role: Role) {
+  async validateLoginAdmin(email: string, password: string) {
     try {
-      const user = await this.prismaService.oldUser.findUnique({
-        where: { email: email },
+      const user = await this.prisma.admin.findUnique({
+        where: { email },
       });
       if (!user) throw new invalidLoginException("You have entered an invalid username or password");
-      if (user.role !== role) throw new invalidUserTypeException("Login type invalid");
 
-      const validated = await bcrypt.compare(password, user.password);
-      if (!validated) throw new invalidLoginException("You have entered an invalid username or password");
-      if (validated) {
-        const userWithoutPassword: Omit<OldUser, "password"> = user;
+      const validated = await this.utils.bcrypt.compare(password, user.password);
+      if (!validated) {
+        throw new invalidLoginException("You have entered an invalid username or password");
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userWithoutPassword } = user;
         return userWithoutPassword;
       }
-
-      return null;
     } catch (error) {
       throw error;
     }
@@ -40,31 +36,26 @@ export class AuthService {
     this.httpService.post(`https://api.line.me/v2/bot/user/${lineId}/richmenu/richmenu-f0ccd48755a77ca892fbf035d29ec6d1`);
   }
 
-  async login(user: any) {
-    const payload = {
-      email: user.email,
-      sub: user.id,
-      user_type: user.user_type,
-    };
-    return this.jwtService.sign(payload);
+  async login(user: Omit<Admin, "password">) {
+    return this.utils.jwt.sign(user);
   }
 
   async refreshToken(token: string) {
-    return this.jwtService.verifyAsync(token, { ignoreExpiration: true }).then((response) => {
-      const exp = new Date(response.exp).getTime();
-      const today = new Date().getTime();
-      const time_passed = today - exp;
-      const week = today + ms("1 week");
-      const payload = {
-        email: response.email,
-        sub: response.sub,
-        user_type: response.user_type,
-      };
-      if (time_passed < week) {
-        return this.jwtService.sign(payload);
-      } else {
-        throw new ExpiredTooLongException();
-      }
+    return this.utils.jwt.verifyAsync(token, { ignoreExpiration: true }).then(() => {
+      // const exp = new Date(response.exp).getTime();
+      // const today = new Date().getTime();
+      // const time_passed = today - exp;
+      // const week = today + ms("1 week");
+      // const payload = {
+      //   email: response.email,
+      //   sub: response.sub,
+      //   user_type: response.user_type,
+      // };
+      // if (time_passed < week) {
+      //   return this.jwtService.sign(payload);
+      // } else {
+      //   throw new ExpiredTooLongException();
+      // }
     });
   }
 }

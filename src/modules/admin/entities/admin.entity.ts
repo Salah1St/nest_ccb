@@ -2,7 +2,7 @@ import { Permission } from "./permission.entity";
 import { ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 import { Type } from "class-transformer";
-import { Role } from "@prisma/client";
+import { Role } from "../enum/role.enum";
 
 export class Admin {
   @Expose({ name: "id" })
