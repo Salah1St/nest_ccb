@@ -1,4 +1,6 @@
 {
+  "printWidth": 150,
   "singleQuote": false,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "proseWrap": "preserve"
 }

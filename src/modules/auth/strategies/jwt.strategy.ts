@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ExpiredException } from "../exceptions/expired-jwt.exception";
 import { PrismaService } from "src/prisma/prisma.service";
+import { OldUser } from "@prisma/client";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -24,13 +22,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (today - iat > expiration_time) throw new ExpiredException();
 
-    const user = await this.prismaService.oldUser.findUnique({
+    const user: Omit<OldUser, "password"> = await this.prismaService.oldUser.findUnique({
       where: { id: payload.sub },
     });
 
     if (!user) throw new UnauthorizedException();
 
-    const { password, ...result } = user;
-    return result;
+    return user;
   }
 }

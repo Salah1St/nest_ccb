@@ -1,9 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Role } from "@prisma/client";
 import { Expose } from "class-transformer";
-import { Type } from "class-transformer";
-
-import { Client } from "src/modules/clients/entities/client.entity";
 
 export class OldUser {
   @Expose({ name: "id" })
@@ -29,9 +26,4 @@ export class OldUser {
   @Expose({ name: "updated_at" })
   @ApiProperty()
   updatedAt: Date;
-
-  @Expose({ name: "client" })
-  @ApiProperty({ type: () => Client })
-  @Type(() => Client)
-  client?: Client;
 }
