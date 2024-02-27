@@ -3,6 +3,7 @@ import { BcryptService } from "./bcrypt.service";
 import { JwtService } from "./jwt.service";
 import { JwtModule } from "@nestjs/jwt";
 import { UtilsService } from "./utils.service";
+import { TimeService } from "./time.service";
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { UtilsService } from "./utils.service";
       signOptions: { expiresIn: "5s" },
     }),
   ],
-  providers: [UtilsService, BcryptService, JwtService],
-  exports: [UtilsService, BcryptService, JwtService],
+  providers: [UtilsService, BcryptService, JwtService, TimeService],
+  exports: [UtilsService, BcryptService, JwtService, TimeService],
 })
 export class UtilsModule {}

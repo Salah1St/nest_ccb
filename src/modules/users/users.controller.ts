@@ -1,25 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
 import { OldUsersService } from "./users.service";
 import { CreateOldUserDto } from "./dto/create-user.dto";
 import { UpdateOldUserDto } from "./dto/update-user.dto";
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiBody,
-  ApiCreatedResponse,
-  ApiExtraModels,
-  ApiOkResponse,
-  ApiTags,
-} from "@nestjs/swagger";
+import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiExtraModels, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { PaginatedDto } from "src/globalDtos/paginated.dto";
 import { OldUser } from "./entities/user.entity";
 import { ApiPaginatedResponse } from "src/decorators/api-paginated-response.decorator";
@@ -55,47 +38,30 @@ export class OldUsersController {
     type: ErrorException,
   })
   async create(@Body() createOldUserDto: CreateOldUserDto) {
-    return await this.usersService
-      .create(createOldUserDto)
-      .then((result) => classToPlain(result));
+    return await this.usersService.create(createOldUserDto).then((result) => classToPlain(result));
   }
 
   @Get()
   @ApiPaginatedResponse(OldUser, { description: "OK" })
-  async findAll(
-    @Query(ParsePrismaFindManyParamsPipe) params: PrismaFindManyDto,
-  ) {
-    return await this.usersService
-      .findAll({ ...params })
-      .then((results) =>
-        results.map((entity) => plainToInstance(OldUser, entity)),
-      );
+  async findAll(@Query(ParsePrismaFindManyParamsPipe) params: PrismaFindManyDto) {
+    return await this.usersService.findAll({ ...params }).then((results) => results.map((entity) => plainToInstance(OldUser, entity)));
   }
 
   @Get(":id")
   @ApiOkResponse({ type: OldUser, description: "OK" })
   async findOne(@Param("id") id: string) {
-    return await this.usersService
-      .findOne({ id })
-      .then((result) => plainToInstance(OldUser, result));
+    return await this.usersService.findOne({ id }).then((result) => plainToInstance(OldUser, result));
   }
 
   @Patch(":id")
   @ApiOkResponse({ type: OldUser, description: "OK" })
-  async update(
-    @Param("id") id: string,
-    @Body() updateOldUserDto: UpdateOldUserDto,
-  ) {
-    return await this.usersService
-      .update({ id }, updateOldUserDto)
-      .then((result) => plainToInstance(OldUser, result));
+  async update(@Param("id") id: string, @Body() updateOldUserDto: UpdateOldUserDto) {
+    return await this.usersService.update({ id }, updateOldUserDto).then((result) => plainToInstance(OldUser, result));
   }
 
   @Delete(":id")
   @ApiOkResponse({ type: OldUser, description: "OK" })
   async remove(@Param("id") id: string) {
-    return await this.usersService
-      .remove({ id })
-      .then((result) => plainToInstance(OldUser, result));
+    return await this.usersService.remove({ id }).then((result) => plainToInstance(OldUser, result));
   }
 }
