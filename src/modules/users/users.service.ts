@@ -41,20 +41,14 @@ export class OldUsersService {
     });
     return this.exclude(user, ["password"]);
   }
-  exclude<OldUser, Key extends keyof OldUser>(
-    user: OldUser,
-    keys: Key[],
-  ): Omit<OldUser, Key> {
+  exclude<OldUser, Key extends keyof OldUser>(user: OldUser, keys: Key[]): Omit<OldUser, Key> {
     for (const key of keys) {
       delete user[key];
     }
     return user;
   }
 
-  async update(
-    where: Prisma.OldUserWhereUniqueInput,
-    data: Prisma.OldUserUpdateInput,
-  ) {
+  async update(where: Prisma.OldUserWhereUniqueInput, data: Prisma.OldUserUpdateInput) {
     if (data.password) {
       const hashedPassword = await bcrypt.hash(data.password.toString(), 10);
       data.password = hashedPassword;
