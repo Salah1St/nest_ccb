@@ -32,7 +32,7 @@ CREATE TABLE "address" (
     "subdistrict_code" INTEGER NOT NULL,
     "subdistrict_name_en" TEXT NOT NULL,
     "subdistrict_name_th" TEXT NOT NULL,
-    "postal_code" INTEGER NOT NULL,
+    "postal_code" TEXT NOT NULL,
 
     CONSTRAINT "address_pkey" PRIMARY KEY ("id")
 );
@@ -262,13 +262,13 @@ CREATE TABLE "admin" (
     "lastname" TEXT NOT NULL,
     "citizen_id" TEXT NOT NULL,
     "officer_id" TEXT NOT NULL,
-    "officer_card_img" TEXT,
+    "officer_card_img" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phone_number" TEXT,
     "profile_img" TEXT,
     "role" "Role" NOT NULL DEFAULT 'STAFF',
-    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "is_active" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_by" TEXT NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -299,7 +299,7 @@ CREATE TABLE "team" (
     "title" TEXT NOT NULL,
     "logo_img" TEXT,
     "organization_email" TEXT,
-    "team_status" "TeamStatus" NOT NULL,
+    "status" "TeamStatus" NOT NULL,
     "request_document" TEXT NOT NULL,
     "maximum_level" "MaximumLevel" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -361,6 +361,9 @@ CREATE UNIQUE INDEX "household_water_supply_household_id_recorded_date_key" ON "
 
 -- CreateIndex
 CREATE UNIQUE INDEX "household_other_energy_household_id_recorded_date_key" ON "household_other_energy"("household_id", "recorded_date");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "admin_email_key" ON "admin"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "OldUser_email_key" ON "OldUser"("email");

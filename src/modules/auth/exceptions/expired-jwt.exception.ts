@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
-import { HttpException } from '@nestjs/common';
+import { HttpException } from "@nestjs/common";
 
 export class ExpiredException extends HttpException {
   constructor() {
-    super('Expired JWT', 445);
+    super("Expired JWT", 445);
   }
 }
