@@ -22,7 +22,7 @@ model Address {
   subdistrictCode   Int         @map(name: "subdistrict_code")
   subdistrictNameEn String      @map(name: "subdistrict_name_en")
   subdistrictNameTh String      @map(name: "subdistrict_name_th")
-  postalCode        Int         @map(name: "postal_code")
+  postalCode        String      @map(name: "postal_code")
   households        Household[]
   teams             Team[]
 
