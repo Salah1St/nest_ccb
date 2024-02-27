@@ -38,7 +38,7 @@ export class AdminService {
   async findOneById(where: Prisma.AdminWhereUniqueInput) {
     try {
       const select = {
-        ...this.createDefaultObject(),
+        ...this.utils.select.createObject(new Admin()),
         password: false,
       };
       const admin = await this.prisma.admin.findUniqueOrThrow({ where, select });
@@ -54,24 +54,4 @@ export class AdminService {
     }
     return admin;
   }
-
-  // Function to create a default object with boolean values using mapped type
-  createDefaultObject(): DefaultA {
-    const defaultObject: DefaultA = {} as DefaultA;
-    for (const key in new adminSelect()) {
-      defaultObject[key] = true;
-    }
-    return defaultObject;
-  }
 }
-class adminSelect {
-  constructor() {
-    for (const key in new Admin()) {
-      this[key] = true;
-    }
-  }
-}
-
-type DefaultA = {
-  [K in keyof Admin]: boolean;
-};
