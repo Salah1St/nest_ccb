@@ -32,9 +32,6 @@ export class AuthService {
       throw error;
     }
   }
-  async setLineRichMenu(lineId: string) {
-    this.httpService.post(`https://api.line.me/v2/bot/user/${lineId}/richmenu/richmenu-f0ccd48755a77ca892fbf035d29ec6d1`);
-  }
 
   async login(user: Omit<Admin, "password">) {
     return this.utils.jwt.sign(user);

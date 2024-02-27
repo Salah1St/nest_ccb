@@ -4,6 +4,7 @@ import { JwtService } from "./jwt.service";
 import { JwtModule } from "@nestjs/jwt";
 import { UtilsService } from "./utils.service";
 import { TimeService } from "./time.service";
+import { SelectTrueService } from "./selectTrue.service";
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { TimeService } from "./time.service";
       signOptions: { expiresIn: "1d" },
     }),
   ],
-  providers: [UtilsService, BcryptService, JwtService, TimeService],
-  exports: [UtilsService, BcryptService, JwtService, TimeService],
+  providers: [UtilsService, BcryptService, JwtService, TimeService, SelectTrueService],
+  exports: [UtilsService, BcryptService, JwtService, TimeService, SelectTrueService],
 })
 export class UtilsModule {}
