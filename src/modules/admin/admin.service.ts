@@ -38,7 +38,7 @@ export class AdminService {
   async findOneById(where: Prisma.AdminWhereUniqueInput) {
     try {
       const select = {
-        ...this.utils.select.createObject(new Admin()),
+        ...this.utils.select.createTrueInstance(Admin),
         password: false,
       };
       const admin = await this.prisma.admin.findUniqueOrThrow({ where, select });
@@ -47,7 +47,7 @@ export class AdminService {
       throw new ErrorException("not found");
     }
   }
-
+  // TODO PLEASE DELETE
   exclude<Admin, Key extends keyof Admin>(admin: Admin, keys: Key[]): Omit<Admin, Key> {
     for (const key of keys) {
       delete admin[key];
